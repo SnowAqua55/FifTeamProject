@@ -5,16 +5,13 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.tag == "Player")
         {
-            Debug.Log("잘 부딛혔음 ㅇㅇ");
+
             GameManager.Instance.Stage.NextStage();
         }
-        else
-        {
-            Debug.Log("태그 틀렸대요");
-        }
+        else return;
     }
 }
