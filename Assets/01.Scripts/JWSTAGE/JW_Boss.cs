@@ -91,9 +91,9 @@ public class JW_Boss : MonoBehaviour
       GameManager.Instance.Stage.OpenDoor();
    }
 
-   private void OnCollisionEnter2D(Collision2D other) // 테스트용 코드
+   private void OnTriggerEnter2D(Collider2D other)
    {
-      if (other.collider.tag == "Player")
+      if (other.tag == "Finish")
       {
          TakeDamae(1);
       }

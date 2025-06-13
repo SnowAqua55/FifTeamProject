@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 193901373912373692}
   - component: {fileID: 2512229182813494821}
   - component: {fileID: 2792426204709503371}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: StageWalls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1185,9 +1185,9 @@ GameObject:
   - component: {fileID: 827563230939500932}
   - component: {fileID: 4026391192426399335}
   - component: {fileID: 289080514125638343}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: StageEdge
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

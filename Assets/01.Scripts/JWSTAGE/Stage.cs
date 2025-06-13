@@ -32,6 +32,7 @@ public class Stage : MonoBehaviour
     public void InitStage()
     {
         //플레이어 초기 위치 잡기
+        bossVirtualCamera.gameObject.SetActive(true);
         virtualCamera.Follow = this.gameObject.transform;
         player.transform.position= playerStartPosition.position;
         Instantiate(boss[stageIndex]); // 해당 스테이지에 맞는 보스 소환

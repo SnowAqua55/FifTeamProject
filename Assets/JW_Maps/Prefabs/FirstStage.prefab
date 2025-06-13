@@ -153,8 +153,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2357625343257901395}
   - component: {fileID: 1662184758227438995}
-  - component: {fileID: 5269540856078968181}
-  - component: {fileID: 3248486787944270136}
+  - component: {fileID: 2344937221182226678}
+  - component: {fileID: 1004999946898142532}
   m_Layer: 0
   m_Name: FirstStage
   m_TagString: Untagged
@@ -191,7 +191,7 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!1839735485 &5269540856078968181
+--- !u!1839735485 &2344937221182226678
 Tilemap:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229,7 +229,7 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!19719996 &3248486787944270136
+--- !u!19719996 &1004999946898142532
 TilemapCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 7068683718140885221}
   - component: {fileID: 1330333278169209311}
   - component: {fileID: 2913223162236354453}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Stage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
