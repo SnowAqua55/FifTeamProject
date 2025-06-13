@@ -13,6 +13,10 @@ public class Stage : MonoBehaviour
     public Transform bossStartPosition;
     public int stageIndex = 0;
     public CinemachineVirtualCamera virtualCamera;
+    public CinemachineVirtualCamera bossVirtualCamera;
+    public GameObject curBoss;
+    
+    public Transform[] bossTeleportPosition; // 도망가는 보스 전용
     
     private void Awake()
     {
@@ -22,15 +26,19 @@ public class Stage : MonoBehaviour
     private void Start()
     { 
         //InitStage(); //위치 변경 예정
+        
     }
 
     public void InitStage()
     {
         //플레이어 초기 위치 잡기
+        bossVirtualCamera.gameObject.SetActive(true);
         virtualCamera.Follow = this.gameObject.transform;
         player.transform.position= playerStartPosition.position;
         Instantiate(boss[stageIndex]); // 해당 스테이지에 맞는 보스 소환
         boss[stageIndex].transform.position = bossStartPosition.position;
+        curBoss = boss[stageIndex];
+        SpawnBossCamera();
         doors[0].SetActive(true); // 닫힌 문 보여주기
         doors[1].SetActive(false); // 열린문 끄기
         // 필요하면 플레이어 체력 맥스로 초기화
@@ -53,5 +61,22 @@ public class Stage : MonoBehaviour
         // UI FadeOut
         InitStage();
     }
-    
+
+    public void SpawnBossCamera()
+    {
+        if (curBoss == null)
+        {
+            return;
+        }
+
+        StartCoroutine("SetBossCamera");
+    }
+
+    IEnumerator SetBossCamera()
+    {
+        bossVirtualCamera.Follow = curBoss.transform;
+        bossVirtualCamera.Priority = 12;
+        yield return new WaitForSeconds(3.0f);
+        bossVirtualCamera.Priority = 0;
+    }
 }
