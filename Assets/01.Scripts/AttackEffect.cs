@@ -19,5 +19,11 @@ public class AttackEffect : MonoBehaviour
         {
             // col.GetComponent<스크립트명>()?.TakeDamage(damage); > 구현에 맞춰서 수정
         }
+
+        // 테스트용 코드
+        if (col.CompareTag("Player"))
+        {
+            col.GetComponent<PlayerHealth>().TakeDamage(damage);
+        }
     }
 }
