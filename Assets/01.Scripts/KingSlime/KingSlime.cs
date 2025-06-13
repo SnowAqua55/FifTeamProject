@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class KingSlime : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // 플레이어 컴포넌트 받아오기
+    
+
+
     void Start()
     {
         
@@ -15,4 +18,20 @@ public class KingSlime : MonoBehaviour
     {
         
     }
+
+    public void KigSlimeState()
+    {
+
+    }
+
+    public void Chase()
+    {
+
+    }
+
+    public void NomalAttack()
+    {
+
+    }
+
 }
