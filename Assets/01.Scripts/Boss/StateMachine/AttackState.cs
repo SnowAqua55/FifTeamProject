@@ -17,14 +17,24 @@ public class AttackState : IBossState
     {
         elapsedTime += Time.deltaTime;
 
-        // 공격 쿨타임 후 다시 Idle 또는 Chase 상태로
         if (elapsedTime >= boss.AttackCooldown)
         {
+            elapsedTime = 0f;  // 쿨다운 초기화
+
             if (boss.IsPlayerInRange(boss.AttackRange))
-                boss.ChangeState(new AttackState()); // 반복 공격
+            {
+                boss.AttackPlayer();  // 계속 공격 실행 (상태 전환 없이)
+            }
             else
-                boss.ChangeState(new ChaseState());
+            {
+                boss.ChangeState(new ChaseState());  // 범위 벗어나면 상태 전환
+            }
         }
+    }
+
+    public void FixedUpdate()
+    {
+
     }
 
     public void Exit()

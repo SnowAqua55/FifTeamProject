@@ -17,6 +17,11 @@ public class IdleState : IBossState
         }
     }
 
+    public void FixedUpdate()
+    {
+
+    }
+
     public void Exit()
     {
         // Idle 상태 종료 처리

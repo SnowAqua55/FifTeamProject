@@ -16,6 +16,10 @@ public class DeadState : IBossState
         // 죽었으니 아무것도 안 함
     }
 
+    public void FixedUpdate()
+    {
+
+    }
     public void Exit()
     {
         // 

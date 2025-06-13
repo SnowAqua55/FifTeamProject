@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Skeleton
   m_EditorClassIdentifier: 
   maxHP: 99999
-  moveSpeed: 5
+  moveSpeed: 3
   attackRange: 2
   attackDamage: 0
-  detectRange: 5
+  detectRange: 10
   attackCooldown: 10000
   staggerTime: 0.3

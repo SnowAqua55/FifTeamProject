@@ -8,6 +8,7 @@ public class DamagedState : IBossState
     public void Enter(BossBase boss)
     {
         this.boss = boss;
+        boss.PlayHitAnimation();
         elapsedTime = 0f;
         // 피격 애니메이션, 넉백 등 처리
     }
@@ -24,6 +25,11 @@ public class DamagedState : IBossState
             else
                 boss.ChangeState(new ChaseState());
         }
+    }
+
+    public void FixedUpdate()
+    {
+
     }
 
     public void Exit()
