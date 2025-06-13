@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 1533888557}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -304,12 +304,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  jumpForce: 7
+  jumpForce: 6
+  maxJumpCount: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 32768
   groundCheck: {fileID: 766400113}
   groundCheckRadius: 0.1
+  afterImagePrefab: {fileID: 6964793784432886225, guid: c0b9215a2c846d74e8b13d8574c9b4e1, type: 3}
+  afterImageInterval: 0.05
+  dodgeSpeed: 12
+  dodgeDuration: 0.2
+  dodgeCooldown: 1
+  invincibleDuration: 0.2
+  jumpEffectPrefab: {fileID: 1856024169161135883, guid: e9d286709cad5e34e969c0ea61ab64dd, type: 3}
 --- !u!61 &1533888557
 BoxCollider2D:
   m_ObjectHideFlags: 0
