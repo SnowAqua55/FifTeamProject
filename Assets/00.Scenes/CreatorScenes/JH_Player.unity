@@ -320,6 +320,7 @@ MonoBehaviour:
   jumpEffectPrefab: {fileID: 1856024169161135883, guid: e9d286709cad5e34e969c0ea61ab64dd, type: 3}
   attackEffectPrefab: {fileID: 4408264381168325271, guid: bf173c6d05c6a37418ae30583c57066c, type: 3}
   attackOffsetX: 1.5
+  attackCooldown: 0.42
 --- !u!61 &1533888557
 BoxCollider2D:
   m_ObjectHideFlags: 0

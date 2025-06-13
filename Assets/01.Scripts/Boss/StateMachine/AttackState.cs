@@ -17,18 +17,19 @@ public class AttackState : IBossState
     {
         elapsedTime += Time.deltaTime;
 
+        // 플레이어가 공격 범위를 벗어나면 쿨타임과 상관없이 상태 전환
+        if (!boss.IsPlayerInRange(boss.AttackRange))
+        {
+            // 공격 범위 벗어나면 추적 상태로 전환
+            boss.ChangeState(new ChaseState());
+            return;
+        }
+
+        // 공격 쿨타임이 끝났으면 공격 실행
         if (elapsedTime >= boss.AttackCooldown)
         {
-            elapsedTime = 0f;  // 쿨다운 초기화
-
-            if (boss.IsPlayerInRange(boss.AttackRange))
-            {
-                boss.AttackPlayer();  // 계속 공격 실행 (상태 전환 없이)
-            }
-            else
-            {
-                boss.ChangeState(new ChaseState());  // 범위 벗어나면 상태 전환
-            }
+            elapsedTime = 0f;
+            boss.AttackPlayer();
         }
     }
 

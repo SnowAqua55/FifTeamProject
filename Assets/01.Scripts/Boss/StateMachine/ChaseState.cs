@@ -21,6 +21,12 @@ public class ChaseState : IBossState
             boss.FlipSprite(moveDirection.x);
         }
 
+        if (!boss.IsPlayerInRange(boss.DetectRange))
+        {
+            boss.ChangeState(new IdleState());  // 탐지 범위 밖이면 대기 상태
+            return;
+        }
+
         // 공격 사거리 진입 시 상태 전환
         if (boss.IsPlayerInRange(boss.AttackRange))
         {
