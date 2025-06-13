@@ -51,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    private PlayerHealth playerHealth;
     
     private float moveInputX;
     private bool isGrounded;
@@ -69,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();    
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     void Update()
@@ -152,9 +154,10 @@ public class PlayerMovement : MonoBehaviour
     {
         // 상태 설정
         isDodging = true;
-        isInvincible = true; // 무적
         canDodge = false;
         animator.SetTrigger("DoDodge");
+        
+        playerHealth.ActivateInvincibility(invincibleDuration);
 
         // 대시 방향 벡터
         float direction = spriteRenderer.flipX ? -1f : 1f;

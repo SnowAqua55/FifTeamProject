@@ -44,6 +44,26 @@ public class PlayerHealth : MonoBehaviour
         animator.SetTrigger("Hurt");
         StartCoroutine(HurtCoroutine());
     }
+    
+    IEnumerator HurtCoroutine()
+    {
+        if (isDead) yield break;
+        
+        isInvincible = true;
+        float timer = 0f;
+
+        // 깜빡임 + 무적 타이머
+        while (timer < invincibleDuration)
+        {
+            sr.color = new Color(1, 1, 1, 0.3f);
+            yield return new WaitForSeconds(flashInterval);
+            sr.color = Color.white;
+            yield return new WaitForSeconds(flashInterval);
+            timer += flashInterval * 2f;
+        }
+
+        isInvincible = false;
+    }
 
     public void Die()
     {
@@ -66,24 +86,22 @@ public class PlayerHealth : MonoBehaviour
         Time.timeScale = 0;
         // 이후 사망 UI 처리 등
     }
-
-    IEnumerator HurtCoroutine()
+    
+    public void ActivateInvincibility(float duration)
     {
-        if (isDead) yield break;
-        
+        if (isInvincible) return;
+        StartCoroutine(InvincibilityCoroutine(duration));
+    }
+
+    private IEnumerator InvincibilityCoroutine(float duration)
+    {
         isInvincible = true;
         float timer = 0f;
-
-        // 깜빡임 + 무적 타이머
-        while (timer < invincibleDuration)
+        while (timer < duration)
         {
-            sr.color = new Color(1, 1, 1, 0.3f);
-            yield return new WaitForSeconds(flashInterval);
-            sr.color = Color.white;
-            yield return new WaitForSeconds(flashInterval);
-            timer += flashInterval * 2f;
+            timer += Time.deltaTime;
+            yield return null;
         }
-
         isInvincible = false;
     }
 
