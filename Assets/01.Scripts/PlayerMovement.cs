@@ -39,6 +39,14 @@ public class PlayerMovement : MonoBehaviour
     [Header("점프 이펙트")]
     [Tooltip("점프 시 생성할 파티클")]
     public ParticleSystem jumpEffectPrefab;
+    
+    [Header("공격 설정")]
+    [Tooltip("공격 시 생성할 이펙트 프리팹")]
+    public GameObject attackEffectPrefab;
+    [Tooltip("공격 이펙트 스폰 시 앞쪽으로 밀어낼 거리")]
+    public float attackOffsetX = 0.5f;
+    [Tooltip("공격 간격(초)")]
+    public float attackCooldown = 0.42f;
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
@@ -53,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
     private bool canDodge = true;
 
     private bool isInvincible;
+    
+    private float nextAttackTime = 0f;
     
     void Awake()
     {
@@ -92,10 +102,18 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         
-        // 회피 입력 (z)
+        // 회피 입력 (z 키)
         if (Input.GetKeyDown(KeyCode.Z) && canDodge && !this.isDodging)
         {
             StartCoroutine(DoDodge());
+        }
+        
+        // 공격 입력 (X 키)
+        if (Input.GetKeyDown(KeyCode.X) && Time.time >= nextAttackTime && !this.isDodging)
+        {
+            nextAttackTime = Time.time + attackCooldown;
+            animator.SetTrigger("DoAttack");
+            SpawnAttackEffect();
         }
 
         // 스프라이트 좌우 반전
@@ -172,9 +190,9 @@ public class PlayerMovement : MonoBehaviour
     
     private void SpawnAfterImage()
     {
-        // 1) 잔상 오브젝트 생성
+        // 잔상 오브젝트 생성
         var go = Instantiate(afterImagePrefab, transform.position, transform.rotation);
-        // 2) 플레이어 현재 스프라이트와 동일하게 복사
+        // 플레이어 현재 스프라이트와 동일하게 복사
         var sr = go.GetComponent<SpriteRenderer>();
         sr.sprite     = spriteRenderer.sprite;
         sr.flipX      = spriteRenderer.flipX;
@@ -182,5 +200,28 @@ public class PlayerMovement : MonoBehaviour
         sr.sortingOrder     = spriteRenderer.sortingOrder - 1; // 한 겹 뒤로
 
         // AfterImageFader 스크립트가 스스로 페이드 후 파괴
+    }
+    
+    private void SpawnAttackEffect()
+    {
+        if (attackEffectPrefab == null) return;
+
+        // 어느 방향으로 공격할지 계산
+        float dir = spriteRenderer.flipX ? -1f : 1f;
+
+        // 생성 위치: 플레이어 위치 + offset
+        Vector3 spawnPos = transform.position + Vector3.right * (attackOffsetX * dir);
+
+        // 이펙트 생성
+        GameObject go = Instantiate(attackEffectPrefab, spawnPos, Quaternion.identity);
+
+        // 방향(플립)이 필요한 스프라이트라면
+        SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
+        if (sr != null)
+            sr.flipX = spriteRenderer.flipX;
+
+        // 이펙트가 플레이어보다 앞에 보이도록 정리
+        sr.sortingLayerID = spriteRenderer.sortingLayerID;
+        sr.sortingOrder   = spriteRenderer.sortingOrder + 1;
     }
 }

@@ -236,7 +236,7 @@ Transform:
   m_GameObject: {fileID: 1533888550}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.421, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -318,6 +318,8 @@ MonoBehaviour:
   dodgeCooldown: 1
   invincibleDuration: 0.2
   jumpEffectPrefab: {fileID: 1856024169161135883, guid: e9d286709cad5e34e969c0ea61ab64dd, type: 3}
+  attackEffectPrefab: {fileID: 4408264381168325271, guid: bf173c6d05c6a37418ae30583c57066c, type: 3}
+  attackOffsetX: 1.5
 --- !u!61 &1533888557
 BoxCollider2D:
   m_ObjectHideFlags: 0
