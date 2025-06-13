@@ -26,7 +26,13 @@ public class GameManager : MonoBehaviour
         get { return stage; }
         set { stage = value; }
     }
-    
+
+    /*private Player player;  //플레이어 제작시 사용
+    public Stage Player
+    {
+        get { return player; }
+        set { stage = value; }
+    }*/
     private void Awake()
     {
         if (instance == null)
