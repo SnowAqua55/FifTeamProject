@@ -1,30 +1,42 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Condition : MonoBehaviour
 {
-	public int maxHealth = 5;
-	public int currentHealth;
+	public int maxHeart = 5;
+	public int currentHeart;
+
+	bool isLive = true;
+
+    private void Awake()
+    {
+		UIManager.Instance.condition = this;
+        currentHeart = maxHeart;
+    }
+
     void Start()
 	{
-		currentHealth = maxHealth;
-	}
+		UIManager.Instance.GenerateHearts();
+    }
 	
 	void Update()
 	{
 		
 	}
 
-	public void TakeDamage(int Amount)
+	public void TakeDamage(int Amount = 1)
 	{
-		currentHealth = Mathf.Max(currentHealth - Amount, maxHealth);
-		if (currentHealth <= 0)
-		{
-			Die();
-        }
+		currentHeart = Mathf.Max(currentHeart - Amount, maxHeart);
+		UIManager.Instance.UpdateHeart();
+		Die();
     }
 
 	private void Die()
 	{
-		
-	}
+        if (currentHeart <= 0)
+        {
+            isLive = false;
+        }
+    }
 }

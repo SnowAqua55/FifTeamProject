@@ -1,10 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Timers;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    // ingleton instance
     private static UIManager _instance;
     public static UIManager Instance
     {
@@ -22,12 +25,27 @@ public class UIManager : MonoBehaviour
             }
             return _instance;
         }
-        
     }
 
     Coroutine Fade;
+    private List<Image> _hearts = new List<Image>();
+    public Image fadeImage;
+    public GameObject heartPrefab;
+    public Transform heartContainer;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
 
-    [SerializeField] private Image fadeImage;
+    public Condition condition;
+
+    private void Awake()
+    {
+        if (_instance == this)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
+    // Fade Fuction
     private IEnumerator FadeOut(float duration = 1f)
     {
         float elapsedTime = 0f;
@@ -82,5 +100,31 @@ public class UIManager : MonoBehaviour
             return;
         }
         Fade = StartCoroutine(FadeFlash(fadeOutDuration, waitDuration, fadeInDuration));
+    }
+
+    // Heart Management
+    public void GenerateHearts()
+    {
+        for (int i = 0; i < condition.maxHeart; i++)
+        {
+            GameObject heartObj = Instantiate(heartPrefab, heartContainer);
+            Image heartImage = heartObj.GetComponent<Image>();
+            _hearts.Add(heartImage);
+        }
+        UpdateHeart();
+    }
+    public void UpdateHeart()
+    {
+        for (int i = 0; i < _hearts.Count; i++)
+        {
+            if (i < condition.currentHeart)
+            {
+                _hearts[i].sprite = fullHeart;
+            }
+            else
+            {
+                _hearts[i].sprite = emptyHeart;
+            }
+        }
     }
 }
