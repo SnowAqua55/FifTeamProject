@@ -12,6 +12,7 @@ public class JW_Boss : MonoBehaviour
    private SpriteRenderer sprite;
    public int hp;
    public int runDistance;
+
    private void Awake()
    {
       animator = GetComponentInChildren<Animator>();
@@ -35,10 +36,12 @@ public class JW_Boss : MonoBehaviour
       {
          lookDir = 1;
       }
-      RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, lookDir* 10.0f, LayerMask.GetMask("Water"));
+
+      RaycastHit2D hit =
+         Physics2D.Raycast(transform.position, Vector2.right, lookDir * 10.0f, LayerMask.GetMask("Water"));
       if (hit.collider != null)
       {
-         sprite.flipX =!sprite.flipX;
+         sprite.flipX = !sprite.flipX;
          runDistance = Random.Range(5, 8);
          rigid.velocity = new Vector2(lookDir * -runDistance, rigid.velocity.y);
       }
@@ -46,10 +49,31 @@ public class JW_Boss : MonoBehaviour
 
    public void TakeDamae(int damage)
    {
-      hp -= damage;// 혹은 hp가 1씩 깍이도록 설정
+      hp -= damage; // 혹은 hp가 1씩 깍이도록 설정
       if (hp <= 0)
       {
-         animator.SetBool("IsDie" , true);
+         StartCoroutine(BossDie());
+      }
+      else
+      {
+         animator.SetTrigger("IsDamage");
+      }
+   }
+
+   IEnumerator BossDie()
+   {
+      animator.SetBool("IsDie", true);
+      hp = 0;
+      yield return new WaitForSeconds(2.0f);
+      Destroy(gameObject);
+      GameManager.Instance.Stage.OpenDoor();
+   }
+
+   private void OnCollisionEnter2D(Collision2D other)
+   {
+      if (other.collider.tag == "Player")
+      {
+         TakeDamae(1);
       }
    }
 }
