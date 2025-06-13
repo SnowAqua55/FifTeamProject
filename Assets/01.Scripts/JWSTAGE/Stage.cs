@@ -16,6 +16,8 @@ public class Stage : MonoBehaviour
     public CinemachineVirtualCamera bossVirtualCamera;
     public GameObject curBoss;
     
+    public Transform[] bossTeleportPosition; // 도망가는 보스 전용
+    
     private void Awake()
     {
         GameManager.Instance.Stage = this;
@@ -24,6 +26,7 @@ public class Stage : MonoBehaviour
     private void Start()
     { 
         //InitStage(); //위치 변경 예정
+        
     }
 
     public void InitStage()

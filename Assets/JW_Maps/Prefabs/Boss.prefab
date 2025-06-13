@@ -122,6 +122,16 @@ MonoBehaviour:
   player: {fileID: 0}
   hp: 2
   runDistance: 7
+  teleportPosition:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 20
 --- !u!1 &7150670246720638930
 GameObject:
   m_ObjectHideFlags: 0

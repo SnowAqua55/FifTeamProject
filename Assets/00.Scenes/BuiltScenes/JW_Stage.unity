@@ -554,6 +554,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5598992280179135712, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5598992280179135712, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
+      propertyPath: m_TagString
+      value: Respawn
+      objectReference: {fileID: 0}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: player
       value: 
@@ -566,10 +574,6 @@ PrefabInstance:
       propertyPath: bossVirtualCamera
       value: 
       objectReference: {fileID: 916589133}
-    - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: boss.Array.data[0]
-      value: 
-      objectReference: {fileID: 6973436779383370283, guid: 03aaaa0b91cd21640a1c523d9e1a98e5, type: 3}
     - target: {fileID: 6453495063089227388, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: m_Name
       value: BattleMap (1)
