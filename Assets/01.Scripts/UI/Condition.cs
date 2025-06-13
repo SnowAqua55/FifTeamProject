@@ -27,7 +27,7 @@ public class Condition : MonoBehaviour
 
 	public void TakeDamage(int Amount = 1)
 	{
-		currentHeart = Mathf.Max(currentHeart - Amount, maxHeart);
+		currentHeart = Mathf.Max(currentHeart - Amount, 0);
 		UIManager.Instance.UpdateHeart();
 		Die();
     }
