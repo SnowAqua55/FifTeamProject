@@ -289,7 +289,7 @@ TextureImporter:
         x: 40
         y: 652
         width: 26
-        height: 29
+        height: 30
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -299,27 +299,6 @@ TextureImporter:
       bones: []
       spriteID: cf0a8bc4627e84b179388ecca95c19e0
       internalID: 703536363
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Laser_sheet_28
-      rect:
-        serializedVersion: 2
-        x: 62
-        y: 678
-        width: 4
-        height: 4
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7cf1a5edd289549ccbea7b5d80928126
-      internalID: 1088657810
       vertices: []
       indices: 
       edges: []
@@ -459,7 +438,7 @@ TextureImporter:
         width: 20
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

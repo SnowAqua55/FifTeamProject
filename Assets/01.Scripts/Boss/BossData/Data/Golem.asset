@@ -29,6 +29,6 @@ MonoBehaviour:
   bodyLaserChargeTime: 1.5
   bodyLaserDuration: 0.7
   rainLaserWarningDuration: 1
-  rainLaserInterval: 0.5
-  rainLaserFallDuration: 0.5
+  rainLaserInterval: 1
+  rainLaserFallDuration: 1
   numberOfRainLasers: 5

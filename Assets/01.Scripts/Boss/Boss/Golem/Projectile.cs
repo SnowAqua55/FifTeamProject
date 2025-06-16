@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float lifeTime = 5f;
 
     private float currentDamage; // 실제 적용될 데미지
+    public float Speed => speed;
 
     private Vector2 direction;
 
@@ -73,5 +74,17 @@ public class Projectile : MonoBehaviour
         // {
         //     Destroy(gameObject);
         // }
+    }
+
+    public void SetLifeTime(float time)
+    {
+        CancelInvoke(nameof(DestroySelf));
+        lifeTime = time;
+        Invoke(nameof(DestroySelf), lifeTime);
+    }
+
+    private void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }
