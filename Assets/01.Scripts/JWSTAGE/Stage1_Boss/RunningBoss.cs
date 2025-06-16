@@ -9,6 +9,7 @@ public class RunningBoss : BossBase
     public Transform[] teleportPosition;
     public GameObject attackPrefab;
     private int teleportCount;
+    private Coroutine telCoroutine;
     
 
     protected override void Start()
@@ -27,23 +28,26 @@ public class RunningBoss : BossBase
 
     public override void AttackPlayer()
     {
-        StartCoroutine(Teleport());
-
+        if (telCoroutine != null) return;
+        telCoroutine = StartCoroutine(Teleport());
     }
     
     IEnumerator Teleport()
     {
-        //IBossState state = currentState;
+        IBossState state = currentState;
         float randomRange = Random.Range(-3.0f, 3.0f);
         int ran = Random.Range(0, teleportPosition.Length);
         Vector2 telPosition =
             new Vector2(teleportPosition[ran].position.x + randomRange, teleportPosition[ran].position.y);
-        //if(currentState != state) yield break; //deadstate상태일 때는 안하고싶은데 방법이 없을까 흠...
+        if(state.GetType() == new DeadState().GetType()) yield break; //deadstate상태일 때는 안하고싶은데 방법이 없을까 흠...
         Animator.SetTrigger("IsTeleport");
         yield return new WaitForSeconds(1.0f);
+        Debug.Log(currentState.GetType());
+        if(state.GetType() == new DeadState().GetType()) yield break; 
         transform.position = telPosition;
         teleportCount++;
         if (teleportCount == 3) Attack();
+        telCoroutine = null;
     }
 
     private void Attack()

@@ -22,6 +22,7 @@ public class Stage : MonoBehaviour
     private void Awake()
     {
         GameManager.Instance.Stage = this;
+        player = GameManager.Instance.Player.gameObject;
     }
 
     private void Start()
@@ -34,7 +35,6 @@ public class Stage : MonoBehaviour
     {
         //플레이어 초기 위치 잡기
         BGMPlayer.instance.PlayBgm(1);
-        player = GameManager.Instance.Player.gameObject;
         bossVirtualCamera.gameObject.SetActive(true);
         virtualCamera.Follow = this.gameObject.transform;
         player.transform.position= playerStartPosition.position;
