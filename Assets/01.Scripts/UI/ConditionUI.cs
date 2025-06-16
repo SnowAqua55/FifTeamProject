@@ -32,14 +32,18 @@ public class ConditionUI : MonoBehaviour
             Image heartImage = heartObj.GetComponent<Image>();
             _hearts.Add(heartImage);
         }
-        UpdateHeart();
+
+        foreach (Image heart in _hearts)
+        {
+            heart.sprite = fullHeart;
+        }
     }
     public void UpdateHeart()
     {
-        int maxHearts = PlayerManager.Instance.playerHealth.GetCurrentHP();
-        for (int i = 0; i < maxHearts; i++)
+        int currentHearts = PlayerManager.Instance.playerHealth.GetCurrentHP();
+        for (int i = 0; i < _hearts.Count; i++)
         {
-            if (i < PlayerManager.Instance.playerHealth.GetCurrentHP())
+            if (i < currentHearts)
             {
                 _hearts[i].sprite = fullHeart;
             }

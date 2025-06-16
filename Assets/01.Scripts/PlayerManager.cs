@@ -29,8 +29,6 @@ public class PlayerManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
-
-        playerHealth = GetComponent<PlayerHealth>();
     }
     
 }

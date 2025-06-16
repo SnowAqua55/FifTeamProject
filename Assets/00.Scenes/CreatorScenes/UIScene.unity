@@ -515,7 +515,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 309.93}
+  m_AnchoredPosition: {x: 0, y: 310}
   m_SizeDelta: {x: 700, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &474162968
@@ -834,14 +834,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1316026633}
+      - m_Target: {fileID: 1780143014}
         m_TargetAssemblyTypeName: PlayerHealth, Assembly-CSharp
         m_MethodName: TakeDamage
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1082,7 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40cb4b421de66b549ac7787135701965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 1780143014}
+  playerHealth: {fileID: 0}
 --- !u!4 &1144146972
 Transform:
   m_ObjectHideFlags: 0
@@ -1335,7 +1335,6 @@ GameObject:
   - component: {fileID: 1316026632}
   - component: {fileID: 1316026635}
   - component: {fileID: 1316026634}
-  - component: {fileID: 1316026633}
   - component: {fileID: 1316026636}
   m_Layer: 5
   m_Name: Player
@@ -1364,21 +1363,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1316026633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316026631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcf0f02f23423ca4dbc80f0a01d98cb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 5
-  invincibleDuration: 1
-  flashInterval: 0.1
 --- !u!95 &1316026634
 Animator:
   serializedVersion: 5
@@ -2531,7 +2515,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 368794415}
   - {fileID: 135718472}
+  - {fileID: 1144146972}
+  - {fileID: 1780143020}
   - {fileID: 1242293000}
   - {fileID: 1506307231}
-  - {fileID: 1780143020}
-  - {fileID: 1144146972}

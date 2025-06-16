@@ -7,7 +7,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [Header("체력 설정")]
     [Tooltip("최대 체력")]
-    public int maxHP = 5;
+    public int maxHP;
     private int currentHP;
 
     [Header("피격 무적 설정")]
@@ -48,7 +48,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         animator.SetTrigger("Hurt");
-        UIManager.Instance.condition.GenerateHearts();
+        UIManager.Instance.condition.UpdateHeart();
         StartCoroutine(HurtCoroutine());
     }
     
