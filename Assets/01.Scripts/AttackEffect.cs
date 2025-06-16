@@ -19,8 +19,11 @@ public class AttackEffect : MonoBehaviour
         {
             // col.GetComponent<스크립트명>()?.TakeDamage(damage); > 구현에 맞춰서 수정
         }
-
-        // 테스트용 코드
+    }
+    
+    // 플레이어 데미지 주기용 테스트 코드
+    void OnTriggerStay2D(Collider2D col)
+    {
         if (col.CompareTag("Player"))
         {
             col.GetComponent<PlayerHealth>().TakeDamage(damage);
