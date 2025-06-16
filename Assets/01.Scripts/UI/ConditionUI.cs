@@ -17,7 +17,7 @@ public class ConditionUI : MonoBehaviour
 
     public void GenerateHearts()
     {
-        int maxHearts = PlayerManager.Instance.playerHealth.GetMaxHP();
+        int maxHearts = GameManager.Instance.Player.GetMaxHP();
         if (_hearts != null)
         {
             foreach (Image heart in _hearts)
@@ -40,7 +40,7 @@ public class ConditionUI : MonoBehaviour
     }
     public void UpdateHeart()
     {
-        int currentHearts = PlayerManager.Instance.playerHealth.GetCurrentHP();
+        int currentHearts = GameManager.Instance.Player.GetCurrentHP();
         for (int i = 0; i < _hearts.Count; i++)
         {
             if (i < currentHearts)
