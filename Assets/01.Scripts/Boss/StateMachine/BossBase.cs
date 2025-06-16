@@ -140,8 +140,8 @@ public abstract class BossBase : MonoBehaviour
 
     // 자식이 오버라이드하는 공격 함수
     public abstract void AttackPlayer();
-
-    private void OnTriggerEnter2D(Collider2D other) // 추후 지우기 테스트용
+    
+    private void OnTriggerEnter2D(Collider2D other) // 논의 후 삭제
     {
         if (other.gameObject.tag == "PlayerAttack")
         {

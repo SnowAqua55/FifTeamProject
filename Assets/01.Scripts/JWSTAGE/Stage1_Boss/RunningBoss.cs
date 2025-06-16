@@ -39,6 +39,7 @@ public class RunningBoss : BossBase
             new Vector2(teleportPosition[ran].position.x + randomRange, teleportPosition[ran].position.y);
         Animator.SetTrigger("IsTeleport");
         yield return new WaitForSeconds(1.0f);
+        //if (currentState == DeadState) yield break; //deadstate상태일 때는 안하고싶은데 방법이 없을까 흠...
         transform.position = telPosition;
         teleportCount++;
         if (teleportCount == 3) Attack();
