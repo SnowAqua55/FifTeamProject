@@ -20,12 +20,14 @@ public class PlayerHealth : MonoBehaviour
     private bool isDead;
     private SpriteRenderer sr;
     private Animator animator;
+    private PlayerAudio audioPlayer;
 
     void Awake()
     {
         currentHP = maxHP;
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        audioPlayer = GetComponent<PlayerAudio>();
     }
     
     // 외부에서 데미지 요청 시 호출
@@ -40,8 +42,12 @@ public class PlayerHealth : MonoBehaviour
             Die();
             return;
         }
-
+        
+        // 피격 애니메이션 재생
         animator.SetTrigger("Hurt");
+        // 피격 SFX 재생
+        audioPlayer.PlayHurt();
+        
         StartCoroutine(HurtCoroutine());
     }
     
@@ -79,6 +85,9 @@ public class PlayerHealth : MonoBehaviour
     {
         var pm = GetComponent<PlayerMovement>();
         if (pm != null) pm.enabled = false; // 플레이어 이동 잠금
+        
+        // 사망 SFX 재생
+        audioPlayer.PlayDeath();
         
         animator.SetTrigger("Die");
         yield return new WaitForSeconds(1f); // 애니메이션 유예 시간

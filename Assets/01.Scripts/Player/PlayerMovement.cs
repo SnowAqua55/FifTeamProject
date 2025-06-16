@@ -39,6 +39,14 @@ public class PlayerMovement : MonoBehaviour
     [Header("점프 이펙트")]
     [Tooltip("점프 시 생성할 파티클")]
     public ParticleSystem jumpEffectPrefab;
+
+    [Header("걸음 이펙트")]
+    [Tooltip("걸을 때 생성할 파티클")]
+    public ParticleSystem footstepDustPrefab;
+    [Tooltip("착지 할 때 생성할 파티클")]
+    public ParticleSystem landingDustPrefab;
+    [Tooltip("발자국 간격")]
+    public float footstepInterval = 0.4f;
     
     [Header("공격 설정")]
     [Tooltip("공격 시 생성할 이펙트 프리팹")]
@@ -52,16 +60,17 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     private PlayerHealth playerHealth;
+    private PlayerAudio audioPlayer;
     
     private float moveInputX;
     private bool isGrounded;
+    private bool wasGrounded;
+    private float footstepTimer;
     
     private float afterImageTimer;
     
     private bool isDodging;
     private bool canDodge = true;
-
-    private bool isInvincible;
     
     private float nextAttackTime = 0f;
     
@@ -71,15 +80,28 @@ public class PlayerMovement : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();    
         playerHealth = GetComponent<PlayerHealth>();
+        audioPlayer = GetComponent<PlayerAudio>();
     }
 
     void Update()
     {
         // 지면 판정
-        bool wasGrounded = isGrounded;
+        wasGrounded = isGrounded;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-        if (isGrounded && !wasGrounded) jumpCount = 0;
-
+        
+        if (isGrounded && !wasGrounded)
+        {
+            // 이단 점프 카운트 초기화
+            jumpCount = 0;
+            
+            // 착지 SFX 재생
+            audioPlayer.PlayLand();
+            
+            // 착지 이펙트 생성
+            if (landingDustPrefab != null)
+                Instantiate(landingDustPrefab, groundCheck.position, Quaternion.identity).Play();
+        }
+        
         // 좌우 입력 받기
         moveInputX = Input.GetAxisRaw("Horizontal");
 
@@ -91,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             jumpCount++;
             
+            // 점프 이펙트 생성
             if (jumpEffectPrefab != null)
             {
                 // groundCheck 위치에 한번 재생
@@ -102,20 +125,42 @@ public class PlayerMovement : MonoBehaviour
                 effect.Play();
                 Destroy(effect.gameObject, effect.main.duration + effect.main.startLifetime.constantMax);
             }
+            
+            // 점프 SFX 재생
+            audioPlayer.PlayJump();
         }
+        
+        // 걸을 때 먼지 이펙트 생성
+        if (isGrounded && Mathf.Abs(moveInputX) > 0.1f)
+        {
+            footstepTimer += Time.deltaTime;
+            if (footstepTimer >= footstepInterval)
+            {
+                Instantiate(footstepDustPrefab, transform.position, Quaternion.identity).Play();
+                footstepTimer = 0f;
+            }
+        }
+        else footstepTimer = 0f; // 재진입 시 바로 생성
         
         // 회피 입력 (z 키)  
         if (Input.GetKeyDown(KeyCode.Z) && canDodge && !this.isDodging)
         {
             StartCoroutine(DoDodge());
+            
+            // 대쉬 SFX 재생
+            audioPlayer.PlayDash();
         }
         
         // 공격 입력 (X 키)
         if (Input.GetKeyDown(KeyCode.X) && Time.time >= nextAttackTime && !this.isDodging)
         {
             nextAttackTime = Time.time + attackCooldown;
+            // 공격 애니메이션 재생
             animator.SetTrigger("DoAttack");
+            // 공격 이펙트 생성
             SpawnAttackEffect();
+            // 공격 SFX 재생
+            audioPlayer.PlayAttack();
         }
 
         // 스프라이트 좌우 반전
@@ -171,11 +216,6 @@ public class PlayerMovement : MonoBehaviour
 
         isDodging = false;
         
-        // 무적 끝내기
-        yield return new WaitForSeconds(invincibleDuration - dodgeDuration);
-        isInvincible = false;
-
-
         // 쿨다운 끝날 때까지 대기
         yield return new WaitForSeconds(dodgeCooldown);
         canDodge = true;
