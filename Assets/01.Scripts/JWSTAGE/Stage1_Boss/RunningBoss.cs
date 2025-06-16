@@ -34,16 +34,17 @@ public class RunningBoss : BossBase
     
     IEnumerator Teleport()
     {
-        IBossState state = currentState;
         float randomRange = Random.Range(-3.0f, 3.0f);
         int ran = Random.Range(0, teleportPosition.Length);
         Vector2 telPosition =
             new Vector2(teleportPosition[ran].position.x + randomRange, teleportPosition[ran].position.y);
-        if(state.GetType() == new DeadState().GetType()) yield break; //deadstate상태일 때는 안하고싶은데 방법이 없을까 흠...
+        if(currentState.GetType() == new DeadState().GetType()) yield break; //deadstate상태일 때는 안하고싶은데 방법이 없을까 흠...
         Animator.SetTrigger("IsTeleport");
+        if(currentState.GetType() == new DeadState().GetType()) yield break;
         yield return new WaitForSeconds(1.0f);
+        if(currentState.GetType() == new DeadState().GetType()) yield break; 
         Debug.Log(currentState.GetType());
-        if(state.GetType() == new DeadState().GetType()) yield break; 
+        if(currentState.GetType() == new DeadState().GetType()) yield break; 
         transform.position = telPosition;
         teleportCount++;
         if (teleportCount == 3) Attack();
