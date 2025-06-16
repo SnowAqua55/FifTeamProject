@@ -672,7 +672,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -29.85, y: -2.42, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2038530326}
@@ -717,17 +717,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0eb4ff68fed2914bba938aea144142f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phase2: {fileID: -7078261816480267791, guid: bfeede70efd14484683f5956b4f1194b, type: 3}
+  phase3: {fileID: -594261065437009825, guid: d4e8a5c5eececab46942986a743fd7d8, type: 3}
+  spriteRenderer: {fileID: 0}
   slimeball: {fileID: 8386350135735631637, guid: bf376bc593d98ed47baf3aa7b395a5ae, type: 3}
+  miniSlime: {fileID: 6969855237025093820, guid: 89cc290bbaa2a5946b7b267b0a1faf83, type: 3}
   _rigidbody: {fileID: 0}
   player: {fileID: 461508459}
+  nowPhase: Phase1
   maxHp: 10000
   curHp: 0
   attPower: 0
   jumpPower: 5
   jumpInterval: 2
+  maxMiniSlime: 3
   curMiniSlime: 0
---- !u!58 &1424265386
-CircleCollider2D:
+--- !u!70 &1424265386
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -758,9 +764,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00000071525574, y: 0}
-  serializedVersion: 2
-  m_Radius: 1.5472825
+  m_Offset: {x: 0.021504324, y: -0.6720541}
+  m_Size: {x: 4.4731274, y: 2.655917}
+  m_Direction: 1
 --- !u!1 &1769821877
 GameObject:
   m_ObjectHideFlags: 3
@@ -867,7 +873,7 @@ GameObject:
   - component: {fileID: 2038530326}
   - component: {fileID: 2038530327}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: SlimeSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -883,7 +889,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 3, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1424265383}
@@ -928,9 +934,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.19274472, g: 0.9547169, b: 0.22705606, a: 1}
+  m_SortingOrder: 100
+  m_Sprite: {fileID: -9074539206338946419, guid: c80534141f80d28489b1ef92f8ff7d99, type: 3}
+  m_Color: {r: 0.93962264, g: 0.93962264, b: 0.93962264, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

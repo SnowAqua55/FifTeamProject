@@ -5,17 +5,21 @@ using UnityEngine;
 
 public class KingSlime : MonoBehaviour
 {
-    // 플레이어 컴포넌트 받아오기
-
+    [SerializeField] Sprite phase2;
+    [SerializeField] Sprite phase3;
+    [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] private GameObject slimeball;
+    [SerializeField] private GameObject miniSlime;
     public Rigidbody2D _rigidbody;
     [SerializeField] public Transform player;
+
 
     private Coroutine nomalAttCoroutine;
     private Coroutine downSlamCoroutine;
 
 
     [Header("슬라임 관련")]
+    public string nowPhase = "Phase1";
     public int maxHp = 10000;
     public int curHp;
     public int attPower;
@@ -23,18 +27,28 @@ public class KingSlime : MonoBehaviour
     public float jumpInterval = 2f; // 점프 간격
     private float jumpTimer = 0f; // 점프 타이머
     private bool useSkill = false; // 스킬 사용중 여부
+    private float skillTimer = 0f; 
+    private float skillInterval = 10f;
+    private Vector3 oriScale;// 원래 크기
 
-    [Header("남은 미니 슬라임 수")]
+
+
+    [Header("미니 슬라임 수")]
+    public int maxMiniSlime = 3;
     public int curMiniSlime; // 미니 슬라임이 남은 수 => HP회복 메서드에서 사용
 
     
 
     void Start()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        curHp = maxHp;
-        _rigidbody.freezeRotation = true; // 점프 시 회전을 하기에 회전을 멈추는 코드
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _rigidbody.freezeRotation = true; // 점프 시 회전을 하기에 회전을 멈추는 코드
+        
+        curHp = maxHp;
+        oriScale = transform.localScale;
+       
         if(nomalAttCoroutine != null)
         {
             StopCoroutine(nomalAttCoroutine);
@@ -47,27 +61,40 @@ public class KingSlime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(nowPhase == "Phase1")
+        {
+            PhaseChange();
+        }
+        if(nowPhase == "Phase2")
+        {
+            PhaseChange();
+        }
+
+
+
+        skillTimer += Time.deltaTime;
+        if(nowPhase == "Phase2")
+        {
+
+        }
         
         
     }
 
     private void FixedUpdate()
     {
+        //transform.localScale = new Vector3((oriScale.x * (curHp / maxHp)), (oriScale.y * (curHp / maxHp)), 1f);
+
         jumpTimer += Time.fixedDeltaTime;
         
         //점프후 2초가 지나면
         if(jumpTimer >= jumpInterval)
-        {
-              
+        {              
             Chase();
             jumpTimer = 0f; 
         }
     }
 
-    public void Idle()
-    {
-
-    }
 
     public void KigSlimeState()
     {
@@ -93,7 +120,7 @@ public class KingSlime : MonoBehaviour
     private IEnumerator NomalAttack()
     {       
         Vector2 dir = (player.position - transform.position).normalized;
-        Vector3 offset = (dir.x < 0f) ? new Vector3(-1f, 1f, 0f) : new Vector3(1f, 1f, 0f);
+        Vector3 offset = (dir.x < 0f) ? new Vector3(-2f, 0f, 0f) : new Vector3(2f, 0f, 0f);
 
         while (!useSkill)
         {
@@ -134,15 +161,46 @@ public class KingSlime : MonoBehaviour
     public void SpownMiniSlimeSkill()
     {
         useSkill = true;
+
+        Vector2 dir = (player.position - transform.position).normalized;
+        Vector3 offset = (dir.x < 0f) ? new Vector3(-4f, -1f, 0f) : new Vector3(4f, -1f, 0f);
+
+        for (int i = 0;i < maxMiniSlime; i++)
+        {
+            Instantiate(miniSlime, transform.position + offset, Quaternion.identity);
+        }
+
+        Invoke("HpHeal",10f);
     }
     public void HpHeal()
     {
+        // 필드에 남은 미니 슬라임을 죽이고 남은 미니 슬라임에 수에 따라 최대 hp 5%회복
+        int healAmount = (int)(maxHp * 0.05f) * curMiniSlime;
+        curHp = Mathf.Min(curHp + healAmount, maxHp);
 
+        useSkill = false ;
     }
 
     public void PhaseChange()
     {
+        if (curHp <= (int)(maxHp * 0.2f))
+        {
+            nowPhase = "Phase3";
+            // 빨간 슬라임으로 변환
+            spriteRenderer.sprite = phase3;
+            attPower *= 2;
+            jumpInterval = 1.0f;
 
+        }
+        else if(curHp <= (int)(maxHp * 0.6f))
+        {
+            nowPhase = "Phase2";
+            // 푸른 슬라임으로 변환
+            spriteRenderer.sprite = phase2;
+            jumpInterval = 1.5f; //점프 간격을 감소하여 이속 증가
+            
+        }
+         
     }
 
     public void Dead()
