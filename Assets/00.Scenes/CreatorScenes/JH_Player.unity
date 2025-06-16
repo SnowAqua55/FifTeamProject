@@ -395,7 +395,7 @@ MonoBehaviour:
   hurtSfx: {fileID: 8300000, guid: 3d7452db3f3704743a25606997cd604a, type: 3}
   attackSfx: {fileID: 8300000, guid: a80775da31fe8ac45bd9c6bf2c1c9e24, type: 3}
   deathSfx: {fileID: 8300000, guid: 4398b78a524491b40b6040745b38385f, type: 3}
-  dashVolume: 0.3
+  dashVolume: 0.2
 --- !u!82 &1533888560
 AudioSource:
   m_ObjectHideFlags: 0
