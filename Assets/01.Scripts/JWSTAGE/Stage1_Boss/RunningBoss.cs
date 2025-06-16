@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 public class RunningBoss : BossBase
 {
     public Transform[] teleportPosition;
+    public GameObject attackPrefab;
+    private int teleportCount;
     
 
     protected override void Start()
@@ -38,8 +40,16 @@ public class RunningBoss : BossBase
         Animator.SetTrigger("IsTeleport");
         yield return new WaitForSeconds(1.0f);
         transform.position = telPosition;
+        teleportCount++;
+        if (teleportCount == 3) Attack();
     }
 
+    private void Attack()
+    {
+        teleportCount = 0;
+        Instantiate(attackPrefab, GameManager.Instance.Player.transform.position, Quaternion.Euler(0,0,25));
+        //GameManager.Instance.Player.TakeDamage(1);
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "PlayerAttack")

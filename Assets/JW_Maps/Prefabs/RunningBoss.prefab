@@ -127,6 +127,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  attackPrefab: {fileID: 6798761839131452267, guid: c9ae7901c336ab0459eced3bd85f7fd8, type: 3}
 --- !u!1 &7064749582524707198
 GameObject:
   m_ObjectHideFlags: 0

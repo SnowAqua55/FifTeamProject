@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf0f02f23423ca4dbc80f0a01d98cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 5
+  maxHP: 2
   invincibleDuration: 1
   flashInterval: 0.1
 --- !u!114 &228399983
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  jumpForce: 8
+  jumpForce: 10
   maxJumpCount: 2
   groundLayer:
     serializedVersion: 2
