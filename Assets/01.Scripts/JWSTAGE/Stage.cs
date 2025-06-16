@@ -26,14 +26,14 @@ public class Stage : MonoBehaviour
 
     private void Start()
     { 
-        //InitStage(); //위치 변경 예정
-        
+        //BGMPlayer.instance.PlayBgm(1);
     }
 
     
     public void InitStage()
     {
         //플레이어 초기 위치 잡기
+        BGMPlayer.instance.PlayBgm(1);
         player = GameManager.Instance.Player.gameObject;
         bossVirtualCamera.gameObject.SetActive(true);
         virtualCamera.Follow = this.gameObject.transform;
@@ -45,6 +45,7 @@ public class Stage : MonoBehaviour
         SpawnBossCamera();
         doors[0].SetActive(true); // 닫힌 문 보여주기
         doors[1].SetActive(false); // 열린문 끄기
+        //BGMPlayer.instance.PlayBgm(stageIndex); 스테이지 별로 배경음이 다를떄
         // 필요하면 플레이어 체력 맥스로 초기화
     }
 

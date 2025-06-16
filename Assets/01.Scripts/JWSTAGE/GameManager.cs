@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Player is Nothing");
         }
     }
-
+    
     /*void GameOver()
     {
         if (boss == null) return;
