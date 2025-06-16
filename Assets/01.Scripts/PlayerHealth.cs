@@ -42,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         animator.SetTrigger("Hurt");
+        UIManager.Instance.UpdateHeart();
         StartCoroutine(HurtCoroutine());
     }
 

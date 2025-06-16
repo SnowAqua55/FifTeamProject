@@ -29,7 +29,6 @@ public class Condition : MonoBehaviour
 	{
 		currentHeart = Mathf.Max(currentHeart - Amount, 0);
 		UIManager.Instance.UpdateHeart();
-		Die();
     }
 
 	private void Die()

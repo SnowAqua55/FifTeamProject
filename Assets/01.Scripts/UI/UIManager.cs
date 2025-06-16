@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
     public Sprite emptyHeart;
 
     public Condition condition;
+    public PlayerHealth playerHealth;
 
     private void Awake()
     {
@@ -117,7 +118,7 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < _hearts.Count; i++)
         {
-            if (i < condition.currentHeart)
+            if (i < playerHealth.GetCurrentHP())
             {
                 _hearts[i].sprite = fullHeart;
             }
