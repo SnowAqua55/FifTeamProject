@@ -17,6 +17,7 @@ public class Stage : MonoBehaviour
     public GameObject curBoss;
     
     public Transform[] bossTeleportPosition; // 도망가는 보스 전용
+    public GameObject GameOverPanel;
     
     private void Awake()
     {
@@ -29,13 +30,16 @@ public class Stage : MonoBehaviour
         
     }
 
+    
     public void InitStage()
     {
         //플레이어 초기 위치 잡기
+        player = GameManager.Instance.Player.gameObject;
         bossVirtualCamera.gameObject.SetActive(true);
         virtualCamera.Follow = this.gameObject.transform;
         player.transform.position= playerStartPosition.position;
         Instantiate(boss[stageIndex]); // 해당 스테이지에 맞는 보스 소환
+        GameManager.Instance.Boss = boss[stageIndex].GetComponent<BossBase>();
         boss[stageIndex].transform.position = bossStartPosition.position;
         curBoss = boss[stageIndex];
         SpawnBossCamera();
@@ -56,6 +60,7 @@ public class Stage : MonoBehaviour
         if (stageIndex >= boss.Length)//스테이지 갯수 현재는 보스 갯수로 조정
         {
             stageIndex = boss.Length;
+            GameOverPanel.SetActive(true);
             return; // 마지막 스테이지 클리어 UI 출력해도 될 듯
         } 
         // UI FadeOut
