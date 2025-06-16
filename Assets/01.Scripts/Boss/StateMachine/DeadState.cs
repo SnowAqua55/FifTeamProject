@@ -17,6 +17,7 @@ public class DeadState : IBossState
         }
 
         Object.Destroy(boss.gameObject, 2f); // 2초 후 삭제
+        GameManager.Instance.Stage.OpenDoor();
     }
 
     public void Update()

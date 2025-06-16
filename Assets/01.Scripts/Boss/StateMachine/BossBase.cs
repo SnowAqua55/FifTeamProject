@@ -80,7 +80,7 @@ public abstract class BossBase : MonoBehaviour
     {
         currentHP -= amount;
         if (currentHP <= 0)
-            ChangeState(new DeadState());
+            ChangeState(new DeadState());  
         else
             ChangeState(new DamagedState());
     }

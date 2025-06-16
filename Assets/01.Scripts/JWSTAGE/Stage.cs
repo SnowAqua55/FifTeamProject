@@ -29,6 +29,7 @@ public class Stage : MonoBehaviour
         
     }
 
+    
     public void InitStage()
     {
         //플레이어 초기 위치 잡기
@@ -36,6 +37,7 @@ public class Stage : MonoBehaviour
         virtualCamera.Follow = this.gameObject.transform;
         player.transform.position= playerStartPosition.position;
         Instantiate(boss[stageIndex]); // 해당 스테이지에 맞는 보스 소환
+        GameManager.Instance.Boss = boss[stageIndex].GetComponent<BossBase>();
         boss[stageIndex].transform.position = bossStartPosition.position;
         curBoss = boss[stageIndex];
         SpawnBossCamera();
