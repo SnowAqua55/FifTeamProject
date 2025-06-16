@@ -7,7 +7,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [Header("체력 설정")]
     [Tooltip("최대 체력")]
-    public int maxHP = 5;
+    public int maxHP;
     private int currentHP;
 
     [Header("피격 무적 설정")]
@@ -28,8 +28,14 @@ public class PlayerHealth : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         audioPlayer = GetComponent<PlayerAudio>();
+        PlayerManager.Instance.playerHealth = this;
     }
-    
+
+    private void Start()
+    {
+        UIManager.Instance.condition.GenerateHearts();
+    }
+
     // 외부에서 데미지 요청 시 호출
     public void TakeDamage(int damage)
     {
@@ -48,6 +54,7 @@ public class PlayerHealth : MonoBehaviour
         // 피격 SFX 재생
         audioPlayer.PlayHurt();
         
+        UIManager.Instance.condition.UpdateHeart();
         StartCoroutine(HurtCoroutine());
     }
     

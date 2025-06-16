@@ -28,14 +28,9 @@ public class UIManager : MonoBehaviour
     }
 
     Coroutine Fade;
-    private List<Image> _hearts = new List<Image>();
     public Image fadeImage;
-    public GameObject heartPrefab;
-    public Transform heartContainer;
-    public Sprite fullHeart;
-    public Sprite emptyHeart;
 
-    public Condition condition;
+    public ConditionUI condition;
 
     private void Awake()
     {
@@ -103,28 +98,4 @@ public class UIManager : MonoBehaviour
     }
 
     // Heart Management
-    public void GenerateHearts()
-    {
-        for (int i = 0; i < condition.maxHeart; i++)
-        {
-            GameObject heartObj = Instantiate(heartPrefab, heartContainer);
-            Image heartImage = heartObj.GetComponent<Image>();
-            _hearts.Add(heartImage);
-        }
-        UpdateHeart();
-    }
-    public void UpdateHeart()
-    {
-        for (int i = 0; i < _hearts.Count; i++)
-        {
-            if (i < condition.currentHeart)
-            {
-                _hearts[i].sprite = fullHeart;
-            }
-            else
-            {
-                _hearts[i].sprite = emptyHeart;
-            }
-        }
-    }
 }
