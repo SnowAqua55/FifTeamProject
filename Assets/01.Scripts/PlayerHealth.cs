@@ -26,8 +26,14 @@ public class PlayerHealth : MonoBehaviour
         currentHP = maxHP;
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        PlayerManager.Instance.playerHealth = this;
     }
-    
+
+    private void Start()
+    {
+        UIManager.Instance.condition.GenerateHearts();
+    }
+
     // 외부에서 데미지 요청 시 호출
     public void TakeDamage(int damage)
     {
@@ -42,7 +48,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         animator.SetTrigger("Hurt");
-        UIManager.Instance.UpdateHeart();
+        UIManager.Instance.condition.GenerateHearts();
         StartCoroutine(HurtCoroutine());
     }
     
