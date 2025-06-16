@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Boss/BossData")]
+[CreateAssetMenu(menuName = "Boss/BossBaseData")]
 public class BossData : ScriptableObject
 {
     public float maxHP;
@@ -12,5 +12,6 @@ public class BossData : ScriptableObject
     public float attackCooldown = 1.5f;
     public float staggerTime = 0.5f;
 
-    // 스킬 쿨다운, 패턴 등 추가
+    // 모든 보스가 공통적으로 가질만한 스탯
+    // 특정 보스에게만 해당하는 것은 상속
 }
