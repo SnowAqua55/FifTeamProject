@@ -52,6 +52,16 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (player == null)
+        {
+            player = GameObject.FindObjectOfType<PlayerHealth>();
+            player = player.GetComponent<PlayerHealth>();
+        }
+        else
+        {
+            Debug.Log("Player is Nothing");
+        }
     }
 
     /*void GameOver()

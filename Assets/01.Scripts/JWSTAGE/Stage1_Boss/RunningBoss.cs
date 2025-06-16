@@ -36,7 +36,7 @@ public class RunningBoss : BossBase
         Vector2 telPosition =
             new Vector2(teleportPosition[ran].position.x + randomRange, teleportPosition[ran].position.y);
         Animator.SetTrigger("IsTeleport");
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
         transform.position = telPosition;
     }
 
