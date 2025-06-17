@@ -17,26 +17,32 @@ public class ConditionUI : MonoBehaviour
 
     public void GenerateHearts()
     {
-        int maxHearts = GameManager.Instance.Player.GetMaxHP();
-        if (_hearts != null)
+        bool hasPlayerObject = FindAnyObjectByType<PlayerHealth>() != null;
+        if (hasPlayerObject)
         {
+            int maxHearts = GameManager.Instance.Player.GetMaxHP();
+            if (_hearts != null)
+            {
+                foreach (Image heart in _hearts)
+                {
+                    Destroy(heart.gameObject);
+                }
+            }
+
+            for (int i = 0; i < maxHearts; i++)
+            {
+                GameObject heartObj = Instantiate(heartPrefab, heartContainer);
+                Image heartImage = heartObj.GetComponent<Image>();
+                _hearts.Add(heartImage);
+            }
+
             foreach (Image heart in _hearts)
             {
-                Destroy(heart.gameObject);
+                heart.sprite = fullHeart;
             }
         }
-
-        for (int i = 0; i < maxHearts; i++)
-        {
-            GameObject heartObj = Instantiate(heartPrefab, heartContainer);
-            Image heartImage = heartObj.GetComponent<Image>();
-            _hearts.Add(heartImage);
-        }
-
-        foreach (Image heart in _hearts)
-        {
-            heart.sprite = fullHeart;
-        }
+        else
+            return;
     }
     public void UpdateHeart()
     {

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: da7c5b07268be0f4781ca4a1b02a17d3
+guid: 8d9e6f782be506641a23fde11ff57d7b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,22 +110,148 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FullHeart
+      name: GameOverBackground
       rect:
         serializedVersion: 2
-        x: 0
-        y: 117
-        width: 11
-        height: 11
+        x: 14
+        y: 14
+        width: 164
+        height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 489ba23133d024b4dbaa513d4c509640
-      internalID: 1102015082
+      spriteID: f967ab08c3a134b4ab8b8e3f2f1d7b4e
+      internalID: -1497950089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOverText
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 128
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d9d6fe202505e0448933186691b71ce
+      internalID: 2054873306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: IntroBtn
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 62
+        width: 54
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51c6d8fedbe912449bf0db971665b3c8
+      internalID: 216808736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoadBtn
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 62
+        width: 54
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0c77c6d37005f241ab8c304437916b4
+      internalID: -1155382999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RetryBtn
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 30
+        width: 54
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 269314e3959406b499ff3a72553ebaaa
+      internalID: -2066786157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OptionBtn
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 30
+        width: 54
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ef0b1b17f6d86145abe49792ca21c52
+      internalID: 343158353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FullHeart
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 5
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bbfb471de3b58a4fbe8a290b386b0ae
+      internalID: -1263377754
       vertices: []
       indices: 
       edges: []
@@ -134,19 +260,19 @@ TextureImporter:
       name: EmptyHeart
       rect:
         serializedVersion: 2
-        x: 16
-        y: 117
+        x: 224
+        y: 5
         width: 11
         height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7eb0108dae210d44bb05ca5545ddb3a1
-      internalID: 837335354
+      spriteID: 4abb8c9d826ad1c49b3ca0d6f1008f42
+      internalID: -435230738
       vertices: []
       indices: 
       edges: []
@@ -162,8 +288,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      EmptyHeart: 837335354
-      FullHeart: 1102015082
+      EmptyHeart: -435230738
+      FullHeart: -1263377754
+      GameOverBackground: -1497950089
+      GameOverText: 2054873306
+      IntroBtn: 216808736
+      LoadBtn: -1155382999
+      OptionBtn: 343158353
+      RetryBtn: -2066786157
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

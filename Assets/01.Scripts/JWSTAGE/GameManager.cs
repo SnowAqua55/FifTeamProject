@@ -54,22 +54,38 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (player == null)
+        bool hasPlayerObject = FindAnyObjectByType<PlayerHealth>();
+        if (hasPlayerObject)
         {
-            player = GameObject.FindObjectOfType<PlayerHealth>();
-            if (player != null)
+            GameObject playerObj = FindAnyObjectByType<PlayerHealth>().gameObject;
+            if (playerObj == null) { }
+            else
             {
-                player = player.GetComponent<PlayerHealth>();
+                if (player == null)
+                {
+                    player = playerObj.GetComponent<PlayerHealth>();
+                }
             }
-        }
-        else
-        {
-            Debug.Log("Player is Nothing");
         }
     }
 
+    public void ChangeScene(string sceneName)
+    {
+        switch (sceneName)
+        {
+            case "MainScene":
+                SceneManager.LoadScene("MainScene");
+                break;
+            case "IntroScene":
+                SceneManager.LoadScene("IntroScene");
+                break;
+            default:
+                break;
+        }
+    }
+    
     public void GameOver()
     {
-        stage.GameOverPanel.SetActive(true);
+        UIManager.Instance.GameOverUI();
     }
 }

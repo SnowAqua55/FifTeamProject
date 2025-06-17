@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Timers;
-using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -31,6 +29,13 @@ public class UIManager : MonoBehaviour
     public Image fadeImage;
 
     public ConditionUI condition;
+    public GameObject ui;
+    private Transform uiCanvas;
+
+    private GameObject introUI;
+    private GameObject playerUI;
+    private GameObject optionUI;
+    private GameObject gameOverUI;
 
     private void Awake()
     {
@@ -38,6 +43,18 @@ public class UIManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
+
+        DontDestroyOnLoad(ui);
+        uiCanvas = ui.transform;
+
+        introUI = uiCanvas.Find("Intro").gameObject;
+        playerUI = uiCanvas.Find("Player").gameObject;
+        optionUI = uiCanvas.Find("Option").gameObject;
+        gameOverUI = uiCanvas.Find("GameOverPanel").gameObject;
+
+        Init();
+
+
     }
 
     // Fade Fuction
@@ -50,7 +67,7 @@ public class UIManager : MonoBehaviour
         fadeImage.color = color;
         while (elapsedTime < duration)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
             color.a = Mathf.Lerp(0f, 1f, elapsedTime / duration);
             fadeImage.color = color;
             yield return null;
@@ -68,7 +85,7 @@ public class UIManager : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
             color.a = Mathf.Lerp(1f, 0f, elapsedTime / duration);
             fadeImage.color = color;
             yield return null;
@@ -78,7 +95,25 @@ public class UIManager : MonoBehaviour
         fadeImage.enabled = false;
     }
 
-    public IEnumerator FadeFlash(float fadeOutDuration = 1f, float waitDuration = 3f, float fadeInDuration = 1f)
+    public void FadeInStart(float duration = 1f)
+    {
+        if (Fade == null)
+            Fade = StartCoroutine(FadeIn(1f));
+        else
+            return;
+        Fade = null;
+    }
+
+    public void FadeOutStart(float duration = 1f)
+    {
+        if (Fade == null)
+            Fade = StartCoroutine(FadeOut(duration));
+        else
+            return;
+        Fade = null;
+    }
+
+    private IEnumerator FadeFlash(float fadeOutDuration, float waitDuration, float fadeInDuration)
     {
         StartCoroutine(FadeOut(fadeOutDuration));
         yield return new WaitForSeconds(waitDuration);
@@ -87,15 +122,63 @@ public class UIManager : MonoBehaviour
         Fade = null;
     }
 
-    public void FadeFlashTest(float fadeOutDuration = 1f, float waitDuration = 3f, float fadeInDuration = 1f)
+    public void FadeFlashStart(float fadeOutDuration = 1f, float waitDuration = 3f, float fadeInDuration = 1f)
     {
-        if (Fade != null)
+        if (Fade == null)
         {
-            Debug.Log("이미 코루틴이 진행 중이므로 아무것도 안하겠습니다 ㅅㄱ");
-            return;
+            Fade = StartCoroutine(FadeFlash(fadeOutDuration, waitDuration, fadeInDuration));
         }
-        Fade = StartCoroutine(FadeFlash(fadeOutDuration, waitDuration, fadeInDuration));
+        else
+            return;
+        Fade = null;
     }
 
-    // Heart Management
+    // UI Initialization
+    private void Init()
+    {
+        ui.SetActive(true);
+        uiCanvas.Find("Intro").gameObject.SetActive(true);
+        uiCanvas.Find("Player").gameObject.SetActive(false);
+        uiCanvas.Find("Option").gameObject.SetActive(false);
+        uiCanvas.Find("GameOverPanel").gameObject.SetActive(false);
+
+        GameObject FadeImageObj = uiCanvas.Find("FadeImage").gameObject;
+        fadeImage = FadeImageObj.GetComponent<Image>();
+        FadeImageObj.SetActive(true);
+        FadeImageObj.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+        FadeImageObj.GetComponent<Image>().enabled = false;
+
+    }
+
+    // Scene Change Initialization
+    public void SceneInit(string sceneName)
+    {
+        switch (sceneName)
+        {
+            case "MainScene":
+                uiCanvas.Find("Intro").gameObject.SetActive(false);
+                uiCanvas.Find("Player").gameObject.SetActive(true);
+                uiCanvas.Find("Option").gameObject.SetActive(false);
+                uiCanvas.Find("GameOverPanel").gameObject.SetActive(false);
+                condition.GenerateHearts();
+                FadeInStart(1f);
+                GameManager.Instance.ChangeScene(sceneName);
+                break;
+            case "IntroScene":
+                uiCanvas.Find("Intro").gameObject.SetActive(true);
+                uiCanvas.Find("Player").gameObject.SetActive(false);
+                uiCanvas.Find("Option").gameObject.SetActive(false);
+                uiCanvas.Find("GameOverPanel").gameObject.SetActive(false);
+                FadeInStart(1f);
+                GameManager.Instance.ChangeScene(sceneName);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void GameOverUI()
+    {
+        gameOverUI.gameObject.SetActive(true);
+    }
 }
