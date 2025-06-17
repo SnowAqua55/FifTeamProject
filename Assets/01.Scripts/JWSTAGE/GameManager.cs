@@ -53,17 +53,21 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (player == null)
+        bool hasPlayerObject = FindAnyObjectByType<PlayerHealth>();
+        if (hasPlayerObject)
         {
-            player = GameObject.FindObjectOfType<PlayerHealth>();
-            player = player.GetComponent<PlayerHealth>();
-        }
-        else
-        {
-            Debug.Log("Player is Nothing");
+            GameObject playerObj = FindAnyObjectByType<PlayerHealth>().gameObject;
+            if (playerObj == null) { }
+            else
+            {
+                if (player == null)
+                {
+                    player = playerObj.GetComponent<PlayerHealth>();
+                }
+            }
         }
     }
-    
+
     /*void GameOver()
     {
         if (boss == null) return;
@@ -73,5 +77,6 @@ public class GameManager : MonoBehaviour
             stage.OpenDoor();
         }
     }*/
-    
+
+    // Intro Scene Initialization
 }

@@ -28,7 +28,6 @@ public class PlayerHealth : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         audioPlayer = GetComponent<PlayerAudio>();
-        PlayerManager.Instance.playerHealth = this;
     }
 
     private void Start()
