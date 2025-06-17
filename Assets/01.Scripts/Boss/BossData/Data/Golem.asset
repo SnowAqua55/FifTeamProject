@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340a1586306d24efca40ac253bd85119, type: 3}
+  m_Name: Golem
+  m_EditorClassIdentifier: 
+  maxHP: 50
+  moveSpeed: 0
+  attackRange: 0
+  attackDamage: 0
+  detectRange: 5
+  attackCooldown: 5
+  staggerTime: 0.5
+  golemArmData:
+    maxHP: 10
+    attackDamage: 1
+    attackCooldown: 3
+    projectilePrefab: {fileID: 1756689481828615444, guid: c7e3a0ecb17ba4f9bb1a2ab8dc17cb3b, type: 3}
+    armOrbitSpeed: 20
+    armOrbitRadius: 2.5
+  bodyLaserChargeTime: 1
+  bodyLaserDuration: 1.7
+  rainLaserWarningDuration: 1
+  rainLaserInterval: 5
+  rainLaserFallDuration: 0.7
+  numberOfRainLasers: 5

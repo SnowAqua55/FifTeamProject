@@ -17,7 +17,20 @@ public class AttackEffect : MonoBehaviour
     {
         if (col.CompareTag("Monster")) // 맞춰서 수정해야하는 부분
         {
-            // col.GetComponent<스크립트명>()?.TakeDamage(damage); > 구현에 맞춰서 수정
+            BossBase boss = col.GetComponent<BossBase>();
+            if (boss != null)
+            {
+                // col.GetComponent<스크립트명>()?.TakeDamage(damage); > 구현에 맞춰서 수정
+                col.GetComponent<BossBase>().TakeDamage(damage);
+                return;
+            }
+
+            GolemArm arm = col.GetComponent<GolemArm>();
+            if (arm != null)
+            {
+                arm.TakeDamage(damage);
+                return;
+            }
         }
     }
     

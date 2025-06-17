@@ -5,7 +5,7 @@ public abstract class BossBase : MonoBehaviour
     protected IBossState currentState;
 
     [Header("보스 데이터")]
-    [SerializeField] private BossData bossData; // SO 연결
+    [SerializeField] protected BossData bossData; // SO 연결
 
     public Animator Animator { get; private set; }
     public BossAnimationData AnimationData { get; private set; }
@@ -15,6 +15,7 @@ public abstract class BossBase : MonoBehaviour
 
     public float CurrentHP => currentHP;
     public bool IsDead => currentHP <= 0;
+    protected bool isInvincible; // 무적 상태
 
     public float MaxHP => bossData.maxHP;
     public float MoveSpeed => bossData.moveSpeed;
@@ -76,7 +77,7 @@ public abstract class BossBase : MonoBehaviour
     /// 데미지 받음
     /// </summary>
     /// <param name="amount"></param>
-    public void TakeDamage(float amount)
+    public virtual void TakeDamage(float amount)
     {
         currentHP -= amount;
         if (currentHP <= 0)
@@ -133,6 +134,11 @@ public abstract class BossBase : MonoBehaviour
             scale.x = Mathf.Sign(directionX) * Mathf.Abs(scale.x);
             transform.localScale = scale;
         }
+    }
+
+    public void SetInvincible(bool invincible)
+    {
+        isInvincible = invincible;
     }
 
     // 초기화 함수
