@@ -17,6 +17,7 @@ public class Stage : MonoBehaviour
     public GameObject curBoss;
     
     public Transform[] bossTeleportPosition; // 도망가는 보스 전용
+    public GameObject GameOverPanel;
     
     private void Awake()
     {

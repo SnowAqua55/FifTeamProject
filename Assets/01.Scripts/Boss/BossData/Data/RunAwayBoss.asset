@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6d6b7165ff743c0b06c8efcc1c3d54, type: 3}
   m_Name: RunAwayBoss
   m_EditorClassIdentifier: 
-  maxHP: 2
+  maxHP: 10
   moveSpeed: -3
   attackRange: 4
   attackDamage: 0
