@@ -7,6 +7,7 @@ public class MiniSlime : MonoBehaviour
 
     [SerializeField] public Transform playerPos;
     [SerializeField] Rigidbody2D _rigidbody;
+    [SerializeField] KingSlime kingSlime;
 
     public int maxHp = 3000;
     public int curHp;
@@ -18,7 +19,11 @@ public class MiniSlime : MonoBehaviour
     {
         GameObject _player = GameObject.FindGameObjectWithTag("Player");
         playerPos = _player.GetComponent<Transform>();
+
+        GameObject _kingSlime = GameObject.Find("KingSlime");
+        kingSlime = _kingSlime.GetComponent<KingSlime>();
     }
+
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -29,6 +34,15 @@ public class MiniSlime : MonoBehaviour
 
         Destroy(gameObject, 10f);
     }
+
+    private void Update()
+    {
+        if (curHp <= 0)
+        {
+            Die();
+        }
+    }
+
     private void FixedUpdate()
     {
         jumpTimer += Time.fixedDeltaTime;
@@ -54,12 +68,19 @@ public class MiniSlime : MonoBehaviour
         _rigidbody.AddForce(jumpDirection * jumpPower, ForceMode2D.Impulse);
 
         jumpPower = 5;
-
-
     }
+
+    public void Damaged()
+    {
+        curHp -= 10;// 나중에는 플레이어의 데미지를 가져와 적용
+        Vector2 knockbackDir = new Vector2(-(playerPos.position.x - transform.position.x), 0f).normalized;
+        _rigidbody.AddForce(knockbackDir * 3f, ForceMode2D.Impulse);
+    }
+
 
     public void Die()
     {
-
+        kingSlime.curMiniSlime -= 1;
+        Destroy(gameObject, 1f);
     }
 }
