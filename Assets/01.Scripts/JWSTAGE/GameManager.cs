@@ -68,9 +68,24 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public void ChangeScene(string sceneName)
+    {
+        switch (sceneName)
+        {
+            case "MainScene":
+                SceneManager.LoadScene("MainScene");
+                break;
+            case "IntroScene":
+                SceneManager.LoadScene("IntroScene");
+                break;
+            default:
+                break;
+        }
+    }
     
     public void GameOver()
     {
-        
+        UIManager.Instance.GameOverUI();
     }
 }

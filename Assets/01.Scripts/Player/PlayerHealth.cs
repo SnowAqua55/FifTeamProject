@@ -100,7 +100,6 @@ public class PlayerHealth : MonoBehaviour
 
         Time.timeScale = 0;
         GameManager.Instance.GameOver();
-        // 이후 사망 UI 처리 등
     }
     
     public void ActivateInvincibility(float duration)

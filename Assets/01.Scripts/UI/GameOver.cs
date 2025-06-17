@@ -6,15 +6,7 @@ public class GameOver : MonoBehaviour
     public GameObject gameOverText;
     public GameObject gameOverMenu;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            ShowGameOverWindow();
-        }
-    }
-
-    public void ShowGameOverWindow()
+    public void ShowGameOver()
     {
         gameOverText.SetActive(true);
         gameOverMenu.SetActive(true);

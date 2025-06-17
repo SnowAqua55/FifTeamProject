@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Timers;
-using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -34,6 +32,11 @@ public class UIManager : MonoBehaviour
     public GameObject ui;
     private Transform uiCanvas;
 
+    private GameObject introUI;
+    private GameObject playerUI;
+    private GameObject optionUI;
+    private GameObject gameOverUI;
+
     private void Awake()
     {
         if (_instance == this)
@@ -44,7 +47,14 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(ui);
         uiCanvas = ui.transform;
 
+        introUI = uiCanvas.Find("Intro").gameObject;
+        playerUI = uiCanvas.Find("Player").gameObject;
+        optionUI = uiCanvas.Find("Option").gameObject;
+        gameOverUI = uiCanvas.Find("GameOverPanel").gameObject;
+
         Init();
+
+
     }
 
     // Fade Fuction
@@ -141,7 +151,7 @@ public class UIManager : MonoBehaviour
     }
 
     // Scene Change Initialization
-    public void ChangeScene(string sceneName)
+    public void SceneInit(string sceneName)
     {
         switch (sceneName)
         {
@@ -152,6 +162,7 @@ public class UIManager : MonoBehaviour
                 uiCanvas.Find("GameOverPanel").gameObject.SetActive(false);
                 condition.GenerateHearts();
                 FadeInStart(1f);
+                GameManager.Instance.ChangeScene(sceneName);
                 break;
             case "IntroScene":
                 uiCanvas.Find("Intro").gameObject.SetActive(true);
@@ -159,7 +170,15 @@ public class UIManager : MonoBehaviour
                 uiCanvas.Find("Option").gameObject.SetActive(false);
                 uiCanvas.Find("GameOverPanel").gameObject.SetActive(false);
                 FadeInStart(1f);
+                GameManager.Instance.ChangeScene(sceneName);
+                break;
+            default:
                 break;
         }
+    }
+
+    public void GameOverUI()
+    {
+        gameOverUI.gameObject.SetActive(true);
     }
 }

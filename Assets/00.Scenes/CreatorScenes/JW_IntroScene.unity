@@ -2156,6 +2156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 632940931}
   condition: {fileID: 0}
+  ui: {fileID: 0}
 --- !u!1 &907651265
 GameObject:
   m_ObjectHideFlags: 0
