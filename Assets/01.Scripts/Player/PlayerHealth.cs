@@ -90,7 +90,7 @@ public class PlayerHealth : MonoBehaviour
         audioPlayer.PlayDeath();
         
         animator.SetTrigger("Die");
-        yield return new WaitForSeconds(1f); // 애니메이션 유예 시간
+        yield return new WaitForSeconds(2f); // 애니메이션 유예 시간
 
         Time.timeScale = 0;
         // 이후 사망 UI 처리 등
