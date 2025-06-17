@@ -17,6 +17,7 @@ public class AttackEffect : MonoBehaviour
     {
         if (col.CompareTag("Monster")) // 맞춰서 수정해야하는 부분
         {
+<<<<<<< HEAD
             BossBase boss = col.GetComponent<BossBase>();
             if (boss != null)
             {
@@ -31,6 +32,9 @@ public class AttackEffect : MonoBehaviour
                 arm.TakeDamage(damage);
                 return;
             }
+=======
+            // col.GetComponent<스크립트명>()?.TakeDamage(damage); > 구현에 맞춰서 수정
+>>>>>>> parent of c172738 (add, fix : 플레이어 수정, Reaper 보스 추가 외)
         }
     }
     

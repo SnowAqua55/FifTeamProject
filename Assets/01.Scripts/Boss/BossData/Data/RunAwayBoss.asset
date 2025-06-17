@@ -12,10 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6d6b7165ff743c0b06c8efcc1c3d54, type: 3}
   m_Name: RunAwayBoss
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:Assets/01.Scripts/Boss/BossData/Data/RunAwayBoss.asset
   maxHP: 10
   moveSpeed: -3
   attackRange: 4
   attackDamage: 0
   detectRange: 7
   attackCooldown: 10
+=======
+  maxHP: 20000
+  moveSpeed: 2.5
+  attackRange: 1.2
+  attackDamage: 1
+  detectRange: 5
+  attackCooldown: 1.5
+>>>>>>> parent of c172738 (add, fix : 플레이어 수정, Reaper 보스 추가 외):Assets/01.Scripts/Boss/Data/Reaper.asset
   staggerTime: 0.5

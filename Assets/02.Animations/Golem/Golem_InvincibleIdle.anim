@@ -21,6 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
+<<<<<<< HEAD:Assets/02.Animations/Golem/Golem_InvincibleIdle.anim
       value: {fileID: -484890281, guid: 2b9dae959f3b1467286a24002b813b32, type: 3}
     - time: 0.125
       value: {fileID: -419871731, guid: 2b9dae959f3b1467286a24002b813b32, type: 3}
@@ -32,6 +33,21 @@ AnimationClip:
       value: {fileID: -1939972866, guid: 2b9dae959f3b1467286a24002b813b32, type: 3}
     - time: 0.625
       value: {fileID: -70827351, guid: 2b9dae959f3b1467286a24002b813b32, type: 3}
+=======
+      value: {fileID: 473825050, guid: 5590a112ae593ce4abed978d1997c530, type: 3}
+    - time: 0.083333336
+      value: {fileID: 1096880386, guid: 5590a112ae593ce4abed978d1997c530, type: 3}
+    - time: 0.16666667
+      value: {fileID: 671486453, guid: 5590a112ae593ce4abed978d1997c530, type: 3}
+    - time: 0.25
+      value: {fileID: -949582594, guid: 5590a112ae593ce4abed978d1997c530, type: 3}
+    - time: 0.33333334
+      value: {fileID: -413838361, guid: 5590a112ae593ce4abed978d1997c530, type: 3}
+    - time: 0.41666666
+      value: {fileID: 725009436, guid: 5590a112ae593ce4abed978d1997c530, type: 3}
+    - time: 0.5
+      value: {fileID: 1493746450, guid: 5590a112ae593ce4abed978d1997c530, type: 3}
+>>>>>>> parent of c172738 (add, fix : 플레이어 수정, Reaper 보스 추가 외):Assets/02.Animations/Reaper/Reaper_Attack.anim
     attribute: m_Sprite
     path: 
     classID: 212
@@ -65,7 +81,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.75
+    m_StopTime: 0.5833333
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

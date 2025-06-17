@@ -10,8 +10,12 @@ AnimatorState:
   m_Name: JW_Boss_Run
   m_Speed: 1
   m_CycleOffset: 0
+<<<<<<< HEAD:Assets/JW_Maps/JW_ANIMATOR/RunAwayBoss.controller
   m_Transitions:
   - {fileID: 6030750501859562831}
+=======
+  m_Transitions: []
+>>>>>>> parent of c172738 (add, fix : 플레이어 수정, Reaper 보스 추가 외):Assets/02.Animations/Reaper/Reaper.controller
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -27,6 +31,7 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+<<<<<<< HEAD:Assets/JW_Maps/JW_ANIMATOR/RunAwayBoss.controller
 --- !u!1102 &-7516885533187504240
 AnimatorState:
   serializedVersion: 6
@@ -81,13 +86,46 @@ AnimatorStateTransition:
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1102 &-5503165645222901540
+=======
+--- !u!1102 &-3032118979822795896
+>>>>>>> parent of c172738 (add, fix : 플레이어 수정, Reaper 보스 추가 외):Assets/02.Animations/Reaper/Reaper.controller
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD:Assets/JW_Maps/JW_ANIMATOR/RunAwayBoss.controller
   m_Name: JW_Boss_Die
+=======
+  m_Name: Reaper_Hurt
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 1817dcc12772af64f827f1b70fb6f4d3, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &-951661962400793927
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Reaper_Dead
+>>>>>>> parent of c172738 (add, fix : 플레이어 수정, Reaper 보스 추가 외):Assets/02.Animations/Reaper/Reaper.controller
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -185,6 +223,7 @@ AnimatorController:
   m_PrefabAsset: {fileID: 0}
   m_Name: RunAwayBoss
   serializedVersion: 5
+<<<<<<< HEAD:Assets/JW_Maps/JW_ANIMATOR/RunAwayBoss.controller
   m_AnimatorParameters:
   - m_Name: isMove
     m_Type: 4
@@ -210,6 +249,9 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+=======
+  m_AnimatorParameters: []
+>>>>>>> parent of c172738 (add, fix : 플레이어 수정, Reaper 보스 추가 외):Assets/02.Animations/Reaper/Reaper.controller
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -223,6 +265,7 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+<<<<<<< HEAD:Assets/JW_Maps/JW_ANIMATOR/RunAwayBoss.controller
 --- !u!1101 &592318555472147654
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -249,6 +292,9 @@ AnimatorStateTransition:
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1107 &1220513644227316136
+=======
+--- !u!1107 &3360494789837210734
+>>>>>>> parent of c172738 (add, fix : 플레이어 수정, Reaper 보스 추가 외):Assets/02.Animations/Reaper/Reaper.controller
 AnimatorStateMachine:
   serializedVersion: 6
   m_ObjectHideFlags: 1
@@ -267,6 +313,7 @@ AnimatorStateMachine:
     m_State: {fileID: 5521739912790412704}
     m_Position: {x: 310, y: 110, z: 0}
   - serializedVersion: 1
+<<<<<<< HEAD:Assets/JW_Maps/JW_ANIMATOR/RunAwayBoss.controller
     m_State: {fileID: -8673574005897911527}
     m_Position: {x: 570, y: 110, z: 0}
   - serializedVersion: 1
@@ -285,17 +332,39 @@ AnimatorStateMachine:
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 5521739912790412704}
 --- !u!1102 &5521739912790412704
+=======
+    m_State: {fileID: -8522692561791715716}
+    m_Position: {x: 380, y: 80, z: 0}
+  m_ChildStateMachines: []
+  m_AnyStateTransitions: []
+  m_EntryTransitions: []
+  m_StateMachineTransitions: {}
+  m_StateMachineBehaviours: []
+  m_AnyStatePosition: {x: 130, y: -120, z: 0}
+  m_EntryPosition: {x: -120, y: -10, z: 0}
+  m_ExitPosition: {x: 700, y: -50, z: 0}
+  m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
+  m_DefaultState: {fileID: 4576285488451713700}
+--- !u!1102 &4576285488451713700
+>>>>>>> parent of c172738 (add, fix : 플레이어 수정, Reaper 보스 추가 외):Assets/02.Animations/Reaper/Reaper.controller
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD:Assets/JW_Maps/JW_ANIMATOR/RunAwayBoss.controller
   m_Name: JW_Boss_Idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7631393917775486194}
+=======
+  m_Name: Reaper_Idle
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+>>>>>>> parent of c172738 (add, fix : 플레이어 수정, Reaper 보스 추가 외):Assets/02.Animations/Reaper/Reaper.controller
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -305,12 +374,17 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
+<<<<<<< HEAD:Assets/JW_Maps/JW_ANIMATOR/RunAwayBoss.controller
   m_Motion: {fileID: 7400000, guid: abc0415654a29914f814eb347b0a5d60, type: 2}
+=======
+  m_Motion: {fileID: 7400000, guid: b2929cf131eac414cb43e47be7192d17, type: 2}
+>>>>>>> parent of c172738 (add, fix : 플레이어 수정, Reaper 보스 추가 외):Assets/02.Animations/Reaper/Reaper.controller
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+<<<<<<< HEAD:Assets/JW_Maps/JW_ANIMATOR/RunAwayBoss.controller
 --- !u!1101 &6030750501859562831
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -386,3 +460,5 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+=======
+>>>>>>> parent of c172738 (add, fix : 플레이어 수정, Reaper 보스 추가 외):Assets/02.Animations/Reaper/Reaper.controller
