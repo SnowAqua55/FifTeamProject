@@ -110,7 +110,12 @@ public class UIManager : MonoBehaviour
         uiCanvas.Find("Intro").gameObject.SetActive(true);
         uiCanvas.Find("Player").gameObject.SetActive(false);
         uiCanvas.Find("Option").gameObject.SetActive(false);
-        uiCanvas.Find("FadeImage").gameObject.GetComponent<Image>().enabled = false;
         uiCanvas.Find("GameOverPanel").gameObject.SetActive(false);
+
+        GameObject FadeImageObj = uiCanvas.Find("FadeImage").gameObject;
+        FadeImageObj.SetActive(true);
+        FadeImageObj.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+        FadeImageObj.GetComponent<Image>().enabled = false;
+
     }
 }
