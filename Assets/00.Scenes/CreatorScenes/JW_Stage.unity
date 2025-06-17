@@ -343,12 +343,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5827151749502927921, guid: 03123231037324e53b53f7572bd7e0c2, type: 3}
+      propertyPath: bodyLaserPrefab
+      value: 
+      objectReference: {fileID: 3930559692898954637, guid: ae165da35ac0b42c9875567f5a4b77cd, type: 3}
     - target: {fileID: 5936922957920382523, guid: 03123231037324e53b53f7572bd7e0c2, type: 3}
       propertyPath: m_Name
       value: Golem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 539375402059372584, guid: 03123231037324e53b53f7572bd7e0c2, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03123231037324e53b53f7572bd7e0c2, type: 3}

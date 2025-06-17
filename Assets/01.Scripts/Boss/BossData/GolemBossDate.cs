@@ -4,10 +4,10 @@ using System;
 [CreateAssetMenu(menuName = "Boss/GolemBossData")]
 public class GolemBossData : BossData
 {
-    [Header("Golem Boss Arm Settings")]
+    [Header("팔 데이터")]
     public ArmData golemArmData; // 골렘 보스 전용 팔 데이터
 
-    [Header("Golem Boss Laser Attack Settings")]
+    [Header("골렘 레이저 공격 설정")]
     public float bodyLaserChargeTime = 1.5f;
     public float bodyLaserDuration = 0.7f;
     public float rainLaserWarningDuration = 1f;

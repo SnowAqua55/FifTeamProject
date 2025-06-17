@@ -17,18 +17,18 @@ MonoBehaviour:
   attackRange: 0
   attackDamage: 0
   detectRange: 5
-  attackCooldown: 1.5
+  attackCooldown: 5
   staggerTime: 0.5
   golemArmData:
     maxHP: 10
     attackDamage: 0
-    attackCooldown: 5
+    attackCooldown: 3
     projectilePrefab: {fileID: 1756689481828615444, guid: c7e3a0ecb17ba4f9bb1a2ab8dc17cb3b, type: 3}
     armOrbitSpeed: 20
     armOrbitRadius: 2.5
-  bodyLaserChargeTime: 1.5
-  bodyLaserDuration: 0.7
+  bodyLaserChargeTime: 1
+  bodyLaserDuration: 1.7
   rainLaserWarningDuration: 1
-  rainLaserInterval: 1
-  rainLaserFallDuration: 1
+  rainLaserInterval: 5
+  rainLaserFallDuration: 0.7
   numberOfRainLasers: 5

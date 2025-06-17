@@ -13,17 +13,12 @@ public class Golem : BossBase
     private int activeArmsCount = 0;
 
     [Header("레이저 프리팹")]
-    [SerializeField] private GameObject bodyLaserWarningPrefab;
     [SerializeField] private GameObject bodyLaserPrefab;
     [SerializeField] private GameObject rainLaserWarningPrefab;
     [SerializeField] private GameObject rainLaserPrefab;
 
-    // [Header("Arm Pattern Positions")]
-    // [SerializeField] private Transform[] armLinePositions;
-
     [Header("고정 위치 레이저")]
-    [SerializeField] private Transform[] rainLaserFixedSpawnPoints; // 보스 기준으로 만들기
-
+    [SerializeField] private Transform[] rainLaserFixedSpawnPoints;
 
     protected override void Awake()
     {
@@ -31,19 +26,19 @@ public class Golem : BossBase
 
         if (golemBossData == null)
         {
-            Debug.LogError("GolemBoss 스크립트에는 GolemBossData 타입의 BossData가 할당되어야 합니다! 유니티 인스펙터에서 확인하세요.", this);
+            Debug.LogError("GolemBossData가 설정되지 않았습니다!", this);
             enabled = false;
             return;
         }
 
-        PrewarmArms();
+        PrewarmArms(); // 팔 미리 생성 및 풀링
     }
 
     protected override void Start()
     {
         base.Start();
-        InitStateMachine();
-        ActivateArms();
+        InitStateMachine(); // 상태머신 초기화
+        ActivateArms();     // 팔 4개 활성화
     }
 
     public override void InitStateMachine()
@@ -55,7 +50,7 @@ public class Golem : BossBase
     {
         if (isInvincible)
         {
-            Debug.Log("골렘 본체는 현재 무적 상태입니다!");
+            Debug.Log("골렘은 무적 상태입니다.");
             return;
         }
 
@@ -78,6 +73,7 @@ public class Golem : BossBase
             GameObject armObj = Instantiate(GolemArmPrefab, Vector3.zero, Quaternion.identity);
             armObj.transform.parent = this.transform;
             GolemArm arm = armObj.GetComponent<GolemArm>();
+
             if (arm != null)
             {
                 allArms.Add(arm);
@@ -85,45 +81,36 @@ public class Golem : BossBase
             }
             else
             {
-                Debug.LogError($"생성된 {armObj.name}에 GolemArm 스크립트가 없습니다!");
+                Debug.LogError("GolemArm 스크립트가 누락됨");
             }
         }
-        Debug.Log($"총 {allArms.Count}개의 팔을 미리 생성하여 풀링했습니다.");
     }
 
     private void ActivateArms()
     {
         activeArmsCount = 0;
-        SetInvincible(true);
+        SetInvincible(true); // 무적 상태 ON
 
-        if (armSpawnPoints == null || armSpawnPoints.Length < 4)
+        if (armSpawnPoints.Length < 4)
         {
-            Debug.LogError("팔 스폰 위치(armSpawnPoints)가 충분하지 않습니다! 최소 4개 필요합니다. 유니티 인스펙터에서 설정해주세요.");
+            Debug.LogError("팔 스폰 포인트가 부족합니다.");
             return;
         }
 
         for (int i = 0; i < allArms.Count; i++)
         {
             GolemArm arm = allArms[i];
-            if (arm != null)
-            {
-                arm.Initialize(this, golemBossData.golemArmData, armSpawnPoints[i].position);
-                activeArmsCount++;
-            }
+            arm.Initialize(this, golemBossData.golemArmData, armSpawnPoints[i].position);
+            activeArmsCount++;
         }
-        Debug.Log("팔 4개 활성화 완료. 골렘 본체 무적 활성화.");
     }
 
     public void OnArmDestroyed(GolemArm destroyedArm)
     {
         activeArmsCount--;
-        Debug.Log($"팔 비활성화됨. 현재 활성화된 팔: {activeArmsCount}/4");
-
         if (activeArmsCount <= 0)
         {
-            SetInvincible(false);
-            Debug.Log("모든 팔 비활성화. 골렘 본체 무적 해제!");
-
+            SetInvincible(false); // 무적 해제
             ChangeState(new AttackState());
         }
     }
@@ -132,146 +119,163 @@ public class Golem : BossBase
     {
         if (isInvincible || activeArmsCount > 0)
         {
-            Debug.Log("골렘 본체는 현재 무적 상태이거나 팔이 활성화되어 있어 본체 공격은 대기합니다.");
+            Debug.Log("무적이거나 팔이 살아있어 공격하지 않음");
             return;
         }
 
         StartCoroutine(PerformBodyLaserAttackSequence());
     }
 
+    /// <summary>
+    /// 본체 공격 종류를 랜덤으로 선택
+    /// </summary>
     private IEnumerator PerformBodyLaserAttackSequence()
     {
         float rand = Random.value;
         if (rand < 0.5f)
         {
-            yield return StartCoroutine(PerformBodyLaserAttack());
+            yield return StartCoroutine(PerformBodyLaserAttack()); // 단일 조준 레이저
         }
         else
         {
-            yield return StartCoroutine(StartRainLaserPattern());
+            yield return StartCoroutine(StartRainLaserPattern());  // 고정 위치 다발 레이저
         }
     }
 
+    /// <summary>
+    /// 레이저 차지/발사 루틴
+    /// </summary>
     private IEnumerator PerformBodyLaserAttack()
     {
-        Debug.Log("본체 레이저 준비!");
+        Debug.Log("레이저 차지 시작!");
+
         if (Animator != null && AnimationData != null)
         {
-            Animator.SetTrigger(AnimationData.BodyLaserChargeHash);
+            Animator.SetTrigger(AnimationData.BodyLaserChargeHash); // 차지 애니메이션 시작
         }
 
-        Vector3 playerCurrentPos = player.position;
-        GameObject warning = Instantiate(bodyLaserWarningPrefab, playerCurrentPos, Quaternion.identity);
-        Destroy(warning, golemBossData.bodyLaserChargeTime);
+        float elapsed = 0f;
+        float chargeTime = golemBossData.bodyLaserChargeTime;
+        Vector2 laserDirection = Vector2.right;
 
-        yield return new WaitForSeconds(golemBossData.bodyLaserChargeTime);
-
-        Debug.Log("본체 레이저 발사!");
-        if (Animator != null && AnimationData != null)
+        // 차지 시간 동안 플레이어 위치 추적하며 방향 결정
+        while (elapsed < chargeTime)
         {
-            Animator.SetTrigger(AnimationData.BodyLaserFireHash);
-        }
-
-        GameObject laser = Instantiate(bodyLaserPrefab, transform.position, Quaternion.identity);
-        Vector2 laserDirection = (playerCurrentPos - transform.position).normalized;
-        laser.transform.right = laserDirection;
-
-        Destroy(laser, golemBossData.bodyLaserDuration);
-    }
-
-    // private IEnumerator StartRainLaserPattern()
-    // {
-    //     Debug.Log("맵 상단 고정 위치 레이저 패턴 시작!");
-
-    //     if (rainLaserFixedSpawnPoints == null || rainLaserFixedSpawnPoints.Length == 0)
-    //     {
-    //         Debug.LogError("고정 레이저 발사 위치(rainLaserFixedSpawnPoints)가 설정되지 않았습니다!");
-    //         yield break;
-    //     }
-
-    //     // golemBossData.numberOfRainLasers 만큼 반복하며 레이저 발사
-    //     for (int i = 0; i < golemBossData.numberOfRainLasers; i++)
-    //     {
-    //         // 레이저 발사 위치는 rainLaserFixedSpawnPoints에서 가져옴
-    //         // 여러 위치가 있다면 순환하며 사용
-    //         Vector3 spawnPos = rainLaserFixedSpawnPoints[i % rainLaserFixedSpawnPoints.Length].position;
-
-    //         // 경고 프리팹 생성
-    //         GameObject warning = Instantiate(rainLaserWarningPrefab, spawnPos, Quaternion.identity);
-    //         Destroy(warning, golemBossData.rainLaserWarningDuration);
-
-    //         // 경고 시간 대기
-    //         yield return new WaitForSeconds(golemBossData.rainLaserWarningDuration);
-
-    //         // 실제 레이저 프리팹 생성 및 발사
-    //         GameObject laser = Instantiate(rainLaserPrefab, spawnPos, Quaternion.identity);
-    //         Projectile laserProjectile = laser.GetComponent<Projectile>();
-    //         if (laserProjectile != null)
-    //         {
-    //             laserProjectile.SetDamage(golemBossData.attackDamage);
-    //             laserProjectile.SetDirection(Vector2.down); // 아래로 떨어지도록 고정
-    //             // Projectile 스크립트의 speed와 lifeTime을 조절
-    //         }
-
-    //         // 다음 레이저까지의 간격 대기
-    //         // 경고 시간만큼 빼줘야 전체 간격이 rainLaserInterval
-    //         float remainingInterval = golemBossData.rainLaserInterval - golemBossData.rainLaserWarningDuration;
-    //         if (remainingInterval < 0) // 간격이 경고 시간보다 짧으면 문제될 수 있으므로 최소 대기 시간 설정
-    //         {
-    //              Debug.LogWarning("rainLaserInterval이 rainLaserWarningDuration보다 짧습니다. 레이저 발사 간격이 너무 짧을 수 있습니다.");
-    //              remainingInterval = 0.1f; // 최소 대기 시간 설정
-    //         }
-    //         yield return new WaitForSeconds(remainingInterval);
-    //     }
-    // }
-    private IEnumerator StartRainLaserPattern()
-    {
-        Debug.Log("맵 상단 고정 위치 레이저 패턴 시작!");
-
-        if (rainLaserFixedSpawnPoints == null || rainLaserFixedSpawnPoints.Length == 0)
-        {
-            Debug.LogError("고정 레이저 발사 위치(rainLaserFixedSpawnPoints)가 설정되지 않았습니다!");
-            yield break;
-        }
-
-        // 카메라 상단 Y 좌표 계산
-        float cameraHeight = Camera.main.orthographicSize;
-        float topY = Camera.main.transform.position.y + cameraHeight;
-
-        for (int i = 0; i < golemBossData.numberOfRainLasers; i++)
-        {
-            // [수정] 고정 위치 대신 랜덤 X 또는 지정 포인트 X 사용, Y는 화면 위로 올림
-            Transform spawnPoint = rainLaserFixedSpawnPoints[i % rainLaserFixedSpawnPoints.Length];
-            Vector3 warningPos = new Vector3(spawnPoint.position.x, topY + 1f, 0f); // 화면 위 1유닛
-
-            // 경고 프리팹 생성 (화면 위에서 표시)
-            GameObject warning = Instantiate(rainLaserWarningPrefab, warningPos, Quaternion.identity);
-            // [수정] 워닝 표시가 가려지지 않도록 z축 앞으로
-            warning.transform.position = new Vector3(warningPos.x, warningPos.y, -1f);
-
-            // 경고 시간 대기
-            yield return new WaitForSeconds(golemBossData.rainLaserWarningDuration);
-
-            // 실제 레이저 프리팹 생성 및 발사 (화면 위에서 아래로)
-            Vector3 laserPos = new Vector3(spawnPoint.position.x, topY + 1f, 0f); // 동일 위치에서 시작
-            GameObject laser = Instantiate(rainLaserPrefab, laserPos, Quaternion.identity);
-            Projectile laserProjectile = laser.GetComponent<Projectile>();
-            if (laserProjectile != null)
+            if (player != null)
             {
-                laserProjectile.SetDamage(golemBossData.attackDamage);
-                laserProjectile.SetDirection(Vector2.down); // 아래로 떨어지도록 고정
-                // [수정] lifeTime을 화면 높이 / 속도로 자동 계산
-                float fallDistance = cameraHeight * 2f + 1f;
-                laserProjectile.SetLifeTime(fallDistance / laserProjectile.Speed);
+                laserDirection = player.position.x > transform.position.x ? Vector2.right : Vector2.left;
             }
 
-            Destroy(warning);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
 
-            // 다음 레이저까지의 간격 대기
-            yield return new WaitForSeconds(golemBossData.rainLaserInterval - golemBossData.rainLaserWarningDuration);
+        // 차지 마지막 모습 유지 (발사 애니메이션 없이)
+        Debug.Log("레이저 발사!");
+
+        GameObject laser = Instantiate(bodyLaserPrefab, transform.position, Quaternion.identity);
+        laser.transform.right = laserDirection;
+        Destroy(laser, golemBossData.bodyLaserDuration);
+
+        // 레이저가 발사된 상태(차지 마지막 프레임 유지)에서 레이저 지속시간만큼 대기
+        yield return new WaitForSeconds(golemBossData.bodyLaserDuration);
+
+        // 레이저 발사 종료 후 마무리 애니메이션 실행
+        if (Animator != null && AnimationData != null)
+        {
+            Animator.SetTrigger(AnimationData.BodyLaserEndHash);  // LaserEnd 트리거로 마무리 애니메이션
+        }
+
+        yield return new WaitForSeconds(golemBossData.bodyLaserDuration);
+
+        // 다음 상태로 전환
+        ChangeState(new AttackState());
+    }
+
+    /// <summary>
+    /// 레인 레이저 패턴: 화면 상단 고정 위치에서 다발 레이저
+    /// </summary>
+    private IEnumerator StartRainLaserPattern()
+    {
+        float warningTime = golemBossData.rainLaserWarningDuration;
+        float fallY = Camera.main.transform.position.y + Camera.main.orthographicSize + 1f;
+
+        // 화면 너비 계산
+        float cameraWidth = Camera.main.orthographicSize * Camera.main.aspect * 2f;
+        float leftEdge = Camera.main.transform.position.x - cameraWidth / 2f;
+
+        float interval = golemBossData.rainLaserInterval;
+        int laserCount = Mathf.FloorToInt(cameraWidth / interval);
+
+        List<Vector3> round1 = new List<Vector3>();
+        List<Vector3> round2 = new List<Vector3>();
+
+        // 첫 번째
+        for (int i = 0; i < laserCount; i++)
+        {
+            float x = leftEdge + (i * interval) + 2.5f;
+            round1.Add(new Vector3(x, fallY, 0));
+        }
+
+        yield return new WaitForSeconds(golemBossData.rainLaserFallDuration);
+
+        // 두번 째
+        for (int i = 0; i < laserCount; i++)
+        {
+            float x = leftEdge + (i * interval) + 5f;
+            round2.Add(new Vector3(x, fallY, 0));
+        }
+
+        // 실행
+        yield return SpawnRainWave(round1, warningTime);
+        yield return new WaitForSeconds(0.2f);
+        yield return SpawnRainWave(round2, warningTime);
+
+        yield return new WaitForSeconds(golemBossData.rainLaserFallDuration);
+
+        ChangeState(new AttackState());
+    }
+
+    private IEnumerator SpawnRainWave(List<Vector3> spawnPositions, float warningDuration)
+    {
+        List<GameObject> warnings = new List<GameObject>();
+
+        // 경고 이펙트 생성
+        foreach (Vector3 pos in spawnPositions)
+        {
+            Vector3 warningPos = new Vector3(pos.x, pos.y, -1f); // Z를 살짝 낮춰서 경고를 맨 앞에 보이게
+            GameObject warning = Instantiate(rainLaserWarningPrefab, warningPos, Quaternion.identity);
+            warnings.Add(warning);
+        }
+
+        // 경고 시간만큼 대기
+        yield return new WaitForSeconds(warningDuration);
+
+        // 경고 삭제하고 레이저 생성
+        foreach (GameObject warning in warnings)
+        {
+            Vector3 laserPos = new Vector3(warning.transform.position.x, warning.transform.position.y, 0f);
+            GameObject laser = Instantiate(rainLaserPrefab, laserPos, Quaternion.identity);
+
+            // 레이저 발사 방향 및 수명 설정 (Projectile 컴포넌트 존재 시)
+            Projectile proj = laser.GetComponent<Projectile>();
+            if (proj != null)
+            {
+                proj.SetDamage(golemBossData.attackDamage);
+                proj.SetDirection(Vector2.down); // 레이저 아래로 낙하
+
+                // 수명은 카메라 높이 기반 자동 계산
+                float fallDistance = Camera.main.orthographicSize * 2f + 1f;
+                proj.SetLifeTime(fallDistance / proj.Speed);
+            }
+
+            Destroy(warning); // 경고 이펙트 제거
         }
     }
 
+    /// <summary>
+    /// 팔이 파괴될 때까지 무적 상태 유지하는 Idle 상태
+    /// </summary>
     public class InvincibilityIdleState : IBossState
     {
         private BossBase boss;
@@ -282,7 +286,7 @@ public class Golem : BossBase
             boss.SetInvincible(true);
             boss.rb.velocity = Vector2.zero;
             boss.Animator.SetBool(boss.AnimationData.InvincibilityIdleHash, true);
-            Debug.Log("무적 대기 상태 진입. 팔이 모두 파괴될 때까지 무적.");
+            Debug.Log("무적 대기 상태 진입");
         }
 
         public void Update()
@@ -299,7 +303,7 @@ public class Golem : BossBase
         public void Exit()
         {
             boss.Animator.SetBool(boss.AnimationData.InvincibilityIdleHash, false);
-            Debug.Log("무적 대기 상태 종료.");
+            Debug.Log("무적 대기 상태 종료");
         }
     }
 }

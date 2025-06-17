@@ -13,10 +13,6 @@ public class Projectile : MonoBehaviour
     public void SetDirection(Vector2 dir)
     {
         direction = dir.normalized;
-        // 옵션: 방향에 따라 스프라이트 회전 (2D 게임에서 유용)
-        // Atan2는 라디안 값을 반환하므로 Rad2Deg로 변환
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
     public void SetDamage(float dmg) // 데미지 설정 메서드
