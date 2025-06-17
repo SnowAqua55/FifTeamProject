@@ -16,7 +16,12 @@ public class AttackState : IBossState
     public void Update()
     {
         elapsedTime += Time.deltaTime;
+        if (boss.CurrentHP <= 0)
+        {
+            boss.ChangeState(new DeadState());
+        }
 
+        
         // 플레이어가 공격 범위를 벗어나면 쿨타임과 상관없이 상태 전환
         if (!boss.IsPlayerInRange(boss.AttackRange))
         {

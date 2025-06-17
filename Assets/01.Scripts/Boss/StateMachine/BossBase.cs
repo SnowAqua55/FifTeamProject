@@ -5,7 +5,7 @@ public abstract class BossBase : MonoBehaviour
     protected IBossState currentState;
 
     [Header("보스 데이터")]
-    [SerializeField] protected BossData bossData; // SO 연결
+    [SerializeField] private BossData bossData; // SO 연결
 
     public Animator Animator { get; private set; }
     public BossAnimationData AnimationData { get; private set; }
@@ -14,8 +14,7 @@ public abstract class BossBase : MonoBehaviour
     public Rigidbody2D rb { get; protected set; }
 
     public float CurrentHP => currentHP;
-    public bool IsDead => currentHP <= 0; // 현재 hp가 0보다 작거나 같을 때
-    protected bool isInvincible; // 무적 상태
+    public bool IsDead => currentHP <= 0;
 
     public float MaxHP => bossData.maxHP;
     public float MoveSpeed => bossData.moveSpeed;
@@ -43,7 +42,6 @@ public abstract class BossBase : MonoBehaviour
 
         // HP 초기화
         currentHP = bossData.maxHP;
-        isInvincible = false;
     }
 
     protected virtual void Start()
@@ -73,16 +71,16 @@ public abstract class BossBase : MonoBehaviour
         currentState = newState;
         currentState.Enter(this);
     }
-
+    
     /// <summary>
     /// 데미지 받음
     /// </summary>
     /// <param name="amount"></param>
-    public virtual void TakeDamage(float amount)
+    public void TakeDamage(float amount)
     {
         currentHP -= amount;
         if (currentHP <= 0)
-            ChangeState(new DeadState());
+            ChangeState(new DeadState());  
         else
             ChangeState(new DamagedState());
     }
@@ -137,19 +135,18 @@ public abstract class BossBase : MonoBehaviour
         }
     }
 
-    public void SetInvincible(bool invincible)
-    {
-        isInvincible = invincible;
-    }
-
-    public bool GetIsInvincible() // 또는 public bool IsInvincible => isInvincible; 로 프로퍼티화
-    {
-        return isInvincible;
-    }
-
     // 초기화 함수
     public abstract void InitStateMachine();
 
     // 자식이 오버라이드하는 공격 함수
     public abstract void AttackPlayer();
+    
+    private void OnTriggerEnter2D(Collider2D other) // 논의 후 삭제
+    {
+        if (other.gameObject.tag == "PlayerAttack")
+        {
+            TakeDamage(1);
+            ChangeState(new DamagedState());
+        }
+    }
 }
