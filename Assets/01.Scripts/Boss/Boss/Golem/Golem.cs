@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Golem : BossBase
 {
     private GolemBossData golemBossData => bossData as GolemBossData;
+    private Coroutine currentAttackCoroutine;
 
     [Header("팔 설정")]
     [SerializeField] private GameObject GolemArmPrefab;
@@ -19,6 +20,10 @@ public class Golem : BossBase
 
     [Header("고정 위치 레이저")]
     [SerializeField] private Transform[] rainLaserFixedSpawnPoints;
+
+    // 생성된 오브젝트 추가
+    private List<GameObject> activeWarnings = new List<GameObject>();
+    private List<GameObject> activeProjectiles = new List<GameObject>();
 
     protected override void Awake()
     {
@@ -49,10 +54,12 @@ public class Golem : BossBase
     {
         if (isInvincible) return;
 
+
         currentHP -= amount;
 
         if (currentHP <= 0)
         {
+            CleanupAll();
             ChangeState(new DeadState());
         }
         else
@@ -105,6 +112,7 @@ public class Golem : BossBase
         activeArmsCount--;
         if (activeArmsCount <= 0)
         {
+            Debug.Log("버그");
             SetInvincible(false); // 무적 해제
             ChangeState(new AttackState());
         }
@@ -114,7 +122,12 @@ public class Golem : BossBase
     {
         if (isInvincible || activeArmsCount > 0) return;
 
-        StartCoroutine(PerformBodyLaserAttackSequence());
+        if (currentAttackCoroutine != null)
+        {
+            StopCoroutine(currentAttackCoroutine);
+        }
+
+        currentAttackCoroutine = StartCoroutine(PerformBodyLaserAttackSequence());
     }
 
     /// <summary>
@@ -138,8 +151,6 @@ public class Golem : BossBase
     /// </summary>
     private IEnumerator PerformBodyLaserAttack()
     {
-        Debug.Log("레이저 차지 시작!");
-
         if (Animator != null && AnimationData != null)
         {
             Animator.SetTrigger(AnimationData.BodyLaserChargeHash); // 차지 애니메이션 시작
@@ -154,18 +165,17 @@ public class Golem : BossBase
         {
             if (player != null)
             {
-                laserDirection = player.position.x > transform.position.x ? Vector2.right : Vector2.left;
+                laserDirection = (player.position - transform.position).normalized;
             }
 
             elapsed += Time.deltaTime;
             yield return null;
         }
-
         // 차지 마지막 모습 유지 (발사 애니메이션 없이)
-        Debug.Log("레이저 발사!");
 
         GameObject laser = Instantiate(bodyLaserPrefab, transform.position, Quaternion.identity);
         laser.transform.right = laserDirection;
+        activeProjectiles.Add(laser);
 
         BodyLaserDamage laserDamage = laser.GetComponent<BodyLaserDamage>();
         if (laserDamage != null)
@@ -244,6 +254,7 @@ public class Golem : BossBase
             Vector3 warningPos = new Vector3(pos.x, pos.y, -1f); // Z를 살짝 낮춰서 경고를 맨 앞에 보이게
             GameObject warning = Instantiate(rainLaserWarningPrefab, warningPos, Quaternion.identity);
             warnings.Add(warning);
+            activeWarnings.Add(warning);
         }
 
         // 경고 시간만큼 대기
@@ -269,6 +280,29 @@ public class Golem : BossBase
 
             Destroy(warning); // 경고 이펙트 제거
         }
+    }
+
+    /// <summary>
+    /// 패턴시 골렘 죽으면 프리팹 제거
+    /// </summary>
+    private void CleanupAll()
+    {
+        if (currentAttackCoroutine != null)
+        {
+            StopCoroutine(currentAttackCoroutine);
+            currentAttackCoroutine = null;
+        }
+
+        foreach (var obj in activeWarnings)
+            if (obj != null) Destroy(obj);
+        activeWarnings.Clear();
+
+        foreach (var obj in activeProjectiles)
+            if (obj != null) Destroy(obj);
+        activeProjectiles.Clear();
+
+        foreach (var arm in allArms)
+            if (arm != null) arm.gameObject.SetActive(false);
     }
 
     /// <summary>
