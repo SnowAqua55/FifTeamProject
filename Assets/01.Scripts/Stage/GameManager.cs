@@ -54,11 +54,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        PlayerInit();
-    }
-
-    public void PlayerInit()
-    {
         bool hasPlayerObject = FindAnyObjectByType<PlayerHealth>();
         if (hasPlayerObject)
         {
@@ -70,7 +65,6 @@ public class GameManager : MonoBehaviour
                 {
                     player = playerObj.GetComponent<PlayerHealth>();
                 }
-                playerObj.SetActive(false);
             }
         }
     }
@@ -81,7 +75,6 @@ public class GameManager : MonoBehaviour
         {
             case "MainScene":
                 SceneManager.LoadScene("MainScene");
-                PlayerInit();
                 break;
             case "IntroScene":
                 SceneManager.LoadScene("IntroScene");
