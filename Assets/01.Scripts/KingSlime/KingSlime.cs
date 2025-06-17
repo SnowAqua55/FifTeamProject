@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public enum State
 {
     Move,
+    Damaged,
     Skill,
     Change_Phase,
     Die
@@ -13,18 +15,29 @@ public enum State
 
 public class KingSlime : MonoBehaviour
 {
-    [SerializeField] Sprite phase2;
-    [SerializeField] Sprite phase3;
-    [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] private GameObject slimeball;
-    [SerializeField] private GameObject miniSlime;
     public Rigidbody2D _rigidbody;
     [SerializeField] public Transform player;
 
+    [Header("슬라임 이미지")]
+    [SerializeField] Sprite phase2;
+    [SerializeField] Sprite phase3;
+    [SerializeField] SpriteRenderer spriteRenderer;
 
-    private Coroutine nomalAttCoroutine;
-    private Coroutine downSlamCoroutine;
+    [Header("슬라임 소환물")]
+    [SerializeField] private GameObject slimeball;
+    [SerializeField] private GameObject miniSlime;
 
+    [Header("슬라임 애니메이션")]
+    [SerializeField] Animator animator;
+    [SerializeField] AnimatorController phase1Jump;
+    [SerializeField] AnimatorController phase2Jump;
+    [SerializeField] AnimatorController phase3Jump;
+    [SerializeField] AnimatorController phase1hurt;
+    [SerializeField] AnimatorController phase2hurt;
+    [SerializeField] AnimatorController phase3hurt;
+    [SerializeField] AnimatorController dead;
+
+    
 
     [Header("슬라임 스탯")]
     public string nowPhase = "Phase1";
@@ -35,8 +48,9 @@ public class KingSlime : MonoBehaviour
 
     [Header("슬라임 관련")]
     public State state;
-    public float jumpInterval = 2f; // 점프 간격
+    public float jumpInterval = 4f; // 점프 간격
     private float jumpTimer = 0f; // 점프 타이머
+    private bool useSkill = false;
     private float skillTimer = 0f;
     private float skillInterval = 15f;
     private Vector3 oriScale;// 원래 크기
@@ -51,19 +65,14 @@ public class KingSlime : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        
+        animator = GetComponentInChildren<Animator>();
 
         _rigidbody = GetComponent<Rigidbody2D>();
         _rigidbody.freezeRotation = true; // 점프 시 회전을 하기에 회전을 멈추는 코드
 
         curHp = maxHp;
         oriScale = transform.localScale;
-
-        if (nomalAttCoroutine != null)
-        {
-            StopCoroutine(nomalAttCoroutine);
-        }
-
-        nomalAttCoroutine = StartCoroutine(NomalAttack());
 
         state = State.Move;
 
@@ -83,12 +92,17 @@ public class KingSlime : MonoBehaviour
             state = State.Skill;
         }
 
-        if(curHp <= maxHp * 0.6)
+        if(curHp <= maxHp * 0.6 && nowPhase == "Phase1")
         {
             state = State.Change_Phase;
         }
 
-        if(curHp <= 0)
+        if (curHp <= maxHp * 0.2 && nowPhase == "Phase2")
+        {
+            state = State.Change_Phase;
+        }
+
+        if (curHp <= 0)
         {
             state = State.Die;
         }
@@ -108,12 +122,13 @@ public class KingSlime : MonoBehaviour
                 break;
 
             case State.Skill:
-                if(nowPhase == "Phase2")
+                if(nowPhase == "Phase2" && useSkill == false)
                 {
                     StartDownSlamAttack();
+                    
                 }
 
-                if(nowPhase == "Phase3")
+                if(nowPhase == "Phase3" && useSkill == false)
                 {
                     int skill = Random.Range(1, 4);
                     if(skill == 1)
@@ -125,7 +140,7 @@ public class KingSlime : MonoBehaviour
                         SpownMiniSlimeSkill();
                     }
                 }
-
+                skillTimer = 0f;
                 break;
 
             case State.Change_Phase:
@@ -135,6 +150,9 @@ public class KingSlime : MonoBehaviour
             case State.Die:
                 Dead();
                 break;
+            case State.Damaged:
+                Damaged();
+                break;
         }
     }
 
@@ -143,6 +161,20 @@ public class KingSlime : MonoBehaviour
     //플레이어 추적 메서드 (슬라임처럼 점프로)
     public void Chase()
     {
+        switch (nowPhase)
+        {
+            case "Phase1":
+                animator.runtimeAnimatorController = phase1Jump;
+                break;
+            case "Phase2":
+                animator.runtimeAnimatorController = phase2Jump;
+                break;
+            case "Phase3":
+                animator.runtimeAnimatorController = phase3Jump;
+                break;
+        }
+
+        StartCoroutine(NomalAttack());
 
         Vector2 direction = (player.position - transform.position).normalized;
         Vector2 jumpDirection = new Vector2(direction.x, 1f).normalized;
@@ -155,20 +187,22 @@ public class KingSlime : MonoBehaviour
 
     }
 
+    
     //기본 공격
     private IEnumerator NomalAttack()
     {
-        
-        Vector2 dir = (player.position - transform.position).normalized;
-        Vector3 offset = (dir.x < 0f) ? new Vector3(-2f, 0f, 0f) : new Vector3(2f, 0f, 0f);
-
-
-        for (int i = 0; i < 3; i++)
+        while (!useSkill)
         {
-            Instantiate(slimeball, transform.position + offset, Quaternion.identity);
-            yield return new WaitForSeconds(0.8f);
-        }
+            Vector2 dir = (player.position - transform.position).normalized;
+            Vector3 offset = (dir.x < 0f) ? new Vector3(-2f, 0f, 0f) : new Vector3(2f, 0f, 0f);
 
+
+            for (int i = 0; i < 3; i++)
+            {
+                Instantiate(slimeball, transform.position + offset, Quaternion.identity);
+                yield return new WaitForSeconds(0.8f);
+            }
+        }
     }
 
     public void StartDownSlamAttack()
@@ -180,23 +214,30 @@ public class KingSlime : MonoBehaviour
     {
         //추적 중 코루틴이 실시되면 미끄러지듯이 공중에서 움직임
         //그래서 움직임을 완전 멈춤
+
+        useSkill = true;
+        attPower *= 2;
+        
         _rigidbody.velocity = Vector2.zero;
         _rigidbody.angularVelocity = 0f;
 
         _rigidbody.bodyType = RigidbodyType2D.Kinematic;
-        transform.position = new Vector3(player.position.x, player.position.y + 8.0f, 0f);
+        transform.position = new Vector3(player.position.x, player.position.y + 10.0f, 0f);
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
 
         _rigidbody.bodyType = RigidbodyType2D.Dynamic;
         _rigidbody.AddForce(Vector2.down * 20f, ForceMode2D.Impulse);
-
+        
         yield return new WaitForSeconds(1.0f);
+        useSkill = false;
         state = State.Move;
+        attPower = attPower / 2;
     }
 
     public void SpownMiniSlimeSkill()
     {
+        useSkill = true;
         curMiniSlime = maxMiniSlime;
 
         Vector2 dir = (player.position - transform.position).normalized;
@@ -209,9 +250,12 @@ public class KingSlime : MonoBehaviour
 
         }
 
+        useSkill = false;
+        state = State.Move;
+        
         Invoke("HpHeal", 10f);
 
-        state = State.Move;
+        
     }
     public void HpHeal()
     {
@@ -227,6 +271,7 @@ public class KingSlime : MonoBehaviour
             nowPhase = "Phase2";
             // 푸른 슬라임으로 변환
             spriteRenderer.sprite = phase2;
+            animator.runtimeAnimatorController = phase2Jump;
             jumpInterval = 1.5f; //점프 간격을 감소하여 이속 증가
 
         }
@@ -235,6 +280,7 @@ public class KingSlime : MonoBehaviour
             nowPhase = "Phase3";
             // 빨간 슬라임으로 변환
             spriteRenderer.sprite = phase3;
+            animator.runtimeAnimatorController = phase3Jump;
             attPower *= 2;
             jumpInterval = 1.0f;
         }
@@ -244,14 +290,32 @@ public class KingSlime : MonoBehaviour
 
     public void Damaged()
     {
+        switch (nowPhase)
+        {
+            case "Phase1":
+                animator.runtimeAnimatorController = phase1hurt;
+                break;
+            case "Phase2":
+                animator.runtimeAnimatorController = phase1hurt;
+                break;
+            case "Phase3":
+                animator.runtimeAnimatorController = phase3hurt;
+                break;
+        }
+
         curHp -= 10;// 나중에는 플레이어의 데미지를 가져와 적용
         Vector2 knockbackDir = new Vector2(-(player.position.x - transform.position.x), 0f).normalized;
         _rigidbody.AddForce(knockbackDir * 4f, ForceMode2D.Impulse);
+
+        state =State.Move;
     }
 
     public void Dead()
     {
+        StopAllCoroutines();
+        animator.runtimeAnimatorController = dead;
         // 죽음 애니메이션 및 문열리는 메서드
+        Destroy(gameObject, 1.0f);
     }
 
     private void OnCollisionEnter(Collision collision)

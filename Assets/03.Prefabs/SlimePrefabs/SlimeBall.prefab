@@ -137,6 +137,9 @@ MonoBehaviour:
   player: {fileID: 0}
   slimeBall: {fileID: 0}
   kingSlime: {fileID: 0}
+  _sP: {fileID: 0}
+  p2ball: {fileID: -7078261816480267791, guid: bfeede70efd14484683f5956b4f1194b, type: 3}
+  p3ball: {fileID: -594261065437009825, guid: d4e8a5c5eececab46942986a743fd7d8, type: 3}
   speed: 6
 --- !u!50 &-1636790958893536365
 Rigidbody2D:

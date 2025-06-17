@@ -360,7 +360,7 @@ Transform:
   m_GameObject: {fileID: 461508457}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -40.61, y: 0.42, z: 0}
+  m_LocalPosition: {x: -41.12, y: -5.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -671,8 +671,8 @@ Transform:
   m_GameObject: {fileID: 1424265382}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29.85, y: -2.42, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.7, z: 1}
+  m_LocalPosition: {x: -31.26, y: -3.12, z: 0}
+  m_LocalScale: {x: 1.3, y: 1.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2038530326}
@@ -717,18 +717,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0eb4ff68fed2914bba938aea144142f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rigidbody: {fileID: 0}
+  player: {fileID: 461508459}
   phase2: {fileID: -7078261816480267791, guid: bfeede70efd14484683f5956b4f1194b, type: 3}
   phase3: {fileID: -594261065437009825, guid: d4e8a5c5eececab46942986a743fd7d8, type: 3}
   spriteRenderer: {fileID: 0}
   slimeball: {fileID: 8386350135735631637, guid: bf376bc593d98ed47baf3aa7b395a5ae, type: 3}
   miniSlime: {fileID: 6969855237025093820, guid: 89cc290bbaa2a5946b7b267b0a1faf83, type: 3}
-  _rigidbody: {fileID: 0}
-  player: {fileID: 461508459}
+  animator: {fileID: 0}
+  phase1Jump: {fileID: 9100000, guid: 89aaebe355d346b40af738d224f2010f, type: 2}
+  phase2Jump: {fileID: 9100000, guid: 68555cc7381816a4b8e2742db37c34de, type: 2}
+  phase3Jump: {fileID: 9100000, guid: dfdb4d2f80da0fd449348e31347bc646, type: 2}
+  phase1hurt: {fileID: 9100000, guid: 07d9096d91c4a6a40b1daee1055c7413, type: 2}
+  phase2hurt: {fileID: 9100000, guid: 0f3c85399244fa24a8eec59777037030, type: 2}
+  phase3hurt: {fileID: 9100000, guid: 139bb3df838999240995593134a21a1a, type: 2}
+  dead: {fileID: 9100000, guid: 14c53af6d4e38794d9e6d2c0e72ac9b5, type: 2}
   nowPhase: Phase1
   maxHp: 10000
   curHp: 0
   attPower: 0
   jumpPower: 5
+  state: 0
   jumpInterval: 2
   maxMiniSlime: 3
   curMiniSlime: 0
@@ -872,6 +881,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2038530326}
   - component: {fileID: 2038530327}
+  - component: {fileID: 2038530328}
   m_Layer: 0
   m_Name: SlimeSprite
   m_TagString: Untagged
@@ -946,6 +956,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2038530328
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038530325}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 89aaebe355d346b40af738d224f2010f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &4766600299862962152
 PrefabInstance:
   m_ObjectHideFlags: 0
