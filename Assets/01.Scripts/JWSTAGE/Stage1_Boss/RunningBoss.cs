@@ -60,8 +60,7 @@ public class RunningBoss : BossBase
         yield return new WaitForSeconds(1.0f);
         if(currentState.GetType() == new DeadState().GetType()) yield break; 
         transform.position = telPosition;
-        teleportCount++;
-        if (teleportCount == 3) Attack();
+        Attack();
         telCoroutine = null;
     }
 
@@ -85,34 +84,41 @@ public class RunningBoss : BossBase
 
     IEnumerator RageAttack()
     {
-        Debug.Log("여긴잘됨");
         int ran = Random.Range(0, rageAttack.Length);
         GameObject attack = Instantiate(rageAttack[ran]);
-        attack.gameObject.SetActive(true);
         Collider2D[] col = attack.GetComponentsInChildren<Collider2D>();
         SpriteRenderer[] renderers = attack.GetComponentsInChildren<SpriteRenderer>();
         float timer = 0;
         Color firstColor = new Color(248f / 255f, 92f / 255f, 92f / 255f, 60f / 255f);
-        Color lastColor = new Color(248f / 255f, 92f / 255f, 92f / 255f, 150f / 255f);
+        Color lastColor = new Color(248f / 255f, 92f / 255f, 92f / 255f, 200f / 255f);
         while (timer < attackApplyTime)
         {
             timer += Time.deltaTime;
             float t = timer / attackApplyTime;
             for (int i = 0; i < renderers.Length; i++)
             {
-                renderers[i].color = Color.Lerp(firstColor, lastColor, t);   
+                if (renderers[i] != null)
+                {
+                    renderers[i].color = Color.Lerp(firstColor, lastColor, t);
+                }
+            }
+            yield return null;
+        }
+        
+        yield return new WaitForSeconds(attackApplyTime);
+        for (int i = 0; i < col.Length; i++)
+        {
+            if (col[i] == null)
+            {
+                Debug.Log("콜라이더 비었음");
+            }
+            else
+            {
+                col[i].enabled = true;
+                Debug.Log(col[i].enabled);
             }
         }
-
-        for (int i = 0; i < col.Length; i++)
-        {
-            col[i].enabled = true;
-        }
         yield return new WaitForSeconds(0.5f);
-        for (int i = 0; i < col.Length; i++)
-        {
-            col[i].enabled = false;
-            renderers[i].color = firstColor;
-        }
+        Destroy(attack);
     }
 }

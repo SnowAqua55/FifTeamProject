@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1977713019435107004}
   - component: {fileID: 156573570756920542}
   - component: {fileID: 5236249578958897972}
+  - component: {fileID: 671123864752734758}
   m_Layer: 0
   m_Name: AttackRange
   m_TagString: Untagged
@@ -92,7 +93,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655742963602818202}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -142,6 +143,18 @@ PolygonCollider2D:
       - {x: 3.82, y: -3.21}
       - {x: 3.82, y: -3.1799998}
   m_UseDelaunayMesh: 0
+--- !u!114 &671123864752734758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655742963602818202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e824f76a3344652479782c7d0f6f7155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3312550010654045050
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +166,7 @@ GameObject:
   - component: {fileID: 170203166748997244}
   - component: {fileID: 3817982204613201040}
   - component: {fileID: 5726059512165730509}
+  - component: {fileID: 5853187191889805786}
   m_Layer: 0
   m_Name: AttackRange (1)
   m_TagString: Untagged
@@ -234,7 +248,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3312550010654045050}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -284,6 +298,18 @@ PolygonCollider2D:
       - {x: 3.82, y: -3.21}
       - {x: 3.82, y: -3.1799998}
   m_UseDelaunayMesh: 0
+--- !u!114 &5853187191889805786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3312550010654045050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e824f76a3344652479782c7d0f6f7155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5288068816995599787
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +325,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2515580209247457417
 Transform:
   m_ObjectHideFlags: 0

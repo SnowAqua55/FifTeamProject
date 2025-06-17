@@ -7,14 +7,19 @@ public class RunBossAttack : MonoBehaviour
 {
     private void Start()
     {
-        Destroy(this.gameObject, 1f);
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            other.GetComponent<PlayerHealth>().TakeDamage(1); 
+            PlayerHealth player = other.GetComponent<PlayerHealth>();
+            if (player != null)
+            {
+                other.GetComponent<PlayerHealth>().TakeDamage(1);
+            }
+            else return;
         }
     }
 }

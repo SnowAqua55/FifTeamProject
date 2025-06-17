@@ -136,7 +136,7 @@ MonoBehaviour:
   - {fileID: 4913001511751375450, guid: 288195fc7b4b19a4693988666de642ce, type: 3}
   - {fileID: 5288068816995599787, guid: 094de394a3c632146b00ee4a16e0b984, type: 3}
   stageStartTime: 0
-  attackApplyTime: 2
+  attackApplyTime: 1
 --- !u!1 &7064749582524707198
 GameObject:
   m_ObjectHideFlags: 0

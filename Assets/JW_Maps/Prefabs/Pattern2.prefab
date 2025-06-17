@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7982093942723321681}
   - component: {fileID: 4497708616892738162}
   - component: {fileID: 7152774898653884785}
+  - component: {fileID: 2403446618826268661}
   m_Layer: 0
   m_Name: AttackRange
   m_TagString: Untagged
@@ -92,7 +93,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 237518592702831898}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -142,6 +143,18 @@ PolygonCollider2D:
       - {x: 3.82, y: -3.21}
       - {x: 3.82, y: -3.1799998}
   m_UseDelaunayMesh: 0
+--- !u!114 &2403446618826268661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237518592702831898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e824f76a3344652479782c7d0f6f7155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7784680652831161118
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1064578713850803132
 Transform:
   m_ObjectHideFlags: 0
@@ -186,6 +199,7 @@ GameObject:
   - component: {fileID: 7029989968295455768}
   - component: {fileID: 7080570464807016108}
   - component: {fileID: 6644663989698596483}
+  - component: {fileID: 944539267589959516}
   m_Layer: 0
   m_Name: AttackRange (1)
   m_TagString: Untagged
@@ -267,7 +281,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8504145300802758352}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -317,3 +331,15 @@ PolygonCollider2D:
       - {x: 3.82, y: -3.21}
       - {x: 3.82, y: -3.1799998}
   m_UseDelaunayMesh: 0
+--- !u!114 &944539267589959516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504145300802758352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e824f76a3344652479782c7d0f6f7155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
