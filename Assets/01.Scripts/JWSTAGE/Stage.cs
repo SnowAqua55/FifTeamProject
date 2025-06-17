@@ -31,9 +31,11 @@ public class Stage : MonoBehaviour
     }
 
     
-    public void InitStage()
+    public IEnumerator InitStage()
     {
         //플레이어 초기 위치 잡기
+        UIManager.Instance.FadeFlashTest();
+        yield return new WaitForSeconds(1.5f);
         BGMPlayer.instance.PlayBgm(1);
         bossVirtualCamera.gameObject.SetActive(true);
         virtualCamera.Follow = this.gameObject.transform;
@@ -65,7 +67,7 @@ public class Stage : MonoBehaviour
             return; // 마지막 스테이지 클리어 UI 출력해도 될 듯
         } 
         // UI FadeOut
-        InitStage();
+        StartCoroutine(InitStage());
     }
 
     public void SpawnBossCamera()
