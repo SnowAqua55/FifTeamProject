@@ -278,8 +278,7 @@ MonoBehaviour:
   - {fileID: 2610824816452274048}
   - {fileID: 956921785425950948}
   - {fileID: 5905013872632361558}
-  bodyLaserWarningPrefab: {fileID: 3983541637047710120, guid: 282438d206b274527af609970151e8dc, type: 3}
-  bodyLaserPrefab: {fileID: 1249653980858249722, guid: e544fc291a123446bb11660a1b3244b0, type: 3}
+  bodyLaserPrefab: {fileID: 3930559692898954637, guid: ae165da35ac0b42c9875567f5a4b77cd, type: 3}
   rainLaserWarningPrefab: {fileID: 3983541637047710120, guid: 282438d206b274527af609970151e8dc, type: 3}
   rainLaserPrefab: {fileID: 1249653980858249722, guid: e544fc291a123446bb11660a1b3244b0, type: 3}
   rainLaserFixedSpawnPoints:
