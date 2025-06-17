@@ -82,10 +82,12 @@ public class GameManager : MonoBehaviour
         {
             case "MainScene":
                 SceneManager.LoadScene("MainScene");
+                Time.timeScale = 1;
                 //PlayerInit();
                 break;
             case "IntroScene":
                 SceneManager.LoadScene("IntroScene");
+                Time.timeScale = 1;
                 //PlayerInit();
                 break;
             default:
