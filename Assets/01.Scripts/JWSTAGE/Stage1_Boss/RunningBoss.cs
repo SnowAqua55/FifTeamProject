@@ -72,7 +72,9 @@ public class RunningBoss : BossBase
             if (teleportCount == 3)
             {
                 teleportCount = 0;
-                Instantiate(attackPrefab, GameManager.Instance.Player.transform.position, Quaternion.Euler(0, 0, 25));
+                GameObject attack = attackPrefab;
+                Instantiate(attack, GameManager.Instance.Player.transform.position, Quaternion.Euler(0, 0, 25));
+                Destroy(attack, 1.0f);
             }
             else return;
         }

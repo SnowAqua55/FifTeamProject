@@ -128,7 +128,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   attackPrefab: {fileID: 6798761839131452267, guid: c9ae7901c336ab0459eced3bd85f7fd8, type: 3}
-  rageTime: 10
+  rageTime: 25
   isRage: 1
   rageAttack:
   - {fileID: 545745213196547262, guid: 7f94eea75173a16478999e1a317f4c10, type: 3}

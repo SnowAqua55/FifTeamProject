@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class RunBossAttack : MonoBehaviour
 {
-    private void Start()
-    {
-        
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
