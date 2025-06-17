@@ -21,7 +21,7 @@ MonoBehaviour:
   staggerTime: 0.5
   golemArmData:
     maxHP: 10
-    attackDamage: 0
+    attackDamage: 1
     attackCooldown: 3
     projectilePrefab: {fileID: 1756689481828615444, guid: c7e3a0ecb17ba4f9bb1a2ab8dc17cb3b, type: 3}
     armOrbitSpeed: 20

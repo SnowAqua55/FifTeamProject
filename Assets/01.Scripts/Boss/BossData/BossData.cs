@@ -6,7 +6,7 @@ public class BossData : ScriptableObject
     public float maxHP;
     public float moveSpeed;
     public float attackRange;
-    public float attackDamage;
+    public int attackDamage;
 
     public float detectRange = 5f;
     public float attackCooldown = 1.5f;

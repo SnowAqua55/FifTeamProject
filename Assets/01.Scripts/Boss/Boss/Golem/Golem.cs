@@ -26,7 +26,6 @@ public class Golem : BossBase
 
         if (golemBossData == null)
         {
-            Debug.LogError("GolemBossData가 설정되지 않았습니다!", this);
             enabled = false;
             return;
         }
@@ -48,11 +47,7 @@ public class Golem : BossBase
 
     public override void TakeDamage(float amount)
     {
-        if (isInvincible)
-        {
-            Debug.Log("골렘은 무적 상태입니다.");
-            return;
-        }
+        if (isInvincible) return;
 
         currentHP -= amount;
 
@@ -117,11 +112,7 @@ public class Golem : BossBase
 
     public override void AttackPlayer()
     {
-        if (isInvincible || activeArmsCount > 0)
-        {
-            Debug.Log("무적이거나 팔이 살아있어 공격하지 않음");
-            return;
-        }
+        if (isInvincible || activeArmsCount > 0) return;
 
         StartCoroutine(PerformBodyLaserAttackSequence());
     }
@@ -175,6 +166,13 @@ public class Golem : BossBase
 
         GameObject laser = Instantiate(bodyLaserPrefab, transform.position, Quaternion.identity);
         laser.transform.right = laserDirection;
+
+        BodyLaserDamage laserDamage = laser.GetComponent<BodyLaserDamage>();
+        if (laserDamage != null)
+        {
+            laserDamage.SetDamage(golemBossData.golemArmData.attackDamage);
+        }
+
         Destroy(laser, golemBossData.bodyLaserDuration);
 
         // 레이저가 발사된 상태(차지 마지막 프레임 유지)에서 레이저 지속시간만큼 대기
@@ -219,7 +217,7 @@ public class Golem : BossBase
 
         yield return new WaitForSeconds(golemBossData.rainLaserFallDuration);
 
-        // 두번 째
+        // 두 번째
         for (int i = 0; i < laserCount; i++)
         {
             float x = leftEdge + (i * interval) + 5f;

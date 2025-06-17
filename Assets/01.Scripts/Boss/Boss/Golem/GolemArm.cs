@@ -5,7 +5,7 @@ public class GolemArm : MonoBehaviour
 {
     private Golem parentBoss;              // 이 팔이 속한 보스 오브젝트 참조
     private float currentHP;               // 팔 현재 체력
-    private float attackDamage;            // 공격력
+    private int attackDamage;            // 공격력
     private float attackCooldown;          // 공격 쿨타임
     private GameObject armProjectilePrefab;// 발사체 프리팹
 

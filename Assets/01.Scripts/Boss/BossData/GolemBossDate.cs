@@ -19,7 +19,7 @@ public class GolemBossData : BossData
     public struct ArmData
     {
         public float maxHP;
-        public float attackDamage;
+        public int attackDamage;
         public float attackCooldown;
         public GameObject projectilePrefab;
         public float armOrbitSpeed;
