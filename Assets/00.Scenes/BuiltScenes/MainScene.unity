@@ -344,7 +344,7 @@ PrefabInstance:
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1128361329}
+      objectReference: {fileID: 0}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: GameOverPanel
       value: 
