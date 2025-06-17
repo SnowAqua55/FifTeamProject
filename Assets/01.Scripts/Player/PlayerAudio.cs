@@ -10,8 +10,6 @@ public class PlayerAudio : MonoBehaviour
     [Header("SFX 볼륨 스케일")]
     [Tooltip("Dash SFX 볼륨 스케일")]
     [Range(0f,1f)] public float dashVolume = 0.3f;
-    [Tooltip("Death SFX 볼륨 스케일")]
-    [Range(0f,1f)] public float deathVolume = 0.5f;
     
     AudioSource audioSource;
 
@@ -22,5 +20,5 @@ public class PlayerAudio : MonoBehaviour
     public void PlayDash()  => audioSource.PlayOneShot(dashSfx, dashVolume);
     public void PlayHurt()  => audioSource.PlayOneShot(hurtSfx);
     public void PlayAttack()  => audioSource.PlayOneShot(attackSfx);
-    public void PlayDeath() => audioSource.PlayOneShot(deathSfx, deathVolume);
+    public void PlayDeath() => audioSource.PlayOneShot(deathSfx);
 }

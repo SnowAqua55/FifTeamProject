@@ -136,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
             footstepTimer += Time.deltaTime;
             if (footstepTimer >= footstepInterval)
             {
-                Instantiate(footstepDustPrefab, groundCheck.position, Quaternion.identity).Play();
+                Instantiate(footstepDustPrefab, transform.position, Quaternion.identity).Play();
                 footstepTimer = 0f;
             }
         }
