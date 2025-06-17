@@ -31,6 +31,8 @@ public class UIManager : MonoBehaviour
     public Image fadeImage;
 
     public ConditionUI condition;
+    public GameObject ui;
+    private Transform uiCanvas;
 
     private void Awake()
     {
@@ -38,6 +40,11 @@ public class UIManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
+        
+        DontDestroyOnLoad(ui);
+        uiCanvas = ui.transform;
+
+        Init();
     }
 
     // Fade Fuction
@@ -97,5 +104,13 @@ public class UIManager : MonoBehaviour
         Fade = StartCoroutine(FadeFlash(fadeOutDuration, waitDuration, fadeInDuration));
     }
 
-    // Heart Management
+    // UI Initialization
+    private void Init()
+    {
+        uiCanvas.Find("Intro").gameObject.SetActive(true);
+        uiCanvas.Find("Player").gameObject.SetActive(false);
+        uiCanvas.Find("Option").gameObject.SetActive(false);
+        uiCanvas.Find("FadeImage").gameObject.GetComponent<Image>().enabled = false;
+        uiCanvas.Find("GameOverPanel").gameObject.SetActive(false);
+    }
 }
