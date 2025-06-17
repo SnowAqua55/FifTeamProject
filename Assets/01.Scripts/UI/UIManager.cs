@@ -13,7 +13,13 @@ public class UIManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = new GameObject("UIManager").AddComponent<UIManager>();
+                _instance = FindObjectOfType<UIManager>();
+                if (_instance == null)
+                {
+                    GameObject obj = new GameObject("UIManager");
+                    DontDestroyOnLoad(obj);
+                    _instance = obj.AddComponent<UIManager>();
+                }
             }
             return _instance;
         }
@@ -33,14 +39,9 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance == null)
+        if (_instance == this)
         {
-            _instance = this;
             DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
         }
 
         DontDestroyOnLoad(ui);
@@ -52,6 +53,8 @@ public class UIManager : MonoBehaviour
         gameOverUI = uiCanvas.Find("GameOverPanel").gameObject;
 
         Init();
+
+
     }
 
     // Fade Fuction
@@ -153,18 +156,21 @@ public class UIManager : MonoBehaviour
         switch (sceneName)
         {
             case "MainScene":
-                GameManager.Instance.ChangeScene(sceneName);
                 uiCanvas.Find("Intro").gameObject.SetActive(false);
                 uiCanvas.Find("Player").gameObject.SetActive(true);
                 uiCanvas.Find("Option").gameObject.SetActive(false);
                 uiCanvas.Find("GameOverPanel").gameObject.SetActive(false);
+                condition.GenerateHearts();
+                FadeInStart(1f);
+                GameManager.Instance.ChangeScene(sceneName);
                 break;
             case "IntroScene":
-                GameManager.Instance.ChangeScene(sceneName);
                 uiCanvas.Find("Intro").gameObject.SetActive(true);
                 uiCanvas.Find("Player").gameObject.SetActive(false);
                 uiCanvas.Find("Option").gameObject.SetActive(false);
                 uiCanvas.Find("GameOverPanel").gameObject.SetActive(false);
+                FadeInStart(1f);
+                GameManager.Instance.ChangeScene(sceneName);
                 break;
             default:
                 break;
