@@ -54,14 +54,6 @@ public class RunningBoss : BossBase
     {
         teleportCount = 0;
         Instantiate(attackPrefab, GameManager.Instance.Player.transform.position, Quaternion.Euler(0,0,25));
-        //GameManager.Instance.Player.TakeDamage(1);
     }
-    /*private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "PlayerAttack")
-        {
-            TakeDamage(1);
-            ChangeState(new DamagedState());
-        }
-    }*/
+    
 }
