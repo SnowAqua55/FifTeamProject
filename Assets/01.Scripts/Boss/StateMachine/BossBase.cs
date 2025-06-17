@@ -80,7 +80,7 @@ public abstract class BossBase : MonoBehaviour
     {
         currentHP -= amount;
         if (currentHP <= 0)
-            ChangeState(new DeadState());  
+            ChangeState(new DeadState());
         else
             ChangeState(new DamagedState());
     }
@@ -140,13 +140,5 @@ public abstract class BossBase : MonoBehaviour
 
     // 자식이 오버라이드하는 공격 함수
     public abstract void AttackPlayer();
-    
-    private void OnTriggerEnter2D(Collider2D other) // 논의 후 삭제
-    {
-        if (other.gameObject.tag == "PlayerAttack")
-        {
-            TakeDamage(1);
-            ChangeState(new DamagedState());
-        }
-    }
+
 }
