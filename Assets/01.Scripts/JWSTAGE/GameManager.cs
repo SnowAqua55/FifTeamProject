@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -56,22 +57,19 @@ public class GameManager : MonoBehaviour
         if (player == null)
         {
             player = GameObject.FindObjectOfType<PlayerHealth>();
-            player = player.GetComponent<PlayerHealth>();
+            if (player != null)
+            {
+                player = player.GetComponent<PlayerHealth>();
+            }
         }
         else
         {
             Debug.Log("Player is Nothing");
         }
     }
-    
-    /*void GameOver()
+
+    public void GameOver()
     {
-        if (boss == null) return;
-        
-        if (boss.CurrentHP <= 0)
-        {
-            stage.OpenDoor();
-        }
-    }*/
-    
+        stage.GameOverPanel.SetActive(true);
+    }
 }

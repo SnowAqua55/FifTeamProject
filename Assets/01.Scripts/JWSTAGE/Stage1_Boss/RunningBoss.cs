@@ -43,7 +43,6 @@ public class RunningBoss : BossBase
         if(currentState.GetType() == new DeadState().GetType()) yield break;
         yield return new WaitForSeconds(1.0f);
         if(currentState.GetType() == new DeadState().GetType()) yield break; 
-        Debug.Log(currentState.GetType());
         if(currentState.GetType() == new DeadState().GetType()) yield break; 
         transform.position = telPosition;
         teleportCount++;
