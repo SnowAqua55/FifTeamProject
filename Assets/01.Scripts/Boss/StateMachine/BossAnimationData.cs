@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class BossAnimationData
+public class GolemBossAnimationData
 {
     [SerializeField] private string moveParam = "isMove";
     [SerializeField] private string hitParam = "isHit";
