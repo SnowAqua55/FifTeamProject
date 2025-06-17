@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
-        UIManager.Instance.condition.GenerateHearts();
+        UIManager.Instance.condition.GenerateHearts(); // < 컨디션 UI에서 해야하는거아님?
     }
 
     // 외부에서 데미지 요청 시 호출
