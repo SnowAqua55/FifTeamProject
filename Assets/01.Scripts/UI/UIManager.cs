@@ -179,6 +179,7 @@ public class UIManager : MonoBehaviour
 
     public void GameOverUI()
     {
+        Time.timeScale = 0f;
         gameOverUI.gameObject.SetActive(true);
     }
 }
