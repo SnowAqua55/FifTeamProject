@@ -13,4 +13,13 @@ public class SceneLoadManager : MonoBehaviour
     {
         SceneManager.LoadScene("JW_IntroScene");
     }
+
+    public void GameExit()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+    }
 }

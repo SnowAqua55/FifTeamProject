@@ -28,7 +28,7 @@ public class Stage : MonoBehaviour
     public IEnumerator InitStage()
     {
         //플레이어 초기 위치 잡기
-        UIManager.Instance.FadeFlashTest();
+        UIManager.Instance.FadeFlashStart();
         yield return new WaitForSeconds(3.0f);
         BGMPlayer.instance.PlayBgm(1);
         bossVirtualCamera.gameObject.SetActive(true);

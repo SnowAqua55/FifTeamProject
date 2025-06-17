@@ -28,7 +28,6 @@ public class PlayerHealth : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         audioPlayer = GetComponent<PlayerAudio>();
-        PlayerManager.Instance.playerHealth = this;
     }
 
     private void Start()
@@ -101,7 +100,6 @@ public class PlayerHealth : MonoBehaviour
 
         Time.timeScale = 0;
         GameManager.Instance.GameOver();
-        // 이후 사망 UI 처리 등
     }
     
     public void ActivateInvincibility(float duration)

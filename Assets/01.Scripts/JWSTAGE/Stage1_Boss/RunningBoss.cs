@@ -13,7 +13,7 @@ public class RunningBoss : BossBase
     [Header("광폭화 패턴")]
     [SerializeField] private float rageTime;
     [SerializeField] private bool isRage;
-    [SerializeField] private GameObject rageAttack;
+    [SerializeField] private GameObject[] rageAttack;
     [SerializeField] private float stageStartTime;
     [SerializeField] private float attackApplyTime;
     protected override void Start()
@@ -30,6 +30,7 @@ public class RunningBoss : BossBase
 
     protected override void Update()
     {
+        base.Update();
         stageStartTime += Time.deltaTime;
         if (stageStartTime >= rageTime && isRage != true)
         {
@@ -54,15 +55,13 @@ public class RunningBoss : BossBase
         int ran = Random.Range(0, teleportPosition.Length);
         Vector2 telPosition =
             new Vector2(teleportPosition[ran].position.x + randomRange, teleportPosition[ran].position.y);
-        if(currentState.GetType() == new DeadState().GetType()) yield break; //deadstate상태일 때는 안하고싶은데 방법이 없을까 흠...
+        if(currentState.GetType() == new DeadState().GetType()) yield break; 
         Animator.SetTrigger("IsTeleport");
         yield return new WaitForSeconds(1.0f);
         if(currentState.GetType() == new DeadState().GetType()) yield break; 
         transform.position = telPosition;
-        teleportCount++;
-        if (teleportCount == 3) Attack();
+        Attack();
         telCoroutine = null;
-        
     }
 
     private void Attack()
@@ -73,7 +72,9 @@ public class RunningBoss : BossBase
             if (teleportCount == 3)
             {
                 teleportCount = 0;
-                Instantiate(attackPrefab, GameManager.Instance.Player.transform.position, Quaternion.Euler(0, 0, 25));
+                GameObject attack = attackPrefab;
+                Instantiate(attack, GameManager.Instance.Player.transform.position, Quaternion.Euler(0, 0, 25));
+                Destroy(attack, 1.0f);
             }
             else return;
         }
@@ -85,32 +86,41 @@ public class RunningBoss : BossBase
 
     IEnumerator RageAttack()
     {
-        int ran = Random.Range(0, rageAttack.transform.childCount);
-        GameObject attack = rageAttack.transform.GetChild(ran).gameObject;
+        int ran = Random.Range(0, rageAttack.Length);
+        GameObject attack = Instantiate(rageAttack[ran]);
         Collider2D[] col = attack.GetComponentsInChildren<Collider2D>();
         SpriteRenderer[] renderers = attack.GetComponentsInChildren<SpriteRenderer>();
         float timer = 0;
+        Color firstColor = new Color(248f / 255f, 92f / 255f, 92f / 255f, 60f / 255f);
+        Color lastColor = new Color(248f / 255f, 92f / 255f, 92f / 255f, 200f / 255f);
         while (timer < attackApplyTime)
         {
             timer += Time.deltaTime;
             float t = timer / attackApplyTime;
-            Color firstColor = new Color(248f / 255f, 92f / 255f, 92f / 255f, 60f / 255f);
-            Color lastColor = new Color(248f / 255f, 92f / 255f, 92f / 255f, 150f / 255f);
             for (int i = 0; i < renderers.Length; i++)
             {
-                renderers[i].color = Color.Lerp(firstColor, lastColor, t);   
+                if (renderers[i] != null)
+                {
+                    renderers[i].color = Color.Lerp(firstColor, lastColor, t);
+                }
+            }
+            yield return null;
+        }
+        
+        yield return new WaitForSeconds(attackApplyTime);
+        for (int i = 0; i < col.Length; i++)
+        {
+            if (col[i] == null)
+            {
+                Debug.Log("콜라이더 비었음");
+            }
+            else
+            {
+                col[i].enabled = true;
+                Debug.Log(col[i].enabled);
             }
         }
-
-        for (int i = 0; i < col.Length; i++)
-        {
-            col[i].enabled = true;
-        }
         yield return new WaitForSeconds(0.5f);
-        for (int i = 0; i < col.Length; i++)
-        {
-            col[i].enabled = false;
-            //renderers[i].color = firste
-        }
+        Destroy(attack);
     }
 }
