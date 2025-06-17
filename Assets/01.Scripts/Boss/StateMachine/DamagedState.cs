@@ -15,6 +15,10 @@ public class DamagedState : IBossState
 
     public void Update()
     {
+        if (boss.CurrentHP <= 0)
+        {
+            boss.ChangeState(new DeadState());
+        }
         elapsedTime += Time.deltaTime;
 
         if (elapsedTime >= boss.StaggerTime)

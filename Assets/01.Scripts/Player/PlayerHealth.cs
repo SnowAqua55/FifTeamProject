@@ -99,6 +99,7 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(1f); // 애니메이션 유예 시간
 
         Time.timeScale = 0;
+        GameManager.Instance.GameOver();
         // 이후 사망 UI 처리 등
     }
     

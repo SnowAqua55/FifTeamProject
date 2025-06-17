@@ -22,19 +22,15 @@ public class Stage : MonoBehaviour
     private void Awake()
     {
         GameManager.Instance.Stage = this;
+        player = GameManager.Instance.Player.gameObject;
     }
-
-    private void Start()
-    { 
-        //BGMPlayer.instance.PlayBgm(1);
-    }
-
     
-    public void InitStage()
+    public IEnumerator InitStage()
     {
         //플레이어 초기 위치 잡기
+        UIManager.Instance.FadeFlashTest();
+        yield return new WaitForSeconds(3.0f);
         BGMPlayer.instance.PlayBgm(1);
-        player = GameManager.Instance.Player.gameObject;
         bossVirtualCamera.gameObject.SetActive(true);
         virtualCamera.Follow = this.gameObject.transform;
         player.transform.position= playerStartPosition.position;
@@ -61,11 +57,11 @@ public class Stage : MonoBehaviour
         if (stageIndex >= boss.Length)//스테이지 갯수 현재는 보스 갯수로 조정
         {
             stageIndex = boss.Length;
-            GameOverPanel.SetActive(true);
+            GameManager.Instance.GameOver();
             return; // 마지막 스테이지 클리어 UI 출력해도 될 듯
         } 
         // UI FadeOut
-        InitStage();
+        StartCoroutine(InitStage());
     }
 
     public void SpawnBossCamera()

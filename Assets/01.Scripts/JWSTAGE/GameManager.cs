@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -67,16 +68,9 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-    /*void GameOver()
+    
+    public void GameOver()
     {
-        if (boss == null) return;
         
-        if (boss.CurrentHP <= 0)
-        {
-            stage.OpenDoor();
-        }
-    }*/
-
-    // Intro Scene Initialization
+    }
 }

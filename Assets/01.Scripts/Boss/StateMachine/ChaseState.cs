@@ -15,6 +15,10 @@ public class ChaseState : IBossState
     public void Update()
     {
         // 추적 방향 계산
+        if (boss.CurrentHP <= 0)
+        {
+            boss.ChangeState(new DeadState());
+        }
         if (boss.player != null)
         {
             moveDirection = (boss.player.position - boss.transform.position).normalized;
@@ -45,5 +49,6 @@ public class ChaseState : IBossState
     {
         // Chase 상태 종료 처리
         boss.PlayMoveAnimation(false);
+        
     }
 }
