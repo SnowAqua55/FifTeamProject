@@ -128,11 +128,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   attackPrefab: {fileID: 6798761839131452267, guid: c9ae7901c336ab0459eced3bd85f7fd8, type: 3}
-  rageTime: 0
+  rageTime: 25
   isRage: 1
   rageAttack:
-  - {fileID: 2338268613240209949, guid: 5492f686428462e48ae6989f0585910f, type: 3}
+  - {fileID: 545745213196547262, guid: 7f94eea75173a16478999e1a317f4c10, type: 3}
+  - {fileID: 7784680652831161118, guid: 7a6f22360c0109a4086f032491811f93, type: 3}
+  - {fileID: 4913001511751375450, guid: 288195fc7b4b19a4693988666de642ce, type: 3}
+  - {fileID: 5288068816995599787, guid: 094de394a3c632146b00ee4a16e0b984, type: 3}
   stageStartTime: 0
+  attackApplyTime: 1
 --- !u!1 &7064749582524707198
 GameObject:
   m_ObjectHideFlags: 0
