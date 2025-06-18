@@ -18,6 +18,7 @@ public class PlayerAttackEffect : MonoBehaviour
         if (col.CompareTag("Monster"))
         {
             col.GetComponent<BossBase>()?.TakeDamage(damage);
+            col.GetComponent<GolemArm>()?.TakeDamage(damage);
         }
     }
 }
