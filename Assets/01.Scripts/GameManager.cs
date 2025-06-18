@@ -80,10 +80,14 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MainScene" || scene.name == "IntroScene")
+        if (scene.name == "MainScene")
         {
-            Player.ResetHP();
+            Player?.ResetHP();
             UIManager.Instance.condition.GenerateHearts();
+        }
+        else if (scene.name == "IntroScene")
+        {
+
         }
         else
         {

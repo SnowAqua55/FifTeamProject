@@ -54,7 +54,6 @@ public class ConditionUI : MonoBehaviour
         }
         else
         {
-            Debug.LogError("플레이어 오브젝트가 존재하지 않습니다");
             return;
         }
     }
