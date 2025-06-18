@@ -22,7 +22,7 @@ public class Stage : MonoBehaviour
     private void Awake()
     {
         GameManager.Instance.Stage = this;
-        player = GameManager.Instance.Player.gameObject;
+        //player = GameManager.Instance.Player.gameObject;
     }
     
     public IEnumerator InitStage()
