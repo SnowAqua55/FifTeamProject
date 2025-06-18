@@ -100,6 +100,8 @@ public class Reaper : BossBase
         coll = gameObject.GetComponent<Collider2D>();
         reaperRb = GetComponent<Rigidbody2D>();
         originalGravity = reaperRb.gravityScale;
+        GameManager.Instance.Stage.stageWalls.gameObject.SetActive(false);
+        mapCenterTop = GameManager.Instance.Stage.reaperTelPosition.transform;
     }
 
     protected override void Update()

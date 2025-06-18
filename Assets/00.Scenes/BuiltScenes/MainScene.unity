@@ -329,34 +329,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 758881049976636355, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2512229182813494821, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 1a0d48370bbea8c48b53e6ff70fbc01f, type: 2}
-    - target: {fileID: 5746743440260879665, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 977501473071886414, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1128361329}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: GameOverPanel
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: virtualCamera
       value: 
       objectReference: {fileID: 246584989}
-    - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: boss.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: bossVirtualCamera
       value: 
@@ -364,15 +348,15 @@ PrefabInstance:
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: boss.Array.data[0]
       value: 
-      objectReference: {fileID: 183662678643799362, guid: 55a113b2e4bf75446842758316c026b7, type: 3}
+      objectReference: {fileID: 5819907928845742718, guid: 8faf11d7178074442bc0745de562834c, type: 3}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: boss.Array.data[1]
       value: 
-      objectReference: {fileID: 5819907928845742718, guid: 8faf11d7178074442bc0745de562834c, type: 3}
+      objectReference: {fileID: 6491544479965227051, guid: 044dd7c932be6744aa0a2382e3bb8ece, type: 3}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: boss.Array.data[2]
       value: 
-      objectReference: {fileID: 6491544479965227051, guid: 044dd7c932be6744aa0a2382e3bb8ece, type: 3}
+      objectReference: {fileID: 183662678643799362, guid: 55a113b2e4bf75446842758316c026b7, type: 3}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: boss.Array.data[3]
       value: 
