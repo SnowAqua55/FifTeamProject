@@ -176,4 +176,14 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
         gameOverUI.gameObject.SetActive(true);
     }
+
+    /*
+    dev에 머지 하시면 해야할 일
+    
+    1. 게임 오버 뜨기 전에 체력 모두 깎이게 수정
+    2. 옵션 UI 구현
+    
+    Extra 1. 저장 기능 구현
+
+    */
 }

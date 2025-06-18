@@ -41,6 +41,7 @@ public class PlayerHealth : MonoBehaviour
         if (isInvincible || isDead) return;
         
         currentHP = Mathf.Max(0, currentHP - damage);
+        UIManager.Instance.condition.UpdateHeart();
 
         if (currentHP <= 0)
         {
@@ -53,7 +54,6 @@ public class PlayerHealth : MonoBehaviour
         // 피격 SFX 재생
         audioPlayer.PlayHurt();
         
-        UIManager.Instance.condition.UpdateHeart();
         StartCoroutine(HurtCoroutine());
     }
     
@@ -98,8 +98,8 @@ public class PlayerHealth : MonoBehaviour
         animator.SetTrigger("Die");
         yield return new WaitForSeconds(2f); // 애니메이션 유예 시간
 
-        Time.timeScale = 0;
         GameManager.Instance.GameOver();
+        Time.timeScale = 0;
     }
     
     public void ActivateInvincibility(float duration)
