@@ -141,7 +141,7 @@ public class UIManager : MonoBehaviour
     }
 
     // UI Initialization
-    private void Init()
+    public void Init()
     {
         ui.SetActive(true);
         uiCanvas.Find("Intro").gameObject.SetActive(true);
@@ -185,5 +185,20 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         gameOverUI.gameObject.SetActive(true);
+    }
+
+    /*
+    dev�� ���� �Ͻø� �ؾ��� ��
+    
+    1. ���� ���� �߱� ���� ü�� ��� ���̰� ����
+    2. �ɼ� UI ����
+    
+    Extra 1. ���� ��� ����
+
+    */
+
+    public void GameExit()
+    {
+        GameManager.Instance.ExitGame();
     }
 }

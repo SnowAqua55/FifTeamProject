@@ -364,7 +364,7 @@ PrefabInstance:
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: boss.Array.data[0]
       value: 
-      objectReference: {fileID: 5940135897735526222, guid: de4b8e468bfd8e54581bc712bae873f6, type: 3}
+      objectReference: {fileID: 183662678643799362, guid: 55a113b2e4bf75446842758316c026b7, type: 3}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: boss.Array.data[1]
       value: 
@@ -465,7 +465,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 0.2
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -1152,7 +1152,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 06906d718be5b6a4cb2df8732bf39832, type: 3}
   - {fileID: 8300000, guid: 1f2ad53bacc245642854dbdc8ea71a9b, type: 3}
   audioSource: {fileID: 1306641886}
-  volume: 1
+  volume: 0.5
   curBgmIndex: 0
 --- !u!4 &1306641888
 Transform:
