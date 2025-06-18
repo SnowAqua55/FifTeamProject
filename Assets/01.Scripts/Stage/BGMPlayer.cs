@@ -10,7 +10,7 @@ public class BGMPlayer : MonoBehaviour
       [Header("BGM")]
       public AudioClip[] bgms;
       public AudioSource audioSource;
-      public float volume;
+      public float volume = 0.2f;
       public int curBgmIndex;
 
       private void Awake()
