@@ -94,7 +94,10 @@ public abstract class BossBase : MonoBehaviour
     public bool IsPlayerInRange(float range)
     {
         if (player == null) return false;
-        return Vector2.Distance(transform.position, player.position) <= range;
+        // 보스 y 좌표에 맞춰 플레이어 pos를 평면화
+        Vector2 bossPos   = transform.position;
+        Vector2 playerPos = new Vector2(player.position.x, bossPos.y);
+        return Vector2.Distance(bossPos, playerPos) <= range;
     }
 
     /// <summary>
@@ -120,6 +123,12 @@ public abstract class BossBase : MonoBehaviour
     public void PlayDeadAnimation()
     {
         Animator.SetTrigger(AnimationData.DeadHash);
+    }
+    
+    /// <summary> 공격 애니메이션 트리거 </summary>
+    public void PlayAttackAnimation()
+    {
+        Animator.SetTrigger(AnimationData.AttackHash);
     }
 
     /// <summary>
