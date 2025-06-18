@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class ConditionUI : MonoBehaviour
@@ -9,25 +10,35 @@ public class ConditionUI : MonoBehaviour
     public Transform heartContainer;
     public Sprite fullHeart;
     public Sprite emptyHeart;
-
+    
     private void Awake()
     {
 		UIManager.Instance.condition = this;
     }
 
+    private void Update()
+    {
+        UpdateHeart();
+    }
+
+    
+
     public void GenerateHearts()
     {
         bool hasPlayerObject = FindAnyObjectByType<PlayerHealth>() != null;
+        int maxHearts = GameManager.Instance.Player.GetMaxHP();
+        if (_hearts != null)
+        {
+            foreach (Image heart in _hearts)
+            {
+                Destroy(heart.gameObject);
+            }
+            _hearts.Clear();
+        }
+
         if (hasPlayerObject)
         {
-            int maxHearts = GameManager.Instance.Player.GetMaxHP();
-            if (_hearts != null)
-            {
-                foreach (Image heart in _hearts)
-                {
-                    Destroy(heart.gameObject);
-                }
-            }
+            Debug.Log("플레이어 오브젝트가 존재합니다");
 
             for (int i = 0; i < maxHearts; i++)
             {
@@ -36,14 +47,18 @@ public class ConditionUI : MonoBehaviour
                 _hearts.Add(heartImage);
             }
 
-            foreach (Image heart in _hearts)
-            {
-                heart.sprite = fullHeart;
-            }
+            //foreach (Image heart in _hearts)
+            //{
+            //    heart.sprite = fullHeart;
+            //}
         }
         else
+        {
+            Debug.LogError("플레이어 오브젝트가 존재하지 않습니다");
             return;
+        }
     }
+
     public void UpdateHeart()
     {
         int currentHearts = GameManager.Instance.Player.GetCurrentHP();

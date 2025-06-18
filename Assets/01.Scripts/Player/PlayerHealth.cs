@@ -25,15 +25,15 @@ public class PlayerHealth : MonoBehaviour
     void Awake()
     {
         GameManager.Instance.Player = this;
-        currentHP = maxHP;
+        ResetHP();
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         audioPlayer = GetComponent<PlayerAudio>();
     }
 
-    private void Start()
+    public void ResetHP()
     {
-        UIManager.Instance.condition.GenerateHearts(); 
+        currentHP = maxHP;
     }
 
     // 외부에서 데미지 요청 시 호출
@@ -54,7 +54,6 @@ public class PlayerHealth : MonoBehaviour
         // 피격 SFX 재생
         audioPlayer.PlayHurt();
         
-        UIManager.Instance.condition.UpdateHeart();
         StartCoroutine(HurtCoroutine());
     }
     
@@ -99,8 +98,8 @@ public class PlayerHealth : MonoBehaviour
         animator.SetTrigger("Die");
         yield return new WaitForSeconds(2f); // 애니메이션 유예 시간
 
-        Time.timeScale = 0;
         GameManager.Instance.GameOver();
+        Time.timeScale = 0;
     }
     
     public void ActivateInvincibility(float duration)
