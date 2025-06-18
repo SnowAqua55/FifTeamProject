@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Monster
+  - PlayerAttack
+  - Projectile
+  - RainWarning
   layers:
   - Default
   - TransparentFX
@@ -15,14 +19,14 @@ TagManager:
   - 
   - 
   - 
+  - Slime
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Player
+  - Enemy
   - 
   - 
   - 
