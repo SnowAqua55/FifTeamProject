@@ -52,9 +52,11 @@ public class Stage : MonoBehaviour
         if (stageIndex == 3)
         {
             boss[stageIndex].transform.position = golemSpawn.transform.position;
+            bossVirtualCamera.transform.position = golemSpawn.transform.position;
         }
         else
         {
+            bossVirtualCamera.transform.position = bossStartPosition.transform.position;
             boss[stageIndex].transform.position = bossStartPosition.position;
         }
         curBoss = boss[stageIndex];
@@ -106,5 +108,6 @@ public class Stage : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         Time.timeScale = 1f;
         bossVirtualCamera.Priority = 0;
+        bossVirtualCamera.gameObject.SetActive(false);
     }
 }
