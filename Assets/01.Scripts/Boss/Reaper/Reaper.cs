@@ -121,8 +121,9 @@ public class Reaper : BossBase
         coll = gameObject.GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
         originalGravity = rb.gravityScale;
-        /*GameManager.Instance.Stage.stageWalls.gameObject.SetActive(false);
-        mapCenterTop = GameManager.Instance.Stage.reaperTelPosition.transform;*/
+        GameManager.Instance.Stage.stageWalls.gameObject.SetActive(false);
+        mapCenterTop = GameManager.Instance.Stage.reaperTelPosition.transform;
+        topCenterPos = GameManager.Instance.Stage.reaperTelPosition.transform;
     }
     
     protected override void Start()
@@ -234,6 +235,11 @@ public class Reaper : BossBase
         var proj = go.GetComponent<ReaperProjectile>();
         var dir = (player.position - transform.position).normalized;
         proj.Initialize(dir);
+        
+        float bossSign = Mathf.Sign(transform.localScale.x);
+        Vector3 s = go.transform.localScale;
+        s.x = Mathf.Abs(s.x) * bossSign;
+        go.transform.localScale = s;
     }
 
     private IEnumerator SpawnRemaining(int count, float interval)

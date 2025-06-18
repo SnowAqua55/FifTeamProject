@@ -158,6 +158,7 @@ MonoBehaviour:
   haloObject: {fileID: 7595853834846727955}
   phaseSpeedMultiplier: 1.25
   phaseTriggered: 0
+  heavySlashEffectPrefab: {fileID: 1197396370472414024, guid: 90d9e2ab212bba545b678728be60e97d, type: 3}
   projectilePatternCount: 0
   isDiving: 0
   coll: {fileID: 0}
@@ -5356,7 +5357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2140306951870284843
 Transform:
   m_ObjectHideFlags: 0

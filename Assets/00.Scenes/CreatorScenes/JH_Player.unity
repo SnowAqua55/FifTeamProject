@@ -465,12 +465,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1613510326}
     - target: {fileID: 6610451116452367056, guid: 55a113b2e4bf75446842758316c026b7, type: 3}
-      propertyPath: heavySlashEffectPrefab
-      value: 
-      objectReference: {fileID: 1197396370472414024, guid: 90d9e2ab212bba545b678728be60e97d, type: 3}
-    - target: {fileID: 7595853834846727955, guid: 55a113b2e4bf75446842758316c026b7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: diveAttackCount
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8337412619073630116, guid: 55a113b2e4bf75446842758316c026b7, type: 3}
       propertyPath: m_LocalPosition.x
