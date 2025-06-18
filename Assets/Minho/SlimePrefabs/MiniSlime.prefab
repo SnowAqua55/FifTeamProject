@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPos: {fileID: 0}
-  _rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 3739439547078370991}
   kingSlime: {fileID: 0}
   animator: {fileID: 0}
   p2Slime: {fileID: 9100000, guid: 68555cc7381816a4b8e2742db37c34de, type: 2}
@@ -162,6 +162,7 @@ MonoBehaviour:
   dead: {fileID: 9100000, guid: 14c53af6d4e38794d9e6d2c0e72ac9b5, type: 2}
   maxHp: 3000
   curHp: 0
+  attPower: 1
   jumpPower: 5
   jumpInterval: 0.8
 --- !u!50 &3739439547078370991

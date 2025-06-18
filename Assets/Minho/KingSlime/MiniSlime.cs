@@ -16,20 +16,23 @@ public class MiniSlime : MonoBehaviour
     [SerializeField] AnimatorController p3Slime;
     [SerializeField] AnimatorController dead;
 
-    public int maxHp = 3000;
+    public int maxHp = 5;
     public int curHp;
+    public int attPower = 1;
     public float jumpPower = 5.0f; // 점프의 힘
     public float jumpInterval = 2f; // 점프 간격
     private float jumpTimer = 0f; // 점프 타이머
     private bool isDead = false;
+    private bool isAttacked = false;
+    private bool isDamaged = false;
 
     private void Awake()
     {
         GameObject _player = GameObject.FindGameObjectWithTag("Player");
         playerPos = _player.GetComponent<Transform>();
 
-        GameObject _kingSlime = GameObject.Find("KingSlime");
-        kingSlime = _kingSlime.GetComponent<KingSlime>();
+        
+        kingSlime = FindObjectOfType<KingSlime>();
 
         animator = GetComponentInChildren<Animator>();
     }
@@ -40,6 +43,7 @@ public class MiniSlime : MonoBehaviour
         
         _rigidbody.freezeRotation = true; // 점프 시 회전을 하기에 회전을 멈추는 코드
 
+        maxHp = 5;
         curHp = maxHp;
 
         StartCoroutine(DieForKing());
@@ -73,6 +77,11 @@ public class MiniSlime : MonoBehaviour
             Chase();
             jumpTimer = 0f;
         }
+
+        if(isAttacked && jumpTimer == 1f)
+        {
+            isAttacked = false;
+        }
     }
 
 
@@ -91,9 +100,10 @@ public class MiniSlime : MonoBehaviour
 
     public void Damaged()
     {
-        curHp -= 10;// 나중에는 플레이어의 데미지를 가져와 적용
+        curHp -= 1;
         Vector2 knockbackDir = new Vector2(-(playerPos.position.x - transform.position.x), 0f).normalized;
         _rigidbody.AddForce(knockbackDir * 3f, ForceMode2D.Impulse);
+        isDamaged = false;
     }
 
     public IEnumerator DieForKing()
@@ -114,6 +124,21 @@ public class MiniSlime : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // 슬라임과 닿으면 데미지
+        if (!isAttacked)
+        {
+            isAttacked = true;
+            GameManager.Instance.Player.TakeDamage(attPower);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (isDamaged) return;
+        if (other.gameObject.tag == "PlayerAttack")
+        {
+            isDamaged = true;
+            Damaged();
+            Debug.Log("데미지 받음");
+        }
     }
 }

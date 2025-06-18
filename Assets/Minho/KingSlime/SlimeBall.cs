@@ -28,13 +28,11 @@ public class SlimeBall : MonoBehaviour
 
         slimeBall = GetComponent<Collider2D>();
 
-        GameObject _kingSlime = GameObject.Find("KingSlime");
-        kingSlime = _kingSlime.GetComponent<Collider2D>();
-        ks = _kingSlime.GetComponent<KingSlime>();
+        ks = FindObjectOfType<KingSlime>();
 
         _sP = GetComponent<SpriteRenderer>();
         
-        Physics2D.IgnoreCollision(slimeBall, kingSlime);
+        
 
     }
 
@@ -71,9 +69,13 @@ public class SlimeBall : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         isAttacked = true;
 
-        //플레이어 데미지 메서드 호출
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            GameManager.Instance.Player.TakeDamage(ks.attPower);
+        }
         
         Destroy(gameObject);
     }

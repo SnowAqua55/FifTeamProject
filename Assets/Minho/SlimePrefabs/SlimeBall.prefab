@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8605409627905947118}
   - component: {fileID: 8226361237290032837}
   - component: {fileID: -1636790958893536365}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SlimeBall
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -35.5, y: -2.2, z: 0}
-  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_LocalScale: {x: 0.8, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -119,9 +119,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.15131867}
+  m_Offset: {x: 0, y: -0.18070945}
   serializedVersion: 2
-  m_Radius: 0.34868133
+  m_Radius: 0.28570086
 --- !u!114 &8226361237290032837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +137,7 @@ MonoBehaviour:
   player: {fileID: 0}
   slimeBall: {fileID: 0}
   kingSlime: {fileID: 0}
+  ks: {fileID: 0}
   _sP: {fileID: 0}
   p2ball: {fileID: -7078261816480267791, guid: bfeede70efd14484683f5956b4f1194b, type: 3}
   p3ball: {fileID: -594261065437009825, guid: d4e8a5c5eececab46942986a743fd7d8, type: 3}
