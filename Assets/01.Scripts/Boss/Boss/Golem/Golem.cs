@@ -21,6 +21,8 @@ public class Golem : BossBase
     [Header("고정 위치 레이저")]
     [SerializeField] private Transform[] rainLaserFixedSpawnPoints;
 
+    private Camera mainCam;
+
     // 생성된 오브젝트 추가
     private List<GameObject> activeWarnings = new List<GameObject>();
     private List<GameObject> activeProjectiles = new List<GameObject>();
@@ -28,6 +30,8 @@ public class Golem : BossBase
     protected override void Awake()
     {
         base.Awake();
+
+        mainCam = Camera.main;
 
         if (golemBossData == null)
         {
@@ -205,11 +209,11 @@ public class Golem : BossBase
     private IEnumerator StartRainLaserPattern()
     {
         float warningTime = golemBossData.rainLaserWarningDuration;
-        float fallY = Camera.main.transform.position.y + Camera.main.orthographicSize + 1f;
+        float fallY = mainCam.transform.position.y + mainCam.orthographicSize + 1f;
 
         // 화면 너비 계산
-        float cameraWidth = Camera.main.orthographicSize * Camera.main.aspect * 2f;
-        float leftEdge = Camera.main.transform.position.x - cameraWidth / 2f;
+        float cameraWidth = mainCam.orthographicSize * mainCam.aspect * 2f;
+        float leftEdge = mainCam.transform.position.x - cameraWidth / 2f;
 
         float interval = golemBossData.rainLaserInterval;
         int laserCount = Mathf.FloorToInt(cameraWidth / interval);
@@ -273,7 +277,7 @@ public class Golem : BossBase
                 proj.SetDirection(Vector2.down); // 레이저 아래로 낙하
 
                 // 수명은 카메라 높이 기반 자동 계산
-                float fallDistance = Camera.main.orthographicSize * 2f + 1f;
+                float fallDistance = mainCam.orthographicSize * 2f + 1f;
                 proj.SetLifeTime(fallDistance / proj.Speed);
             }
 
