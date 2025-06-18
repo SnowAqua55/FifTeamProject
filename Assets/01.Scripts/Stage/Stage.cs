@@ -75,9 +75,11 @@ public class Stage : MonoBehaviour
 
     IEnumerator SetBossCamera()
     {
+        Time.timeScale = 0.1f;
         bossVirtualCamera.Follow = curBoss.transform;
         bossVirtualCamera.Priority = 12;
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(0.3f);
+        Time.timeScale = 1f;
         bossVirtualCamera.Priority = 0;
     }
 }
