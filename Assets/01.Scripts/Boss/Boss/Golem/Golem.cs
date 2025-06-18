@@ -112,7 +112,6 @@ public class Golem : BossBase
         activeArmsCount--;
         if (activeArmsCount <= 0)
         {
-            Debug.Log("버그");
             SetInvincible(false); // 무적 해제
             ChangeState(new AttackState());
         }

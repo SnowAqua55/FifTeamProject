@@ -1142,6 +1142,7 @@ MonoBehaviour:
   attackSfx: {fileID: 8300000, guid: a80775da31fe8ac45bd9c6bf2c1c9e24, type: 3}
   deathSfx: {fileID: 8300000, guid: 4398b78a524491b40b6040745b38385f, type: 3}
   dashVolume: 0.2
+  deathVolume: 0.5
 --- !u!82 &1268005315
 AudioSource:
   m_ObjectHideFlags: 0
