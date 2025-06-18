@@ -28,7 +28,7 @@ public class Stage : MonoBehaviour
     public IEnumerator InitStage()
     {
         //플레이어 초기 위치 잡기
-        UIManager.Instance.FadeFlashStart();
+        UIManager.Instance.FadeFlashStart(); //FADE out
         yield return new WaitForSeconds(3.0f);
         BGMPlayer.instance.PlayBgm(1);
         bossVirtualCamera.gameObject.SetActive(true);
@@ -41,7 +41,6 @@ public class Stage : MonoBehaviour
         SpawnBossCamera();
         doors[0].SetActive(true); // 닫힌 문 보여주기
         doors[1].SetActive(false); // 열린문 끄기
-        //BGMPlayer.instance.PlayBgm(stageIndex); 스테이지 별로 배경음이 다를떄
         // 필요하면 플레이어 체력 맥스로 초기화
     }
 
