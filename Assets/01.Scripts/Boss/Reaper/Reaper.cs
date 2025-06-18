@@ -15,7 +15,8 @@ public class Reaper : BossBase
     [Tooltip("이펙트가 스폰될 플레이어 기준 X 오프셋")]
     public float attackEffectOffsetX = 1.0f;
     
-    [Header("패턴 1 투사체")]
+    [Header("패턴 1 - 거리가 벌어지면 투사체 발사")]
+    [Tooltip("투사체 프리팹")]
     public GameObject ReaperProjectilePrefab;
     [Tooltip("투사체 총 개수")]
     public int projectileCount = 3;
