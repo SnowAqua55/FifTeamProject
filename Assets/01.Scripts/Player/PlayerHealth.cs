@@ -25,15 +25,15 @@ public class PlayerHealth : MonoBehaviour
     void Awake()
     {
         GameManager.Instance.Player = this;
-        currentHP = maxHP;
+        ResetHP();
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         audioPlayer = GetComponent<PlayerAudio>();
     }
 
-    private void Start()
+    public void ResetHP()
     {
-        UIManager.Instance.condition.GenerateHearts(); 
+        currentHP = maxHP;
     }
 
     // 외부에서 데미지 요청 시 호출
@@ -42,7 +42,6 @@ public class PlayerHealth : MonoBehaviour
         if (isInvincible || isDead) return;
         
         currentHP = Mathf.Max(0, currentHP - damage);
-        UIManager.Instance.condition.UpdateHeart();
 
         if (currentHP <= 0)
         {

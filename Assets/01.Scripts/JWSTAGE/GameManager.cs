@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour
         get { return boss; }
         set { boss = value; }
     }
-    [SerializeField]private PlayerHealth player;  //현 플레이어 hp
+    [SerializeField] private PlayerHealth player;  //현 플레이어 hp
     public PlayerHealth Player
     {
         get { return player; }
@@ -54,12 +55,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         //PlayerInit();
     }
 
     public void PlayerInit()
     {
-        player = null;
         bool hasPlayerObject = FindAnyObjectByType<PlayerHealth>();
         if (hasPlayerObject)
         {
@@ -71,12 +73,24 @@ public class GameManager : MonoBehaviour
                 {
                     player = playerObj.GetComponent<PlayerHealth>();
                 }
-                playerObj.SetActive(false);
+
             }
         }
     }
 
-    public void ChangeScene(string sceneName)
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MainScene" || scene.name == "IntroScene")
+        {
+            Player.ResetHP();
+            UIManager.Instance.condition.GenerateHearts();
+        }
+        else
+        {
+            return;
+        }
+    }
+            public void ChangeScene(string sceneName)
     {
         switch (sceneName)
         {
@@ -94,7 +108,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    
+
     public void ExitGame()
     {
 #if UNITY_EDITOR

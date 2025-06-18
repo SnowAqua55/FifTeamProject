@@ -141,7 +141,7 @@ public class UIManager : MonoBehaviour
     }
 
     // UI Initialization
-    private void Init()
+    public void Init()
     {
         ui.SetActive(true);
         uiCanvas.Find("Intro").gameObject.SetActive(true);
