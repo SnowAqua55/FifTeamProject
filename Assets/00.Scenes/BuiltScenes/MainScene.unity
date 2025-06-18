@@ -226,11 +226,6 @@ Transform:
   - {fileID: 289743154}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &249034615 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1750239927082291680, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-  m_PrefabInstance: {fileID: 384405316}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &289743153
 GameObject:
   m_ObjectHideFlags: 3
@@ -334,22 +329,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 977501473071886414, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: m_Layer
-      value: 15
+    - target: {fileID: 758881049976636355, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2512229182813494821, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 1a0d48370bbea8c48b53e6ff70fbc01f, type: 2}
+    - target: {fileID: 5746743440260879665, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1128361329}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: stageWalls
+      propertyPath: GameOverPanel
       value: 
-      objectReference: {fileID: 249034615}
+      objectReference: {fileID: 0}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: virtualCamera
       value: 
       objectReference: {fileID: 246584989}
+    - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
+      propertyPath: boss.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: bossVirtualCamera
       value: 
@@ -357,23 +364,23 @@ PrefabInstance:
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: boss.Array.data[0]
       value: 
-      objectReference: {fileID: 5819907928845742718, guid: 8faf11d7178074442bc0745de562834c, type: 3}
+      objectReference: {fileID: 5940135897735526222, guid: de4b8e468bfd8e54581bc712bae873f6, type: 3}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: boss.Array.data[1]
       value: 
-      objectReference: {fileID: 6491544479965227051, guid: 044dd7c932be6744aa0a2382e3bb8ece, type: 3}
+      objectReference: {fileID: 183662678643799362, guid: 55a113b2e4bf75446842758316c026b7, type: 3}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: boss.Array.data[2]
       value: 
-      objectReference: {fileID: 183662678643799362, guid: 55a113b2e4bf75446842758316c026b7, type: 3}
+      objectReference: {fileID: 5819907928845742718, guid: 8faf11d7178074442bc0745de562834c, type: 3}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: boss.Array.data[3]
       value: 
+      objectReference: {fileID: 6491544479965227051, guid: 044dd7c932be6744aa0a2382e3bb8ece, type: 3}
+    - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
+      propertyPath: boss.Array.data[4]
+      value: 
       objectReference: {fileID: 5936922957920382523, guid: 03123231037324e53b53f7572bd7e0c2, type: 3}
-    - target: {fileID: 6419625742728738025, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6453495063089227388, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: m_Name
       value: BattleMap (1)
@@ -1149,7 +1156,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 06906d718be5b6a4cb2df8732bf39832, type: 3}
   - {fileID: 8300000, guid: 1f2ad53bacc245642854dbdc8ea71a9b, type: 3}
   audioSource: {fileID: 1306641886}
-  volume: 0.2
+  volume: 0.5
   curBgmIndex: 0
 --- !u!4 &1306641888
 Transform:
