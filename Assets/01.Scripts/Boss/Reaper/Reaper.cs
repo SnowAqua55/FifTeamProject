@@ -59,21 +59,37 @@ public class Reaper : BossBase
     [Tooltip("회전 랜덤 범위 (deg)")]
     public float backstabEffectMaxRotation = 360f;
     
+    [Header("패턴 4 - 페이즈 전환 개막 패턴")]
+    [Tooltip("phase 시작 시 나타날 파티클")]
+    public ParticleSystem swirlParticle;
+    [Tooltip("개막 파동 낫 공격용 위치")]
+    public Transform topCenterPos;
+    [Tooltip("후광 이펙트")]
+    public GameObject haloObject;
+    [Tooltip("속도 버프량")]
+    public float phaseSpeedMultiplier = 1.25f;
+    [Tooltip("한 번만 실행 플래그")]
+    public bool phaseTriggered = false;
+    [Tooltip("HeavySlash 이펙트")]
+    public GameObject heavySlashEffectPrefab;
+    
     // 연속 투사체 패턴 카운터
     [HideInInspector] public int projectilePatternCount = 0;
+    
     [HideInInspector] public bool isDiving;
+    [HideInInspector] public Collider2D coll;
+    private float originalGravity;
+    public float OriginalGravity => originalGravity;
+    
     SpriteRenderer sr;
     float afterImageTimer;
     float teleportTimer;
-    private Collider2D coll;
-    
-    private Rigidbody2D reaperRb;
-    private float originalGravity;
 
     //애니메이터 파라미터 캐싱
     private static readonly int ShotHash = Animator.StringToHash("DoShot");
     private static readonly int DiveHash = Animator.StringToHash("DoDive");
     private static readonly int BackstabHash = Animator.StringToHash("DoBackstab");
+    private static readonly int HeavySlashHash = Animator.StringToHash("DoHeavySlash");
 
     public void PlayShotAnimation()
     {
@@ -89,6 +105,11 @@ public class Reaper : BossBase
     {
         Animator.SetTrigger(BackstabHash);
     }
+    
+    public void PlayHeavySlashAnimation()
+    {
+        Animator.SetTrigger(HeavySlashHash);
+    }
 
     protected override void Awake()
     {
@@ -98,10 +119,15 @@ public class Reaper : BossBase
         // 타이머 초기화 → 즉시 한 번 찍히도록
         afterImageTimer = afterImageInterval;
         coll = gameObject.GetComponent<Collider2D>();
-        reaperRb = GetComponent<Rigidbody2D>();
-        originalGravity = reaperRb.gravityScale;
-        GameManager.Instance.Stage.stageWalls.gameObject.SetActive(false);
-        mapCenterTop = GameManager.Instance.Stage.reaperTelPosition.transform;
+        rb = GetComponent<Rigidbody2D>();
+        originalGravity = rb.gravityScale;
+        /*GameManager.Instance.Stage.stageWalls.gameObject.SetActive(false);
+        mapCenterTop = GameManager.Instance.Stage.reaperTelPosition.transform;*/
+    }
+    
+    protected override void Start()
+    {
+        base.Start(); 
     }
 
     protected override void Update()
@@ -117,7 +143,7 @@ public class Reaper : BossBase
         }
 
         bool isMoving = Animator.GetBool(AnimationData.MoveHash);
-        bool isFallingDive = isDiving && reaperRb.velocity.y < -0.1f;
+        bool isFallingDive = isDiving && rb.velocity.y < -0.1f;
 
         // 이동 중이거나 패턴 3 낙하 시 잔상 생성
         if (isMoving || isFallingDive)
@@ -133,6 +159,12 @@ public class Reaper : BossBase
         {
             // 재진입 시 즉시 찍히도록
             afterImageTimer = afterImageInterval;
+        }
+        
+        if (!phaseTriggered && CurrentHP <= MaxHP * 0.5f)
+        {
+            phaseTriggered = true;
+            ChangeState(new ReaperPhaseTransitionState());
         }
     }
 
@@ -169,7 +201,7 @@ public class Reaper : BossBase
     }
 
     // 잔상 생성
-    private void SpawnAfterImage()
+    public void SpawnAfterImage()
     {
         if (afterImagePrefab == null) return;
 
@@ -220,9 +252,9 @@ public class Reaper : BossBase
         // 콜라이더 끄기
         coll.enabled = false;
         // 중력 끄기
-        reaperRb.simulated = false;
-        reaperRb.gravityScale = 0f;
-        reaperRb.velocity = Vector2.zero;
+        rb.simulated = false;
+        rb.gravityScale = 0f;
+        rb.velocity = Vector2.zero;
     }
 
     // 애니메이션에서 호출할 패턴 2 재등장 이벤트
@@ -238,9 +270,9 @@ public class Reaper : BossBase
     {
         yield return new WaitForSeconds(floatDuration);
         // 강하 임펄스
-        reaperRb.simulated    = true;
-        reaperRb.gravityScale = originalGravity;      // 원래 중력 스케일로 돌린 뒤
-        reaperRb.AddForce(Vector2.down * diveImpulse, ForceMode2D.Impulse);
+        rb.simulated    = true;
+        rb.gravityScale = originalGravity;      // 원래 중력 스케일로 돌린 뒤
+        rb.AddForce(Vector2.down * diveImpulse, ForceMode2D.Impulse);
     }
     
     // 애니메이션에서 호출할 패턴 3 공격 이벤트
@@ -268,8 +300,8 @@ public class Reaper : BossBase
 
         // 복구
         coll.enabled = true;
-        reaperRb.simulated = true;
-        reaperRb.gravityScale = originalGravity;
+        rb.simulated = true;
+        rb.gravityScale = originalGravity;
         isDiving = false;
     }
     
@@ -315,7 +347,7 @@ public class Reaper : BossBase
         {
             coll.enabled = true;
             isDiving = false;
-            reaperRb.gravityScale = originalGravity;
+            rb.gravityScale = originalGravity;
         }
 
         ChangeState(new ReaperChaseState());
@@ -354,5 +386,14 @@ public class Reaper : BossBase
             Instantiate(prefab, spawnPos, Quaternion.Euler(0,0,zRot));
             yield return new WaitForSeconds(backstabEffectInterval);
         }
+    }
+    
+    // 패턴 4 공격 이펙트 생성 이벤트
+    public void OnHeavySlashEvent()
+    {
+        if (heavySlashEffectPrefab == null) return;
+        // 보스 위치나 필요한 오프셋
+        Vector3 spawnPos = transform.position + Vector3.right * (transform.localScale.x > 0 ? 0.5f : -0.5f);
+        Instantiate(heavySlashEffectPrefab, spawnPos, Quaternion.identity);
     }
 }
