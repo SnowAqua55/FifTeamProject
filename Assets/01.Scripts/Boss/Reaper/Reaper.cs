@@ -30,18 +30,14 @@ public class Reaper : BossBase
     public float floatDuration = 2.25f;
     [Tooltip("낙하 임펄스 세기")]
     public float diveImpulse = 20f;
-    
     [Tooltip("패턴 쿨다운")]
     public float shardCooldown = 1.5f;
-    
     [Tooltip("맵 중앙 상단 위치")]
     public Transform mapCenterTop;
     [Tooltip("레이어 마스크: 바닥 판정용")]
     public LayerMask groundLayer;
     [Tooltip("바닥까지 최대 레이캐스트 거리")]
     public float groundRayDistance = 10f;
-    
-   
     [Tooltip("내려찍기 공격으로 생성할 Prefab")]
     public GameObject diveAttackPrefab;
     [Tooltip("착지 후 X축 방향으로 퍼져나갈 거리")]
@@ -51,6 +47,20 @@ public class Reaper : BossBase
     [Tooltip("순차 생성 간격")]
     public float diveAttackInterval= 0.2f;
     
+    [Header("패턴 3 - 암살")]
+    [Tooltip("암살 순간이동 후 플레이어와의 X 간격")]
+    public float backstabOffset = 1.5f;
+    [Tooltip("암살 애니메이션 길이")]
+    public float backstabDuration = 1.0f;
+    [Tooltip("뒤통수 공격 시 생성할 이펙트 프리팹들")]
+    public GameObject[] backstabEffectPrefabs;
+    [Tooltip("이펙트 간 생성 간격")]
+    public float backstabEffectInterval = 0.1f;
+    [Tooltip("회전 랜덤 범위 (deg)")]
+    public float backstabEffectMaxRotation = 360f;
+    
+    // 연속 투사체 패턴 카운터
+    [HideInInspector] public int projectilePatternCount = 0;
     [HideInInspector] public bool isDiving;
     SpriteRenderer sr;
     float afterImageTimer;
@@ -63,6 +73,7 @@ public class Reaper : BossBase
     //애니메이터 파라미터 캐싱
     private static readonly int ShotHash = Animator.StringToHash("DoShot");
     private static readonly int DiveHash = Animator.StringToHash("DoDive");
+    private static readonly int BackstabHash = Animator.StringToHash("DoBackstab");
 
     public void PlayShotAnimation()
     {
@@ -72,6 +83,11 @@ public class Reaper : BossBase
     public void PlayDiveAnimation()
     {
         Animator.SetTrigger(DiveHash);
+    }
+    
+    public void PlayBackstabAnimation()
+    {
+        Animator.SetTrigger(BackstabHash);
     }
 
     protected override void Awake()
@@ -101,6 +117,7 @@ public class Reaper : BossBase
         bool isMoving = Animator.GetBool(AnimationData.MoveHash);
         bool isFallingDive = isDiving && reaperRb.velocity.y < -0.1f;
 
+        // 이동 중이거나 패턴 3 낙하 시 잔상 생성
         if (isMoving || isFallingDive)
         {
             afterImageTimer += Time.deltaTime;
@@ -170,9 +187,9 @@ public class Reaper : BossBase
     // Animation Event 에 연결할 함수 =====
     public void OnProjectileShotEvent()
     {
-        // 1) 첫 발 즉시
+        // 첫 발 즉시
         SpawnSingleProjectile();
-        // 2) 나머지 발사 예약
+        // 나머지 발사 예약
         if (projectileCount > 1)
             StartCoroutine(SpawnRemaining(projectileCount - 1, projectileInterval));
     }
@@ -194,7 +211,7 @@ public class Reaper : BossBase
         }
     }
     
-    // 투명 이벤트
+    // 애니메이션에서 호출할 패턴 2 투명 이벤트
     public void OnDiveVanishEvent()
     {
         isDiving = true;
@@ -206,15 +223,15 @@ public class Reaper : BossBase
         reaperRb.velocity = Vector2.zero;
     }
 
-    // 재등장 이벤트
+    // 애니메이션에서 호출할 패턴 2 재등장 이벤트
     public void OnTeleportReappearEvent()
     {
         transform.position = mapCenterTop.position;
-
-        // floatDuration 후에 임펄스 강하
+        
         StartCoroutine(DoDiveImpulse());
     }
     
+    // 패턴 2 내려찍기 임펄스 강하 코루틴
     private IEnumerator DoDiveImpulse()
     {
         yield return new WaitForSeconds(floatDuration);
@@ -224,6 +241,7 @@ public class Reaper : BossBase
         reaperRb.AddForce(Vector2.down * diveImpulse, ForceMode2D.Impulse);
     }
     
+    // 애니메이션에서 호출할 패턴 3 공격 이벤트
     public void OnDiveStrikeEvent()
     {
         // 아래로 레이캐스트 체크
@@ -247,12 +265,13 @@ public class Reaper : BossBase
         StartCoroutine(SpawnDiveAttacks(centerPos) );
 
         // 복구
-        coll.enabled    = true;
-        reaperRb.simulated    = true;
+        coll.enabled = true;
+        reaperRb.simulated = true;
         reaperRb.gravityScale = originalGravity;
-        isDiving        = false;
+        isDiving = false;
     }
     
+    // 패턴 2 파편 생성 코루틴
     private IEnumerator SpawnDiveAttacks(Vector3 centerPos)
     {
         // 맨 처음 중앙에 한 번 스폰
@@ -275,6 +294,7 @@ public class Reaper : BossBase
         }
     }
 
+    // 패턴 2 코루틴
     public IEnumerator TeleportDiveRoutine()
     {
         PlayDiveAnimation();
@@ -292,10 +312,45 @@ public class Reaper : BossBase
         if (isDiving)
         {
             coll.enabled = true;
-            isDiving     = false;
+            isDiving = false;
             reaperRb.gravityScale = originalGravity;
         }
 
         ChangeState(new ReaperChaseState());
+    }
+    
+    // 패턴 3 투명 이벤트
+    public void OnBackstabVanishEvent()
+    {
+        coll.enabled = false;
+    }
+    
+    // 패턴 3 재등장 이벤트
+    public void OnBackstabReappearEvent()
+    {
+        // 플레이어 뒤로 이동
+        float dir = Mathf.Sign(player.localScale.x);
+        transform.position = player.position + Vector3.left * dir * backstabOffset;
+        
+        coll.enabled = true;
+    }
+
+    // 패턴 3 공격 이펙트 생성 이벤트
+    public void OnBackstabStrikeEvent()
+    {
+        StartCoroutine(DoSpawnBackstabEffects());
+    }
+
+    // 패턴 3 이펙트 생성 코루틴
+    private IEnumerator DoSpawnBackstabEffects()
+    {
+        for (int i = 0; i < backstabEffectPrefabs.Length; i++)
+        {
+            var prefab = backstabEffectPrefabs[i];
+            Vector3 spawnPos = transform.position;
+            float zRot = Random.Range(0f, backstabEffectMaxRotation);
+            Instantiate(prefab, spawnPos, Quaternion.Euler(0,0,zRot));
+            yield return new WaitForSeconds(backstabEffectInterval);
+        }
     }
 }

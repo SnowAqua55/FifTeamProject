@@ -948,7 +948,7 @@ Transform:
   m_GameObject: {fileID: 1743969150}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -5.4, y: -2.32, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -974,7 +974,7 @@ MonoBehaviour:
   ReaperProjectilePrefab: {fileID: 5662701514733698315, guid: d9eaf2a6d7858e544af7b0b38a68265f, type: 3}
   projectileCount: 3
   projectileInterval: 0.2
-  teleportPatternInterval: 5
+  teleportPatternInterval: 30
   floatDuration: 2.25
   diveImpulse: 20
   shardCooldown: 1.5
@@ -987,6 +987,15 @@ MonoBehaviour:
   diveAttackSpacing: 3
   diveAttackCount: 3
   diveAttackInterval: 0.2
+  backstabOffset: 1.5
+  backstabDuration: 3
+  backstabEffectPrefabs:
+  - {fileID: 2474228384899101615, guid: 3149fad707bb2404aadf86c87d7f8d54, type: 3}
+  - {fileID: 8175470271444418882, guid: 9f329304cea17ca438d9a883ccdb7df3, type: 3}
+  - {fileID: 3228813300675592845, guid: 0794a246fd01ea5459b922058f0ed84d, type: 3}
+  backstabEffectInterval: 0.1
+  backstabEffectMaxRotation: 360
+  projectilePatternCount: 0
   isDiving: 0
 --- !u!61 &1743969155
 BoxCollider2D:
