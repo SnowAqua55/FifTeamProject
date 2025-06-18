@@ -99,6 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1efb58645405f44bb8e2b578b832e408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpBarPrefab: {fileID: 498727094185364350, guid: e751ce2dc27cc43e6966c0f285636867, type: 3}
+  hpBarOffsetY: 1
+  hpBarVisibleDuration: 5
 --- !u!61 &107495658542504369
 BoxCollider2D:
   m_ObjectHideFlags: 0
