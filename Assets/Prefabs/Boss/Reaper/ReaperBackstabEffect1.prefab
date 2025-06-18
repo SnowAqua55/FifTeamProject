@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6524776902916029045
+--- !u!1 &8175470271444418882
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,44 +8,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3496754981383402461}
-  - component: {fileID: 4326891877601708250}
-  - component: {fileID: 7366098109781263797}
-  - component: {fileID: -1883302618864002919}
-  - component: {fileID: -9078456102580222498}
+  - component: {fileID: 8520842009771325647}
+  - component: {fileID: 4818494726198763108}
+  - component: {fileID: 9077144671090197196}
+  - component: {fileID: 3778218923402244144}
+  - component: {fileID: -6175138307822498296}
   m_Layer: 0
-  m_Name: Reaper_Attack_Effect
+  m_Name: ReaperBackstabEffect1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3496754981383402461
+--- !u!4 &8520842009771325647
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6524776902916029045}
+  m_GameObject: {fileID: 8175470271444418882}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 7, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &4326891877601708250
+--- !u!95 &4818494726198763108
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6524776902916029045}
+  m_GameObject: {fileID: 8175470271444418882}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f328675770ee08e47a3e8eea151c142a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 68b78da6dc5d6794ea88c2fb0738f185, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -56,13 +56,13 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!212 &7366098109781263797
+--- !u!212 &9077144671090197196
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6524776902916029045}
+  m_GameObject: {fileID: 8175470271444418882}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -97,38 +97,38 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1446541536, guid: fe381476eabb5724a8e704bed2231dd8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 1444312719, guid: 42e0fdc6989eb9a41a0335ee62ea2d6b, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.2, y: 0.92}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-1883302618864002919
+--- !u!114 &3778218923402244144
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6524776902916029045}
+  m_GameObject: {fileID: 8175470271444418882}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5b78771f273a4a4c9fe18d019fc95fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 0.583
-  damage: 1
---- !u!61 &-9078456102580222498
+  lifetime: 0.375
+  damage: 5
+--- !u!61 &-6175138307822498296
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6524776902916029045}
+  m_GameObject: {fileID: 8175470271444418882}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -158,12 +158,12 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2, y: 0.92}
-    newSize: {x: 1.2, y: 0.92}
+    oldSize: {x: 1.28, y: 1.28}
+    newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 0.92}
+  m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
