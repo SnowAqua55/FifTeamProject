@@ -23,10 +23,6 @@ public class Golem : BossBase
 
     private Camera mainCam;
 
-    // 생성된 오브젝트 추가
-    private List<GameObject> activeWarnings = new List<GameObject>();
-    private List<GameObject> activeProjectiles = new List<GameObject>();
-
     protected override void Awake()
     {
         base.Awake();
@@ -178,7 +174,6 @@ public class Golem : BossBase
 
         GameObject laser = Instantiate(bodyLaserPrefab, transform.position, Quaternion.identity);
         laser.transform.right = laserDirection;
-        activeProjectiles.Add(laser);
 
         BodyLaserDamage laserDamage = laser.GetComponent<BodyLaserDamage>();
         if (laserDamage != null)
@@ -228,8 +223,10 @@ public class Golem : BossBase
             round1.Add(new Vector3(x, fallY, 0));
         }
 
+        if (currentHP <= 0) yield break;
         yield return new WaitForSeconds(golemBossData.rainLaserFallDuration);
 
+        if (currentHP <= 0) yield break;
         // 두 번째
         for (int i = 0; i < laserCount; i++)
         {
@@ -244,6 +241,7 @@ public class Golem : BossBase
 
         yield return new WaitForSeconds(golemBossData.rainLaserFallDuration);
 
+        if (currentHP <= 0) yield break;
         ChangeState(new AttackState());
     }
 
@@ -257,7 +255,6 @@ public class Golem : BossBase
             Vector3 warningPos = new Vector3(pos.x, pos.y, -1f); // Z를 살짝 낮춰서 경고를 맨 앞에 보이게
             GameObject warning = Instantiate(rainLaserWarningPrefab, warningPos, Quaternion.identity);
             warnings.Add(warning);
-            activeWarnings.Add(warning);
         }
 
         // 경고 시간만큼 대기
@@ -296,16 +293,24 @@ public class Golem : BossBase
             currentAttackCoroutine = null;
         }
 
-        foreach (var obj in activeWarnings)
-            if (obj != null) Destroy(obj);
-        activeWarnings.Clear();
+        // 레인 레이저 관련 남은 경고 제거
+        foreach (var warning in GameObject.FindGameObjectsWithTag("RainWarning"))
+        {
+            Destroy(warning);
+        }
 
-        foreach (var obj in activeProjectiles)
-            if (obj != null) Destroy(obj);
-        activeProjectiles.Clear();
+        // 모든 바디/레인 레이저 발사체 제거
+        foreach (var proj in GameObject.FindGameObjectsWithTag("Projectile"))
+        {
+            Destroy(proj);
+        }
 
+        // 모든 팔 비활성화
         foreach (var arm in allArms)
-            if (arm != null) arm.gameObject.SetActive(false);
+        {
+            if (arm != null)
+                arm.gameObject.SetActive(false);
+        }
     }
 
     /// <summary>
