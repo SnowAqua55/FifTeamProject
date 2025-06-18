@@ -43,7 +43,17 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        DontDestroyOnLoad(ui);
+        GameObject currentUI = GameObject.Find("UI");
+        if (currentUI != null && currentUI != ui)
+        {
+            Destroy(ui);
+            ui = currentUI;
+        }
+        else
+        {
+            DontDestroyOnLoad(ui);
+        }
+
         uiCanvas = ui.transform;
 
         introUI = uiCanvas.Find("Intro").gameObject;
