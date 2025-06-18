@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -1883302618864002919}
   - component: {fileID: -9078456102580222498}
   m_Layer: 0
-  m_Name: Reaper_Attack_Effect
+  m_Name: ReaperAttackEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -13,6 +13,8 @@ public class ReaperChaseState : IBossState
 
     public void Update()
     {
+        if (boss.isDiving) return;
+
         // 플레이어 바라보기
         moveDir = (boss.player.position - boss.transform.position).normalized;
         boss.FlipSprite(moveDir.x);
@@ -34,6 +36,7 @@ public class ReaperChaseState : IBossState
 
     public void FixedUpdate()
     {
+        if (boss.isDiving) return;
         Vector2 p = boss.rb.position + moveDir * boss.MoveSpeed * Time.fixedDeltaTime;
         boss.rb.MovePosition(p);
     }
