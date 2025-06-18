@@ -38,7 +38,7 @@ public class ConditionUI : MonoBehaviour
 
         if (hasPlayerObject)
         {
-            Debug.Log("ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÕ´Ï´Ù");
+            Debug.Log("í”Œë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ê°€ ì¡´ì¬í•©ë‹ˆë‹¤");
 
             for (int i = 0; i < maxHearts; i++)
             {
@@ -54,7 +54,7 @@ public class ConditionUI : MonoBehaviour
         }
         else
         {
-            Debug.LogError("ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ®°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù");
+            Debug.LogError("í”Œë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤");
             return;
         }
     }
