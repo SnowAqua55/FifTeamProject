@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Reaper : BossBase
@@ -14,8 +15,23 @@ public class Reaper : BossBase
     [Tooltip("이펙트가 스폰될 플레이어 기준 X 오프셋")]
     public float attackEffectOffsetX = 1.0f;
     
+    [Header("패턴 1 투사체")]
+    public GameObject ReaperProjectilePrefab;
+    [Tooltip("투사체 총 개수")]
+    public int projectileCount = 3;
+    [Tooltip("연속 발사 간격")]
+    public float projectileInterval = 0.2f;
+    
     SpriteRenderer sr;
     float afterImageTimer;
+    
+    //DoShot 트리거 해시 캐싱
+    private static readonly int ShotHash = Animator.StringToHash("DoShot");
+    
+    public void PlayShotAnimation()
+    {
+        Animator.SetTrigger(ShotHash);
+    }
 
     protected override void Awake()
     {
@@ -49,7 +65,7 @@ public class Reaper : BossBase
     // 필수 구현 메서드들
     public override void InitStateMachine()
     {
-        ChangeState(new IdleState());
+        ChangeState(new ReaperIdleState());
     }
 
     public override void AttackPlayer()
@@ -93,5 +109,32 @@ public class Reaper : BossBase
         goSr.sortingLayerID = sr.sortingLayerID;
         goSr.sortingOrder   = sr.sortingOrder - 1;
         // AfterImageFader 가 스스로 페이드 후 파괴
+    }
+    
+    // Animation Event 에 연결할 함수
+    public void OnProjectileShotEvent()
+    {
+        // 1) 첫 발 즉시
+        SpawnSingleProjectile();
+        // 2) 나머지 발사 예약
+        if (projectileCount > 1)
+            StartCoroutine(SpawnRemaining(projectileCount - 1, projectileInterval));
+    }
+
+    private void SpawnSingleProjectile()
+    {
+        var go = Instantiate(ReaperProjectilePrefab, transform.position, Quaternion.identity);
+        var proj = go.GetComponent<ReaperProjectile>();
+        var dir  = (player.position - transform.position).normalized;
+        proj.Initialize(dir);
+    }
+
+    private IEnumerator SpawnRemaining(int count, float interval)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            yield return new WaitForSeconds(interval);
+            SpawnSingleProjectile();
+        }
     }
 }
