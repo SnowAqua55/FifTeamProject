@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         get { return boss; }
         set { boss = value; }
     }
-    private PlayerHealth player;  //현 플레이어 hp
+    [SerializeField]private PlayerHealth player;  //현 플레이어 hp
     public PlayerHealth Player
     {
         get { return player; }
@@ -54,11 +54,12 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        PlayerInit();
+        //PlayerInit();
     }
 
     public void PlayerInit()
     {
+        player = null;
         bool hasPlayerObject = FindAnyObjectByType<PlayerHealth>();
         if (hasPlayerObject)
         {
@@ -81,10 +82,13 @@ public class GameManager : MonoBehaviour
         {
             case "MainScene":
                 SceneManager.LoadScene("MainScene");
-                PlayerInit();
+                Time.timeScale = 1;
+                //PlayerInit();
                 break;
             case "IntroScene":
                 SceneManager.LoadScene("IntroScene");
+                Time.timeScale = 1;
+                //PlayerInit();
                 break;
             default:
                 break;

@@ -2066,7 +2066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 632940931}
   condition: {fileID: 0}
-  ui: {fileID: 0}
+  ui: {fileID: 275191252}
 --- !u!1 &907651265
 GameObject:
   m_ObjectHideFlags: 0
@@ -2208,8 +2208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a55af871f82c0f4cbd453e171f3d89c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverText: {fileID: 0}
-  gameOverMenu: {fileID: 0}
 --- !u!1 &993268521
 GameObject:
   m_ObjectHideFlags: 0
