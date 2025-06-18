@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using UnityEngine;
 
 [Serializable]
@@ -21,5 +21,5 @@ public class BossAnimationData
         DeadHash = Animator.StringToHash(deadParam);
         AttackHash = Animator.StringToHash(attackParam);
     }
-}
+}*/
 
