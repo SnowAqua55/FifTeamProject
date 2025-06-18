@@ -69,7 +69,7 @@ public class SlimeHealthBar : MonoBehaviour
         // 0~1 사이 비율 계산
         if (cg.alpha > 0.01f && boss != null && fillImage != null)
         {
-            float target = boss.curHp / boss.maxHp;
+            float target = (float)boss.curHp / (float)boss.maxHp;
             fillImage.fillAmount = Mathf.Lerp(fillImage.fillAmount, target, Time.deltaTime * 8f);
 
             // 보스 사망 감지 후 숨기기 시작

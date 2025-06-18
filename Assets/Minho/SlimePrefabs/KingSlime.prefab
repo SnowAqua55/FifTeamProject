@@ -124,7 +124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8271990335519435278
 RectTransform:
   m_ObjectHideFlags: 0
@@ -450,8 +450,8 @@ MonoBehaviour:
   phase3hurt: {fileID: 9100000, guid: 139bb3df838999240995593134a21a1a, type: 2}
   dead: {fileID: 9100000, guid: 14c53af6d4e38794d9e6d2c0e72ac9b5, type: 2}
   nowPhase: Phase1
-  maxHp: 10000
-  curHp: 0
+  maxHp: 15
+  curHp: 15
   attPower: 0
   jumpPower: 5
   state: 0
