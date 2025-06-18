@@ -9,17 +9,23 @@ public class Stage : MonoBehaviour
     public GameObject player;
     public GameObject[] boss;
     public GameObject[] doors;
+    
     public Transform playerStartPosition;
     public Transform bossStartPosition;
+    
     public int stageIndex = 0;
+    
     public CinemachineVirtualCamera virtualCamera;
     public CinemachineVirtualCamera bossVirtualCamera;
+    
     public GameObject curBoss;
     public GameObject stageWalls;
-    public GameObject reaperTelPosition;
-    
+
+
+    public GameObject golemSpawn; // 골렘 전용
+    public GameObject reaperTelPosition; // 리퍼 전용
     public Transform[] bossTeleportPosition; // 도망가는 보스 전용
-    public GameObject GameOverPanel;
+    
     
     private void Awake()
     {
@@ -43,7 +49,14 @@ public class Stage : MonoBehaviour
         
         Instantiate(boss[stageIndex]); // 해당 스테이지에 맞는 보스 소환
         GameManager.Instance.Boss = boss[stageIndex].GetComponent<BossBase>();
-        boss[stageIndex].transform.position = bossStartPosition.position;
+        if (stageIndex == 3)
+        {
+            boss[stageIndex].transform.position = golemSpawn.transform.position;
+        }
+        else
+        {
+            boss[stageIndex].transform.position = bossStartPosition.position;
+        }
         curBoss = boss[stageIndex];
         
         SpawnBossCamera();

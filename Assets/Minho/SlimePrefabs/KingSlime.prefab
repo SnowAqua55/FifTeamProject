@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 4989505674149097239}
   - component: {fileID: 3341795484915176162}
   - component: {fileID: 113009249262838050}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: KingSlime
   m_TagString: Monster
   m_Icon: {fileID: 0}

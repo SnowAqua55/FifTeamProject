@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5772820065543749531}
   - component: {fileID: 7478540546912931975}
   - component: {fileID: 1754036409863583204}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: RunningBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 2971398311009992147}
   - component: {fileID: 8611434121072576698}
   - component: {fileID: 9006114269233447903}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: BossImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}

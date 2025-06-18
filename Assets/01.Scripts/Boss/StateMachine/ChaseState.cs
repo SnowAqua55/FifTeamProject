@@ -41,7 +41,7 @@ public class ChaseState : IBossState
     public void FixedUpdate()
     {
         // Rigidbody2D 물리 기반 이동 처리
-        Vector2 newPosition = boss.rb.position + moveDirection * boss.MoveSpeed * Time.fixedDeltaTime;
+        Vector2 newPosition = boss.rb.position + new Vector2(moveDirection.x * boss.MoveSpeed, 0) * Time.fixedDeltaTime;
         boss.rb.MovePosition(newPosition);
     }
 
