@@ -18,16 +18,16 @@ public class KingSlime : MonoBehaviour
     public Rigidbody2D _rigidbody;
     [SerializeField] public Transform player;
 
-    [Header("½½¶óÀÓ ÀÌ¹ÌÁö")]
+    [Header("ìŠ¬ë¼ì„ ì´ë¯¸ì§€")]
     [SerializeField] Sprite phase2;
     [SerializeField] Sprite phase3;
     [SerializeField] SpriteRenderer spriteRenderer;
 
-    [Header("½½¶óÀÓ ¼ÒÈ¯¹°")]
+    [Header("ìŠ¬ë¼ì„ ì†Œí™˜ë¬¼")]
     [SerializeField] private GameObject slimeball;
     [SerializeField] private GameObject miniSlime;
 
-    [Header("½½¶óÀÓ ¾Ö´Ï¸ŞÀÌ¼Ç")]
+    [Header("ìŠ¬ë¼ì„ ì• ë‹ˆë©”ì´ì…˜")]
     [SerializeField] Animator animator;
     [SerializeField] AnimatorController phase1Jump;
     [SerializeField] AnimatorController phase2Jump;
@@ -39,27 +39,27 @@ public class KingSlime : MonoBehaviour
 
     
 
-    [Header("½½¶óÀÓ ½ºÅÈ")]
+    [Header("ìŠ¬ë¼ì„ ìŠ¤íƒ¯")]
     public string nowPhase = "Phase1";
     public int maxHp = 12;
     public int curHp;
     public int attPower;
-    public float jumpPower = 5.0f; // Á¡ÇÁÀÇ Èû
+    public float jumpPower = 5.0f; // ì í”„ì˜ í˜
 
-    [Header("½½¶óÀÓ °ü·Ã")]
+    [Header("ìŠ¬ë¼ì„ ê´€ë ¨")]
     public State state;
-    public float jumpInterval = 4f; // Á¡ÇÁ °£°İ
-    private float jumpTimer = 0f; // Á¡ÇÁ Å¸ÀÌ¸Ó
+    public float jumpInterval = 4f; // ì í”„ ê°„ê²©
+    private float jumpTimer = 0f; // ì í”„ íƒ€ì´ë¨¸
     private bool isDamaged = false;
     private bool useSkill = false;
     private float skillTimer = 0f;
     private float skillInterval = 15f;
-    private Vector3 oriScale;// ¿ø·¡ Å©±â
+    private Vector3 oriScale;// ì›ë˜ í¬ê¸°
 
 
-    [Header("¹Ì´Ï ½½¶óÀÓ ¼ö")]
+    [Header("ë¯¸ë‹ˆ ìŠ¬ë¼ì„ ìˆ˜")]
     public int maxMiniSlime = 3;
-    public int curMiniSlime; // ¹Ì´Ï ½½¶óÀÓÀÌ ³²Àº ¼ö => HPÈ¸º¹ ¸Ş¼­µå¿¡¼­ »ç¿ë
+    public int curMiniSlime; // ë¯¸ë‹ˆ ìŠ¬ë¼ì„ì´ ë‚¨ì€ ìˆ˜ => HPíšŒë³µ ë©”ì„œë“œì—ì„œ ì‚¬ìš©
 
 
 
@@ -73,7 +73,7 @@ public class KingSlime : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         _rigidbody = GetComponent<Rigidbody2D>();
-        _rigidbody.freezeRotation = true; // Á¡ÇÁ ½Ã È¸ÀüÀ» ÇÏ±â¿¡ È¸ÀüÀ» ¸ØÃß´Â ÄÚµå
+        _rigidbody.freezeRotation = true; // ì í”„ ì‹œ íšŒì „ì„ í•˜ê¸°ì— íšŒì „ì„ ë©ˆì¶”ëŠ” ì½”ë“œ
 
         maxHp = 15;
         curHp = maxHp;
@@ -120,7 +120,7 @@ public class KingSlime : MonoBehaviour
             case State.Move:
                 jumpTimer += Time.deltaTime;
 
-                //Á¡ÇÁÈÄ 2ÃÊ°¡ Áö³ª¸é
+                //ì í”„í›„ 2ì´ˆê°€ ì§€ë‚˜ë©´
                 if (jumpTimer >= jumpInterval)
                 {
                     Chase();
@@ -165,7 +165,7 @@ public class KingSlime : MonoBehaviour
 
    
 
-    //ÇÃ·¹ÀÌ¾î ÃßÀû ¸Ş¼­µå (½½¶óÀÓÃ³·³ Á¡ÇÁ·Î)
+    //í”Œë ˆì´ì–´ ì¶”ì  ë©”ì„œë“œ (ìŠ¬ë¼ì„ì²˜ëŸ¼ ì í”„ë¡œ)
     public void Chase()
     {
         switch (nowPhase)
@@ -195,7 +195,7 @@ public class KingSlime : MonoBehaviour
     }
 
     
-    //±âº» °ø°İ
+    //ê¸°ë³¸ ê³µê²©
     private IEnumerator NomalAttack()
     {
         while (!useSkill)
@@ -206,7 +206,7 @@ public class KingSlime : MonoBehaviour
 
             
             Instantiate(slimeball, transform.position + offset, Quaternion.identity);
-            Debug.Log("½½¶óÀÓº¼ ¾îÅÃ");
+            Debug.Log("ìŠ¬ë¼ì„ë³¼ ì–´íƒ");
             yield return new WaitForSeconds(3f);
             
         }
@@ -219,8 +219,8 @@ public class KingSlime : MonoBehaviour
 
     private IEnumerator DownSlamAttack()
     {
-        //ÃßÀû Áß ÄÚ·çÆ¾ÀÌ ½Ç½ÃµÇ¸é ¹Ì²ô·¯ÁöµíÀÌ °øÁß¿¡¼­ ¿òÁ÷ÀÓ
-        //±×·¡¼­ ¿òÁ÷ÀÓÀ» ¿ÏÀü ¸ØÃã
+        //ì¶”ì  ì¤‘ ì½”ë£¨í‹´ì´ ì‹¤ì‹œë˜ë©´ ë¯¸ë„ëŸ¬ì§€ë“¯ì´ ê³µì¤‘ì—ì„œ ì›€ì§ì„
+        //ê·¸ë˜ì„œ ì›€ì§ì„ì„ ì™„ì „ ë©ˆì¶¤
 
         useSkill = true;
         attPower *= 2;
@@ -272,7 +272,7 @@ public class KingSlime : MonoBehaviour
     }
     public void HpHeal()
     {
-        // ÇÊµå¿¡ ³²Àº ¹Ì´Ï ½½¶óÀÓÀ» Á×ÀÌ°í ³²Àº ¹Ì´Ï ½½¶óÀÓ¿¡ ¼ö¿¡ µû¶ó ÃÖ´ë hp 5%È¸º¹
+        // í•„ë“œì— ë‚¨ì€ ë¯¸ë‹ˆ ìŠ¬ë¼ì„ì„ ì£½ì´ê³  ë‚¨ì€ ë¯¸ë‹ˆ ìŠ¬ë¼ì„ì— ìˆ˜ì— ë”°ë¼ ìµœëŒ€ hp 5%íšŒë³µ
         int healAmount = 1 * curMiniSlime;
         curHp = Mathf.Min(curHp + healAmount, maxHp);
     }
@@ -282,16 +282,16 @@ public class KingSlime : MonoBehaviour
         if (nowPhase == "Phase1")
         {
             nowPhase = "Phase2";
-            // Çª¸¥ ½½¶óÀÓÀ¸·Î º¯È¯
+            // í‘¸ë¥¸ ìŠ¬ë¼ì„ìœ¼ë¡œ ë³€í™˜
             spriteRenderer.sprite = phase2;
             animator.runtimeAnimatorController = phase2Jump;
-            jumpInterval = 1.5f; //Á¡ÇÁ °£°İÀ» °¨¼ÒÇÏ¿© ÀÌ¼Ó Áõ°¡
+            jumpInterval = 1.5f; //ì í”„ ê°„ê²©ì„ ê°ì†Œí•˜ì—¬ ì´ì† ì¦ê°€
 
         }
         else if (nowPhase == "Phase2")
         {
             nowPhase = "Phase3";
-            // »¡°£ ½½¶óÀÓÀ¸·Î º¯È¯
+            // ë¹¨ê°„ ìŠ¬ë¼ì„ìœ¼ë¡œ ë³€í™˜
             spriteRenderer.sprite = phase3;
             animator.runtimeAnimatorController = phase3Jump;
             attPower *= 2;
@@ -316,7 +316,7 @@ public class KingSlime : MonoBehaviour
                 break;
         }
 
-        curHp -= 1;// ³ªÁß¿¡´Â ÇÃ·¹ÀÌ¾îÀÇ µ¥¹ÌÁö¸¦ °¡Á®¿Í Àû¿ë
+        curHp -= 1;// ë‚˜ì¤‘ì—ëŠ” í”Œë ˆì´ì–´ì˜ ë°ë¯¸ì§€ë¥¼ ê°€ì ¸ì™€ ì ìš©
         Vector2 knockbackDir = new Vector2(-(player.position.x - transform.position.x), 0f).normalized;
         _rigidbody.AddForce(knockbackDir * 4f, ForceMode2D.Impulse);
         Debug.Log("knockback");

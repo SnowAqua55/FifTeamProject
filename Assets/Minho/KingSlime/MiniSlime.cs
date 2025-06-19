@@ -19,9 +19,9 @@ public class MiniSlime : MonoBehaviour
     public int maxHp = 5;
     public int curHp;
     public int attPower = 1;
-    public float jumpPower = 5.0f; // Á¡ÇÁÀÇ Èû
-    public float jumpInterval = 2f; // Á¡ÇÁ °£°İ
-    private float jumpTimer = 0f; // Á¡ÇÁ Å¸ÀÌ¸Ó
+    public float jumpPower = 5.0f; // ì í”„ì˜ í˜
+    public float jumpInterval = 2f; // ì í”„ ê°„ê²©
+    private float jumpTimer = 0f; // ì í”„ íƒ€ì´ë¨¸
     private bool isDead = false;
     private bool isAttacked = false;
     private bool isDamaged = false;
@@ -41,7 +41,7 @@ public class MiniSlime : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         
-        _rigidbody.freezeRotation = true; // Á¡ÇÁ ½Ã È¸ÀüÀ» ÇÏ±â¿¡ È¸ÀüÀ» ¸ØÃß´Â ÄÚµå
+        _rigidbody.freezeRotation = true; // ì í”„ ì‹œ íšŒì „ì„ í•˜ê¸°ì— íšŒì „ì„ ë©ˆì¶”ëŠ” ì½”ë“œ
 
         maxHp = 5;
         curHp = maxHp;
@@ -70,7 +70,7 @@ public class MiniSlime : MonoBehaviour
     {
         jumpTimer += Time.fixedDeltaTime;
 
-        //Á¡ÇÁÈÄ 2ÃÊ°¡ Áö³ª¸é
+        //ì í”„í›„ 2ì´ˆê°€ ì§€ë‚˜ë©´
         if (jumpTimer >= jumpInterval)
         {
 
@@ -138,7 +138,7 @@ public class MiniSlime : MonoBehaviour
         {
             isDamaged = true;
             Damaged();
-            Debug.Log("µ¥¹ÌÁö ¹ŞÀ½");
+            Debug.Log("ë°ë¯¸ì§€ ë°›ìŒ");
         }
     }
 }
