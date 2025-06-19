@@ -65,6 +65,11 @@ public class SlimeBall : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isAttacked) return;
+
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            return;
+        }
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             Destroy(gameObject);
