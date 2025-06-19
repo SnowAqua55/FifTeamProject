@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Monster
   - PlayerAttack
+  - Projectile
+  - RainWarning
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Slime
   - 
   - 
   - 

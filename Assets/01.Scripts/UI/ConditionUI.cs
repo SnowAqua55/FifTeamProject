@@ -38,7 +38,7 @@ public class ConditionUI : MonoBehaviour
 
         if (hasPlayerObject)
         {
-            Debug.Log("�÷��̾� ������Ʈ�� �����մϴ�");
+            Debug.Log("플레이어 오브젝트가 존재합니다");
 
             for (int i = 0; i < maxHearts; i++)
             {
@@ -54,6 +54,7 @@ public class ConditionUI : MonoBehaviour
         }
         else
         {
+            Debug.LogError("플레이어 오브젝트가 존재하지 않습니다");
             return;
         }
     }

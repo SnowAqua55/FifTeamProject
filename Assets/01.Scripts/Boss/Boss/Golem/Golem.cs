@@ -21,13 +21,13 @@ public class Golem : BossBase
     [Header("고정 위치 레이저")]
     [SerializeField] private Transform[] rainLaserFixedSpawnPoints;
 
-    // 생성된 오브젝트 추가
-    private List<GameObject> activeWarnings = new List<GameObject>();
-    private List<GameObject> activeProjectiles = new List<GameObject>();
+    private Camera mainCam;
 
     protected override void Awake()
     {
         base.Awake();
+
+        mainCam = Camera.main;
 
         if (golemBossData == null)
         {
@@ -112,7 +112,6 @@ public class Golem : BossBase
         activeArmsCount--;
         if (activeArmsCount <= 0)
         {
-            Debug.Log("버그");
             SetInvincible(false); // 무적 해제
             ChangeState(new AttackState());
         }
@@ -175,7 +174,6 @@ public class Golem : BossBase
 
         GameObject laser = Instantiate(bodyLaserPrefab, transform.position, Quaternion.identity);
         laser.transform.right = laserDirection;
-        activeProjectiles.Add(laser);
 
         BodyLaserDamage laserDamage = laser.GetComponent<BodyLaserDamage>();
         if (laserDamage != null)
@@ -206,11 +204,11 @@ public class Golem : BossBase
     private IEnumerator StartRainLaserPattern()
     {
         float warningTime = golemBossData.rainLaserWarningDuration;
-        float fallY = Camera.main.transform.position.y + Camera.main.orthographicSize + 1f;
+        float fallY = mainCam.transform.position.y + mainCam.orthographicSize + 1f;
 
         // 화면 너비 계산
-        float cameraWidth = Camera.main.orthographicSize * Camera.main.aspect * 2f;
-        float leftEdge = Camera.main.transform.position.x - cameraWidth / 2f;
+        float cameraWidth = mainCam.orthographicSize * mainCam.aspect * 2f;
+        float leftEdge = mainCam.transform.position.x - cameraWidth / 2f;
 
         float interval = golemBossData.rainLaserInterval;
         int laserCount = Mathf.FloorToInt(cameraWidth / interval);
@@ -225,8 +223,10 @@ public class Golem : BossBase
             round1.Add(new Vector3(x, fallY, 0));
         }
 
+        if (currentHP <= 0) yield break;
         yield return new WaitForSeconds(golemBossData.rainLaserFallDuration);
 
+        if (currentHP <= 0) yield break;
         // 두 번째
         for (int i = 0; i < laserCount; i++)
         {
@@ -241,6 +241,7 @@ public class Golem : BossBase
 
         yield return new WaitForSeconds(golemBossData.rainLaserFallDuration);
 
+        if (currentHP <= 0) yield break;
         ChangeState(new AttackState());
     }
 
@@ -254,7 +255,6 @@ public class Golem : BossBase
             Vector3 warningPos = new Vector3(pos.x, pos.y, -1f); // Z를 살짝 낮춰서 경고를 맨 앞에 보이게
             GameObject warning = Instantiate(rainLaserWarningPrefab, warningPos, Quaternion.identity);
             warnings.Add(warning);
-            activeWarnings.Add(warning);
         }
 
         // 경고 시간만큼 대기
@@ -274,7 +274,7 @@ public class Golem : BossBase
                 proj.SetDirection(Vector2.down); // 레이저 아래로 낙하
 
                 // 수명은 카메라 높이 기반 자동 계산
-                float fallDistance = Camera.main.orthographicSize * 2f + 1f;
+                float fallDistance = mainCam.orthographicSize * 2f + 1f;
                 proj.SetLifeTime(fallDistance / proj.Speed);
             }
 
@@ -293,16 +293,24 @@ public class Golem : BossBase
             currentAttackCoroutine = null;
         }
 
-        foreach (var obj in activeWarnings)
-            if (obj != null) Destroy(obj);
-        activeWarnings.Clear();
+        // 레인 레이저 관련 남은 경고 제거
+        foreach (var warning in GameObject.FindGameObjectsWithTag("RainWarning"))
+        {
+            Destroy(warning);
+        }
 
-        foreach (var obj in activeProjectiles)
-            if (obj != null) Destroy(obj);
-        activeProjectiles.Clear();
+        // 모든 바디/레인 레이저 발사체 제거
+        foreach (var proj in GameObject.FindGameObjectsWithTag("Projectile"))
+        {
+            Destroy(proj);
+        }
 
+        // 모든 팔 비활성화
         foreach (var arm in allArms)
-            if (arm != null) arm.gameObject.SetActive(false);
+        {
+            if (arm != null)
+                arm.gameObject.SetActive(false);
+        }
     }
 
     /// <summary>

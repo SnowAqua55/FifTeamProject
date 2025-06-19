@@ -329,50 +329,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 758881049976636355, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2512229182813494821, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 1a0d48370bbea8c48b53e6ff70fbc01f, type: 2}
-    - target: {fileID: 5746743440260879665, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1128361329}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: GameOverPanel
+      propertyPath: golemSpawn
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 384405317}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: virtualCamera
       value: 
       objectReference: {fileID: 246584989}
     - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: boss.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: bossVirtualCamera
       value: 
       objectReference: {fileID: 1964326632}
-    - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: boss.Array.data[0]
-      value: 
-      objectReference: {fileID: 5819907928845742718, guid: 8faf11d7178074442bc0745de562834c, type: 3}
-    - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: boss.Array.data[1]
-      value: 
-      objectReference: {fileID: 6491544479965227051, guid: 044dd7c932be6744aa0a2382e3bb8ece, type: 3}
-    - target: {fileID: 6347081039515190866, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
-      propertyPath: boss.Array.data[2]
-      value: 
-      objectReference: {fileID: 5936922957920382523, guid: 03123231037324e53b53f7572bd7e0c2, type: 3}
     - target: {fileID: 6453495063089227388, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
       propertyPath: m_Name
       value: BattleMap (1)
@@ -422,6 +394,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
+--- !u!1 &384405317 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1540256459798216863, guid: 1f99372d13ad55f47acdad120cefff82, type: 3}
+  m_PrefabInstance: {fileID: 384405316}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &441662217
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,7 +673,7 @@ GameObject:
   - component: {fileID: 1128361332}
   - component: {fileID: 1128361331}
   - component: {fileID: 1128361330}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
